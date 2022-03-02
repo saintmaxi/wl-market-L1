@@ -1,0 +1,574 @@
+/* Approval section */
+
+#approval-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+}
+
+#approval {
+    margin: 0;
+    width: 45%;
+    /* background-image: url(../images/sand4.png), linear-gradient(to bottom, 
+    #D07C28    0%, #D07C28  100%); */
+   background-color: white;
+}
+
+#approval h1 {
+    margin: 0;
+}
+
+/* End approval section */
+
+.active {
+	background-color: #FDCD00;
+}
+
+#selector-div {
+    text-align: center;
+}
+
+#selector-div button {
+    font-size: 3vw;
+    line-height: 3vw;
+    padding: 1vw;
+    width: 20%;
+}
+
+#live-collections, #past-collections {
+    text-align: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: stretch;
+    margin: auto;
+    width: 100%;
+}
+
+#live-collections button, #past-collections button {
+    width: 90%;
+}
+
+.example {
+    position: relative;
+}
+
+.cover {
+    position: absolute;
+	/* border-radius: 10px; */
+    top: 50%;
+    left: 50%;
+    width: 101%;
+    height: 100.5%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.856);
+}
+
+.cover button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-color: white;
+}
+
+.partner-collection {
+	border-style: solid;
+	border-color: black;
+	/* border-radius: 20px; */
+	border-width: .5vw;
+    width: 22%;
+    margin: 1%;
+    background-color: white;
+    text-align: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 15px;
+    max-width: 550px;
+    position: relative;
+}
+
+.partner-collection {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.partner-collection h3 {
+    font-size: 1.8vw;
+    line-height: 1.8vw;
+}
+
+.partner-collection button {
+    margin-top: auto;
+}
+
+.collection-twitter {
+    position: absolute;
+    top: 1%;
+    left: 2%;
+    width: 15%;
+}
+
+.collection-discord {
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    width: 15%;
+}
+
+.collection-img {
+    margin: 10px;
+	border-style: solid;
+	border-color: black;
+	border-radius: 20px;
+	border-width: .5vw;
+    width: 30%;
+    /* min-width: 200px;
+    min-height: 200px; */
+    width: 200px;
+    height: 200px;
+    /* max-height: 300px;
+    max-width: 300px; */
+}
+
+.collection-info {
+    width:90%;
+    margin-left:2%
+}
+
+.collection-description {
+    min-height: 20%;
+    padding: 2%;
+    color: black !important;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.5vw;
+    line-height: 1.6vw;
+    color: black;
+    margin-top: 1.5vw;
+}
+
+h3, h4 {
+    margin: 0;
+}
+
+a {
+    color: black;
+}
+
+h4 {
+    font-size: 1.4vw;
+    line-height: 1.5vw;
+    color: black;
+}
+
+.inside-text {
+    font-size: 1vw;
+    line-height: 1vw;
+    color: white;
+}
+
+#mint-prompt {
+    background-color: black;
+    z-index: 99999;
+    position:fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 50vh;
+    border: solid 3px #00fff2;
+    border-radius: .2em;
+    font-size: 2.7vw;
+    animation: glow 1.6s linear infinite;
+  }
+
+  #max-button {
+    width:initial;
+    color:black;
+    width:50%;
+    height:initial;
+    font-size:1vw;
+  }
+
+#block-screen {
+    opacity: 1;
+    background-color: rgba(0,0,0,0.88) !important;
+}
+
+#close {
+    padding: .2vw;
+}
+
+#mint-button-div {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    height: 15%;   
+}
+
+#mint-input {
+    width: 100%;
+    height: 50%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.mint-input-part {
+    width: 50%;
+}
+
+.button {
+    height: initial;
+}
+
+.mint-button {
+    width: 45%;
+    height: 95%;
+    margin: 2.5%;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 1.3vw;
+}
+
+.mint-button .mes-icon {
+    cursor: pointer;
+}
+
+#mint-prompt h3 {
+    font-size: 2.5vw;
+    line-height: 2.6vw;
+}
+
+#mint-prompt h4 {
+    font-size: 2.2vw;
+    line-height: 2.3vw;
+}
+
+.mes-icon {
+    width: 1.7em
+}
+
+.purchased {
+    background-color: grey;
+}
+
+.purchased:hover {
+    background-color: grey;
+}
+
+.down-arrow {
+    width: 3vw;
+}
+
+.one {
+    opacity: 0;
+    -webkit-animation: dot 1.3s infinite;
+    -webkit-animation-delay: 0.0s;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.0s;
+}
+  
+.two {
+    opacity: 0;
+    -webkit-animation: dot 1.3s infinite;
+    -webkit-animation-delay: 0.2s;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.2s;
+}
+  
+.three {
+    opacity: 0;
+    -webkit-animation: dot 1.3s infinite;
+    -webkit-animation-delay: 0.3s;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.3s;
+}
+  
+@-webkit-keyframes dot {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+  
+@keyframes dot {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Scroll animation */
+
+@-webkit-keyframes bounce {
+    0% { transform: translateY(0);} 
+   50% {transform: translateY(-5px);} 
+   100% { transform: translateY(0);} 
+}
+  
+@keyframes bounce {
+    0% { transform: translateY(0);} 
+   50% {transform: translateY(-5px);} 
+   100% { transform: translateY(0);} 
+}
+
+#scroll-indicator-live, #scroll-indicator-past {
+    -webkit-animation: bounce 1.3s infinite;
+    animation: bounce 1.3s infinite;
+    color: white !important;
+}
+
+@media screen and (max-width: 767px) {
+
+    .down-arrow {
+        width: 3vh;
+    }
+
+    #live-collections button, #past-collections button {
+        width: 90%;
+    }
+
+    /* Approval section*/
+
+    #approval-container {
+        height: initial;
+    }
+
+    #approval {
+        width: 90%;
+    }
+
+    #approval h1 {
+        font-size: 4.5vh !important;
+        line-height: 4.5vh !important;
+    }
+
+    #approval-button {
+        width: 90%;
+    }
+
+    /* End approval section*/
+
+
+    #selector-div button {
+        font-size: 3.4vh;
+        line-height: 3.4vh;
+        padding: 1vw;
+        width: 45%;
+    }
+
+    .navbar-container {
+        width: 50% !important;
+        padding: 0;
+      }
+
+    .partner-collection {
+        width: 90%;
+    }
+
+    .collection-info {
+        width:100%;
+        margin-left: initial;
+    }
+
+    .partner-collection {
+		border-width: 5px;
+        margin-top: 40px;
+    }
+
+    .collection-img {
+		border-width: 5px;
+        width: 150px;
+        height: 150px;
+        min-width: 0px !important;
+        min-height: 0px !important;
+    }
+    
+    .collection-description {
+        min-height: 20%;
+        padding: 2%;
+    }
+
+    .partner-collection h3 {
+        font-size: 3.8vh !important;
+        line-height: 3.9vh !important;
+        margin-top: 10px;
+    }
+
+    h4 {
+        font-size: 3vh;
+        line-height: 3vh;
+        color: black;
+    }
+
+    .inside-text {
+        font-size: 3vh;
+        line-height: 3vh;
+        padding-bottom: 20px;
+    }
+
+    #mint-prompt {
+        width: 100vw;
+        height: 90vh;
+        font-size: 2.7vh;
+      }
+
+    #header-div {
+        height: 7% !important;
+    }
+
+    #max-button {
+        font-size: 2.7vh;
+        width: 15%;
+    }
+
+    #number-to-mint {
+        font-size:10vh;
+        margin-top: 5vh;
+    }
+
+    .increment-button {
+        font-size:15vh;
+    }
+
+    #mint-plus {
+        margin-left: 6vh;
+    }
+
+    #mint-minus {
+        margin-right: 6vh;
+    }
+
+    .mint-input-part {
+        width: 100%;
+    }
+
+      #close {
+        padding: 1vh;
+        font-size: 4vh;
+    }
+    
+    #mint-prompt h3 {
+        font-size: 4.5vh;
+        line-height: 4.6vh;
+        margin: initial;        
+    }
+
+    #mint-prompt-header {
+        margin-top: 3.5vh !important;
+    }
+
+    #mint-prompt h4 {
+        font-size: 4.2vh;
+        line-height: 4.3vh;
+        margin: initial;
+    }
+
+    #number-to-mint-header {
+        margin-bottom: 4vh !important;
+    }
+
+    .mes-icon {
+        width: 1.7em
+    }
+
+    #mint-input {
+        height: 50%;
+    }
+
+
+    .mint-button {
+        width: 90%;
+        height: 75%;
+        margin: 5%;
+        font-size: 2.7vh;
+    }
+
+    .mint-prompt-button {
+        font-size: 3vh;
+    }
+}
+
+
+@media screen and (min-width: 1900px) {
+
+    .collection-img {
+        width: 250px;
+        height: 250px;
+    }
+}
