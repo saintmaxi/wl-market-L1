@@ -60,9 +60,11 @@ const maxInt = "1157920892373161954235709850086879078532699846656405640394575840
 var currentTokenAddress;
 
 const selectProject = async(address) => {
-    currentTokenAddress = address;
-    await checkTokenApproval();
-    await loadCollections();
+    if (address) {
+        currentTokenAddress = address;
+        await checkTokenApproval();
+        await loadCollections();
+    }
 }
 
 const approveTokenToMarket = async() => {
@@ -74,15 +76,17 @@ const approveTokenToMarket = async() => {
 }
 
 const checkTokenApproval = async() => {
-    const userAddress = await getAddress();
-    const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-
-    if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
-        $("#approval-container").addClass("hidden");
-    }
-    else {
-        $("#approval-button").html(`Approve`) // see if can fix when switching projects mid tx
-        $("#approval-container").removeClass("hidden");
+    if (currentTokenAddress) {
+        const userAddress = await getAddress();
+        const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
+    
+        if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
+            $("#approval-container").addClass("hidden");
+        }
+        else {
+            $("#approval-button").html(`Approve`) // see if can fix when switching projects mid tx
+            $("#approval-container").removeClass("hidden");
+        }
     }
 };
 
@@ -116,6 +120,7 @@ const purchase  = async(id) => {
 var loadedCollections = false;
 
 const loadCollections = async() => {
+    if (!currentTokenAddress) return;
     loadedCollections = false;
 
     let numCollections = Number(await market.getWLVendingItemsLength(currentTokenAddress));
@@ -295,7 +300,7 @@ window.onload = async() => {
                                     <div class="cover">
                                         <button class="button" onclick="connect()">CONNECT WALLET TO VIEW LISTINGS</button>
                                     </div>
-                                    <img class="collection-img" src="./images/ticket.jpeg">
+                                    <img class="collection-img" src="./images/question.jpeg">
                                     <div class="collection-info">
                                         <h3>???</h3>
                                         <h4>??? | ???/??? Purchased</h4>
