@@ -136,9 +136,11 @@ const loadCollections = async() => {
         try {
             projectInfo = JSON.parse(atob(WLinfo.datauri));
         }
-        catch {
+        catch (error) {
+            console.log(error)
             projectInfo = JSON.parse(`{ "title": "Example Inu", "imageUri": "https://blog.cdn.own3d.tv/resize=fit:crop,width:600,height:600/8BKhp5PRuaKrcNWaWKiz", "projectUri": "https://messagetomartians.com/", "description": "1234 crazy jpegs worth millions of dollars on the Ethereum blockchain. Purchase a spot to mint on WL now!"}`)
         }
+
         let id = i;
         let collectionPrice = Number(formatEther(WLinfo.price));
 
