@@ -23,9 +23,9 @@ const baseTokenAbi = () => {
     return `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"burnByController","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"from_","type":"address[]"},{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]`;
 };
 
-const marketAddress = "0x6B0fD2A09049CC66FCcF3362e57033332c19A450";
-const marketAbi = () => { 
-    return `[ { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" }, { "internalType": "string", "name": "datauri_", "type": "string" }, { "internalType": "uint32", "name": "amountAvailable_", "type": "uint32" }, { "internalType": "uint256", "name": "price_", "type": "uint256" } ], "name": "addWLVendingItem", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" } ], "name": "deleteMostRecentWLVendingItem", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" }, { "internalType": "address", "name": "operator_", "type": "address" }, { "internalType": "bool", "name": "bool_", "type": "bool" } ], "name": "manageController", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" }, { "internalType": "uint256", "name": "index_", "type": "uint256" }, { "internalType": "string", "name": "datauri_", "type": "string" }, { "internalType": "uint32", "name": "amountAvailable_", "type": "uint32" }, { "internalType": "uint256", "name": "price_", "type": "uint256" } ], "name": "modifyWLVendingItem", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "contract_", "type": "address" }, { "indexed": false, "internalType": "address", "name": "operator_", "type": "address" }, { "indexed": false, "internalType": "bool", "name": "bool_", "type": "bool" } ], "name": "OperatorManaged", "type": "event" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" }, { "internalType": "uint256", "name": "index_", "type": "uint256" } ], "name": "purchaseWLVendingItem", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" }, { "internalType": "address", "name": "treasury_", "type": "address" } ], "name": "setTreasuryAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "contract_", "type": "address" }, { "indexed": false, "internalType": "address", "name": "treasury_", "type": "address" } ], "name": "TreasuryManaged", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "contract_", "type": "address" }, { "indexed": false, "internalType": "string", "name": "datauri_", "type": "string" }, { "indexed": false, "internalType": "uint32", "name": "amountAvailable_", "type": "uint32" }, { "indexed": false, "internalType": "uint256", "name": "price_", "type": "uint256" } ], "name": "WLVendingItemAdded", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "contract_", "type": "address" }, { "indexed": false, "internalType": "string", "name": "datauri_", "type": "string" }, { "indexed": false, "internalType": "uint32", "name": "amountAvailable_", "type": "uint32" }, { "indexed": false, "internalType": "uint32", "name": "amountPurchased_", "type": "uint32" }, { "indexed": false, "internalType": "uint256", "name": "price_", "type": "uint256" } ], "name": "WLVendingItemModified", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "contract_", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "index_", "type": "uint256" }, { "indexed": false, "internalType": "address", "name": "buyer_", "type": "address" }, { "components": [ { "internalType": "string", "name": "datauri", "type": "string" }, { "internalType": "uint32", "name": "amountAvailable", "type": "uint32" }, { "internalType": "uint32", "name": "amountPurchased", "type": "uint32" }, { "internalType": "uint256", "name": "price", "type": "uint256" } ], "indexed": false, "internalType": "struct MESWLVendor.WLVendingItem", "name": "item_", "type": "tuple" } ], "name": "WLVendingItemPurchased", "type": "event" }, { "anonymous": false, "inputs": [ { "components": [ { "internalType": "string", "name": "datauri", "type": "string" }, { "internalType": "uint32", "name": "amountAvailable", "type": "uint32" }, { "internalType": "uint32", "name": "amountPurchased", "type": "uint32" }, { "internalType": "uint256", "name": "price", "type": "uint256" } ], "indexed": false, "internalType": "struct MESWLVendor.WLVendingItem", "name": "item_", "type": "tuple" } ], "name": "WLVendingItemRemoved", "type": "event" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" }, { "internalType": "address", "name": "", "type": "address" } ], "name": "contractToControllersApproved", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" } ], "name": "contractToTreasuryAddress", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" }, { "internalType": "uint256", "name": "", "type": "uint256" }, { "internalType": "address", "name": "", "type": "address" } ], "name": "contractToWLPurchased", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" }, { "internalType": "uint256", "name": "", "type": "uint256" }, { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "contractToWLPurchasers", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" }, { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "contractToWLVendingItems", "outputs": [ { "internalType": "string", "name": "datauri", "type": "string" }, { "internalType": "uint32", "name": "amountAvailable", "type": "uint32" }, { "internalType": "uint32", "name": "amountPurchased", "type": "uint32" }, { "internalType": "uint256", "name": "price", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" } ], "name": "getWLVendingItemsLength", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "contract_", "type": "address" }, { "internalType": "uint256", "name": "start_", "type": "uint256" }, { "internalType": "uint256", "name": "end_", "type": "uint256" } ], "name": "getWLVendingItemsPaginated", "outputs": [ { "components": [ { "internalType": "string", "name": "datauri", "type": "string" }, { "internalType": "uint32", "name": "amountAvailable", "type": "uint32" }, { "internalType": "uint32", "name": "amountPurchased", "type": "uint32" }, { "internalType": "uint256", "name": "price", "type": "uint256" } ], "internalType": "struct MESWLVendor.WLVendingItem[]", "name": "", "type": "tuple[]" } ], "stateMutability": "view", "type": "function" } ]`;
+const marketAddress = "0xd144a764329b68b437c6E50e61f5478A5DB3a202";
+const marketAbi = () => {
+    return `[{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"address","name":"registerer_","type":"address"},{"indexed":false,"internalType":"bool","name":"bool_","type":"bool"}],"name":"ContractAdministered","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"address","name":"registerer_","type":"address"},{"indexed":false,"internalType":"uint256","name":"registrationPrice_","type":"uint256"}],"name":"ContractRegistered","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"address","name":"operator_","type":"address"},{"indexed":false,"internalType":"bool","name":"bool_","type":"bool"}],"name":"OperatorManaged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"address","name":"registerer_","type":"address"},{"indexed":false,"internalType":"string","name":"projectName_","type":"string"},{"indexed":false,"internalType":"string","name":"tokenImage_","type":"string"}],"name":"ProjectInfoPushed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"address","name":"treasury_","type":"address"}],"name":"TreasuryManaged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"string","name":"title_","type":"string"},{"indexed":false,"internalType":"string","name":"imageUri_","type":"string"},{"indexed":false,"internalType":"string","name":"projectUri_","type":"string"},{"indexed":false,"internalType":"string","name":"description_","type":"string"},{"indexed":false,"internalType":"uint32","name":"amountAvailable_","type":"uint32"},{"indexed":false,"internalType":"uint32","name":"deadline_","type":"uint32"},{"indexed":false,"internalType":"uint256","name":"price_","type":"uint256"}],"name":"WLVendingItemAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"indexed":false,"internalType":"struct MartianMarketWL.WLVendingItem","name":"before_","type":"tuple"},{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"indexed":false,"internalType":"struct MartianMarketWL.WLVendingItem","name":"after_","type":"tuple"}],"name":"WLVendingItemModified","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"contract_","type":"address"},{"indexed":false,"internalType":"uint256","name":"index_","type":"uint256"},{"indexed":false,"internalType":"address","name":"buyer_","type":"address"},{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"indexed":false,"internalType":"struct MartianMarketWL.WLVendingItem","name":"item_","type":"tuple"}],"name":"WLVendingItemPurchased","type":"event"},{"anonymous":false,"inputs":[{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"indexed":false,"internalType":"struct MartianMarketWL.WLVendingItem","name":"item_","type":"tuple"}],"name":"WLVendingItemRemoved","type":"event"},{"inputs":[],"name":"MES","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"string","name":"title_","type":"string"},{"internalType":"string","name":"imageUri_","type":"string"},{"internalType":"string","name":"projectUri_","type":"string"},{"internalType":"string","name":"description_","type":"string"},{"internalType":"uint32","name":"amountAvailable_","type":"uint32"},{"internalType":"uint32","name":"deadline_","type":"uint32"},{"internalType":"uint256","name":"price_","type":"uint256"}],"name":"addWLVendingItem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"contractToControllersApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contractToEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contractToProjectInfo","outputs":[{"internalType":"string","name":"projectName","type":"string"},{"internalType":"string","name":"tokenImageUri","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contractToTreasuryAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"}],"name":"contractToWLPurchased","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"contractToWLPurchasers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"contractToWLVendingItems","outputs":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"}],"name":"deleteMostRecentWLVendingItem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"enabledContracts","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"enabledContractsIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getAllEnabledContracts","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"uint256","name":"index_","type":"uint256"}],"name":"getWLPurchasersOf","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"}],"name":"getWLVendingItemsAll","outputs":[{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"internalType":"struct MartianMarketWL.WLVendingItem[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"}],"name":"getWLVendingItemsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"uint256","name":"start_","type":"uint256"},{"internalType":"uint256","name":"end_","type":"uint256"}],"name":"getWLVendingItemsPaginated","outputs":[{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"internalType":"struct MartianMarketWL.WLVendingItem[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"governorAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"address","name":"operator_","type":"address"},{"internalType":"bool","name":"bool_","type":"bool"}],"name":"manageController","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"uint256","name":"index_","type":"uint256"},{"components":[{"internalType":"string","name":"title","type":"string"},{"internalType":"string","name":"imageUri","type":"string"},{"internalType":"string","name":"projectUri","type":"string"},{"internalType":"string","name":"description","type":"string"},{"internalType":"uint32","name":"amountAvailable","type":"uint32"},{"internalType":"uint32","name":"amountPurchased","type":"uint32"},{"internalType":"uint32","name":"deadline","type":"uint32"},{"internalType":"uint256","name":"price","type":"uint256"}],"internalType":"struct MartianMarketWL.WLVendingItem","name":"WLVendingItem_","type":"tuple"}],"name":"modifyWLVendingItem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"string","name":"projectName_","type":"string"},{"internalType":"string","name":"tokenImage_","type":"string"}],"name":"ownerSetContractToProjectInfo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"bool","name":"bool_","type":"bool"}],"name":"ownerSetContractToVending","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"uint256","name":"index_","type":"uint256"}],"name":"purchaseWLVendingItem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"}],"name":"registerContractToVending","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"string","name":"projectName_","type":"string"},{"internalType":"string","name":"tokenImage_","type":"string"}],"name":"registerProjectInfo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"registrationPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"governor_","type":"address"}],"name":"setGovernorAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"address_","type":"address"}],"name":"setMES","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"price_","type":"uint256"}],"name":"setRegistrationPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"contract_","type":"address"},{"internalType":"address","name":"treasury_","type":"address"}],"name":"setTreasuryAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"new_","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
 };
 
 const etherscanBase = `https://rinkeby.etherscan.io/tx/`;
@@ -55,13 +55,41 @@ const getChainId = async() => { return await signer.getChainId() };
 // General Variables
 const maxInt = "115792089237316195423570985008687907853269984665640564039457584007913129639934";
 
+const loadingDiv = `<div id="ex1" class="partner-collection example">
+                        <div class="cover">
+                            <button class="button" onclick="connect()">LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span></button>
+                        </div>
+                        <img class="collection-img" src="./images/question.jpeg">
+                        <div class="collection-info">
+                            <h3>???</h3>
+                            <h4>???/??? Purchased</h4>
+                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+                            </div>
+                            <button class="button">PURCHASE</button>
+                        </div>
+                    </div>`
+
 // Approval Functions
 
 var currentTokenAddress;
+var currentTokenImageURI;
 
 const selectProject = async(address) => {
     if (address) {
+        await checkTokenApproval();
+        $("#live-collections").empty();
+        $("#past-collections").empty();
+        $("#live-collections").append(loadingDiv);
+        $("#past-collections").append(loadingDiv);
+        $("#num-live").text(` (?)`);
+        $("#num-past").text(` (?)`);
+        let projectInfo = await market.contractToProjectInfo(address);
         currentTokenAddress = address;
+        currentTokenImageURI = projectInfo.tokenImageUri
+
+        // document.getElementById("token-img-1").src = currentTokenImageURI;
+        // document.getElementById("token-img-2").src = currentTokenImageURI;
+
         await checkTokenApproval();
         await loadCollections();
     }
@@ -81,30 +109,33 @@ const checkTokenApproval = async() => {
         const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
     
         if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
-            $("#approval-container").addClass("hidden");
+            $("#approval").addClass("hidden");
         }
         else {
             $("#approval-button").html(`Approve`) // see if can fix when switching projects mid tx
-            $("#approval-container").removeClass("hidden");
+            $("#approval").removeClass("hidden");
         }
     }
 };
 
-const purchase  = async(id) => {
+const purchase  = async(tokenAddress, id) => {
     try {
-        await market.purchase(id).then( async(tx_) => {
+        await market.purchaseWLVendingItem(tokenAddress, id).then( async(tx_) => {
             await waitForTransaction(tx_);
         });
     }
     catch (error) {
-        if ((error.message).includes("Address has already purchased")) {
+        if ((error.message).includes("Already purchased")) {
             await displayErrorMessage(`Error: You already purchased a slot!`);
         }
-        else if ((error.message).includes("No spots left")) {
+        else if ((error.message).includes("This WLVendingItem does not exist!")) {
+            await displayErrorMessage(`Error: Item does not exist!`);
+        }
+        else if ((error.message).includes("No more WL remaining")) {
             await displayErrorMessage(`Error: No spots left!`);
         }
-        else if ((error.message).includes("transfer amount exceeds balance")) {
-            await displayErrorMessage(`Error: Insufficent balance!!`);
+        else if ((error.message).includes("Not enough tokens")) {
+            await displayErrorMessage(`Error: Not enough tokens!`);
         }
         else if ((error.message).includes("User denied transaction signature")) {
             console.log("Transaction rejected.");
@@ -131,16 +162,6 @@ const loadCollections = async() => {
     for (let i = 0; i < numCollections; i++) {
         // WL data from contract
         let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, i);
-        console.log(WLinfo.datauri)
-        let projectInfo;
-        try {
-            projectInfo = JSON.parse(atob(WLinfo.datauri));
-        }
-        catch (error) {
-            console.log(error)
-            projectInfo = JSON.parse(`{ "title": "Example Inu", "imageUri": "https://blog.cdn.own3d.tv/resize=fit:crop,width:600,height:600/8BKhp5PRuaKrcNWaWKiz", "projectUri": "https://messagetomartians.com/", "description": "1234 crazy jpegs worth millions of dollars on the Ethereum blockchain. Purchase a spot to mint on WL now!"}`)
-        }
-
         let id = i;
         let collectionPrice = Number(formatEther(WLinfo.price));
 
@@ -151,19 +172,19 @@ const loadCollections = async() => {
         if (minted != maxSlots) {
             numLive += 1;
             let button;
-            if (false && winners.includes(await getAddress())) {
+            if (await market.contractToWLPurchased(currentTokenAddress, i, await getAddress())) {
                 button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
             }
             else {
-                button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase(${id})">PURCHASE</button>`;
+                button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
             }
             let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                            <img class="collection-img" src="${projectInfo.imageUri}">
+                            <img class="collection-img" src="${WLinfo.imageUri}">
                             <div class="collection-info">
-                                <h3><a class="clickable link" href="${projectInfo.projectUri}" target="_blank" style="text-decoration: none;">${projectInfo.title}⬈</a></h3>
-                                <h4>${collectionPrice} <img src="${tokenImgURL}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
+                                <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
                                 <div class="inside-text collection-description">
-                                ${projectInfo.description}
+                                ${WLinfo.description}
                                 </div>
                             </div>
                             ${button}
@@ -173,12 +194,12 @@ const loadCollections = async() => {
         else {
             numPast +=1;
             let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                            <img class="collection-img" src="${projectInfo.imageUri}">
+                            <img class="collection-img" src="${WLinfo.imageUri}">
                             <div class="collection-info">
-                                <h3><a class="clickable link" href="${projectInfo.projectUri}" target="_blank" style="text-decoration: none;">${projectInfo.title}⬈</a></h3>
-                                <h4>${collectionPrice} <img src="${tokenImgURL}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
+                                <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
                                 <div class="inside-text collection-description">
-                                ${projectInfo.description}
+                                ${WLinfo.description}
                                 </div>
                             </div>
                             <button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>
@@ -215,6 +236,19 @@ const updateSupplies = async() => {
             $(`#${id}-mint-button`).prop("disabled", true);
         }
         $(`#${id}-supply`).text(minted);
+    }
+}
+
+const loadPartnerCollections = async() => {
+    let collections = await market.getAllEnabledContracts();
+    for (let i = 0; i < collections.length; i++) {
+        let address = collections[i];
+        let projectInfo = await market.contractToProjectInfo(address);
+        // projectToWL.set(projectName, winners);
+        $("#wl-select").append(`<option value="${address}">${projectInfo.projectName}</option>`);
+        if (i == 0) {
+            selectProject(address);
+        }
     }
 }
 
@@ -317,6 +351,7 @@ window.onload = async() => {
         $("#live-collections").append(connectPrompt);
         $("#past-collections").append(connectPrompt);
     }
+    await loadPartnerCollections();
     await updateInfo();
     await loadCollections();
 };

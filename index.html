@@ -30,10 +30,11 @@
    <div id="top">
       <div id="title-section" class="header">
          <div id="title">
-            <a href="./index.html" class="title-link">SATELLITE STATION</a>
+            <a href="./index.html" class="title-link">MARTIANS</a>
          </div>
       </div>
       <div id="header" class="header hide-on-mobile">
+         WHITELIST MARKETPLACE
          <!-- <div class="header-menu">
             <a href="#" class="link">
                LINK
@@ -55,7 +56,7 @@
             </a>
          </div> -->
       </div>
-      <div class="hide-on-mobile" id="socials">
+      <!-- <div class="hide-on-mobile" id="socials">
          <a href="#" target="_blank" class="link w-inline-block">
             <img src="images/twitter-black.png" loading="lazy" alt="">
          </a>
@@ -71,15 +72,15 @@
          <a href="#" target="_blank" class="link w-inline-block">
             <img class="etherscan" src="images/etherscan-white.png" loading="lazy" alt="" style="border-radius: 50%;">
          </a>
-      </div>
+      </div> -->
       <div id="desktop-wallet-connect-div">
          <button class="button hide-on-mobile clickable" id="account" href="#" onclick=connect()>CONNECT</button>
       </div>
       <div id="mobile-wallet-connect-div" class="hide-on-desktop">
          <button id="mobile-account" href="#" class="button" onclick=connect()>CONNECT WALLET</button>
-         <button id="navbar" href="#" class="button" onclick="toggleMenu()"></button>
+         <!-- <button id="navbar" href="#" class="button" onclick="toggleMenu()"></button> -->
       </div>
-      <div id="expand-container">
+      <!-- <div id="expand-container">
          <div id="mobile-nav-menu" class="collapsed">
             <div id="header" class="header hide-on-desktop">
                <div class="header-menu">
@@ -121,26 +122,22 @@
                </a>
             </div>
          </div>
-      </div>
+      </div> -->
    </div>
    <div class="section body-section body-1 wf-section" style="text-align: center;">
-      <select id="wl-select" onchange="selectProject(this.value)" style="text-align: center;">
-         <option selected disabled>SELECT TOKEN</option>
-         <option value="0x403f391d5e2dD66E541C481C39F628E503d0CE3A">saintmaxi token</option>
-         <option value="0x568BB8fbDaa3822328D0a91F8D2E2427907e3220">inu token</option>
-      </select>
-   </div>
-   <div id="approval-container" class="section body-section body-1 wf-section hidden">
-      <div id="approval" class="container w-container box" style="text-align: center;">
-         <h1>APPROVE MARKETPLACE</h1><br>
-         <h3>In order to acquire WL slots with this token, you must first approve the marketplace contract to spend this token.</h3><br>
+      <h2>Select Project</h2>
+      <div id="approval" class="hidden" style="text-align: center;">
+         <h2>APPROVE TOKEN</h2><br>
          <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
       </div>
+      <select id="wl-select" onchange="selectProject(this.value)" style="text-align: center;">
+      </select>
    </div>
-   <div class="section body-section body-1 wf-section">
+      
+   <div id="market-section" class="section body-section body-1 wf-section">
       <div id="selector-div">
-         <button id="live-button" class="button active" onclick="showLive()">LIVE<span id="num-live"></span></button>
-         <button id="past-button" class="button" onclick="showPast()">PAST<span id="num-past"></span></button>
+         <button id="live-button" class="button active" onclick="showLive()">ACTIVE LISTINGS<span id="num-live"></span></button>
+         <button id="past-button" class="button" onclick="showPast()">PAST LISTINGS<span id="num-past"></span></button>
       </div>
       <h2 id="scroll-indicator-live" style="text-align: center;color: white;"></h2>
       <h2 id="scroll-indicator-past" class="hidden" style="text-align: center;color: white;"></h2>
@@ -152,7 +149,7 @@
             <img class="collection-img" src="./images/question.jpeg">
             <div class="collection-info">
                <h3>???</h3>
-               <h4>??? | ???/??? Purchased</h4>
+               <h4>???/??? Purchased</h4>
                <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
                </div>
                <button class="button">PURCHASE</button>
@@ -167,38 +164,16 @@
             <img class="collection-img" src="./images/question.jpeg">
             <div class="collection-info">
                <h3>???</h3>
-               <h4>??? | ???/??? Purchased</h4>
+               <h4>???/??? Purchased</h4>
                <div class="inside-text collection-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
                </div>
-               <button class="button">VIEW ON OPENSEA</button>
+               <button class="button">SOLD OUT</button>
             </div>
          </div>
       </div>
    </div>
    </div>
-   <div>
-      <div class="section body-section footer wf-section">
-         <div class="container w-container footer-section">
-            <div id="bottom-socials">
-               <a href="#" target="_blank" class="link">
-                  <img src="images/twitter-black.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link">
-                  <img src="images/dc-white.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link">
-                  <img src="images/os-transparent.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link">
-                  <img src="images/mediumWhite.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link w-inline-block">
-                  <img class="etherscan" src="images/etherscan-white.png" loading="lazy" alt="" style="border-radius: 50%;">
-               </a>
-            </div>
-         </div>
-      </div>
-   </div>
+  
    <img src="images/stars.png" loading="lazy" alt="" class="banner-img fixed-banner hide-on-desktop">
    <img src="images/stars.png" loading="lazy" alt="" class="banner-img fixed-banner hide-on-mobile">
    <!-- <div id="copyright-div"><a href="./terms-and-conditions.html" class="link" target="_blank">VIEW TERMS AND CONDITIONS</a></div> -->

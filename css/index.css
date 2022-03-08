@@ -18,6 +18,11 @@
     background-color: black;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    height: 10vh;
+}
+
+#project-name {
+    color: white;
 }
 
 #top .link {
@@ -41,10 +46,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    font-size: 2vw;
-    line-height: 2vw;
-    text-align: center;
+    width: 20%;
+    font-size: 3vw;
+    line-height: 3vw;
+    text-align: right;
 }
 
 #title {
@@ -52,12 +57,18 @@
     letter-spacing: 5px;
 }
 
+#title-link {
+    height: 100%;
+}
+
 #header {
-    width: 40%;
+    width: 35%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-size: 2vw;
+    line-height: 2vw;
 }
 
 .header-menu {
@@ -283,6 +294,7 @@
     #title {
         width: 100%;
         letter-spacing: 3px;
+        text-align: center;
     }
 
     #header {
