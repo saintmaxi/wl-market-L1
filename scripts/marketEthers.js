@@ -118,7 +118,7 @@ const checkTokenApproval = async() => {
     }
 };
 
-const purchase  = async(tokenAddress, id) => {
+const purchase = async(tokenAddress, id) => {
     try {
         await market.purchaseWLVendingItem(tokenAddress, id).then( async(tx_) => {
             await waitForTransaction(tx_);
@@ -133,6 +133,9 @@ const purchase  = async(tokenAddress, id) => {
         }
         else if ((error.message).includes("No more WL remaining")) {
             await displayErrorMessage(`Error: No spots left!`);
+        }
+        else if ((error.message).includes("Passed deadline")) {
+            await displayErrorMessage(`Error: Listing expired!`);
         }
         else if ((error.message).includes("Not enough tokens")) {
             await displayErrorMessage(`Error: Not enough tokens!`);
