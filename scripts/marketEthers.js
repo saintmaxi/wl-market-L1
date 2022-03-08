@@ -226,14 +226,14 @@ const loadCollections = async() => {
 }
 
 const updateSupplies = async() => {
-    let numCollections = Number(await market.whitelistCounter());
-    for (let i = 0; i < numCollections; i++) {
-        let WLinfo = await market.getWhitelist(i);
-        let id = WLinfo.id;
-        let collection = collectionsData[String(i)];
-        let max = collection["max-slots"];
-        let minted = max - WLinfo.amount;
-        if (minted == max) {
+    let numListings = Number(await market.getWLVendingItemsLength(currentTokenAddress));
+    for (let i = 0; i < numListings; i++) {
+        let purchased = (await market.getWLPurchasersOf()).length;
+        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, i);
+        let id = i;
+        let maxSlots = WLinfo.amountAvailable;
+        let minted = WLinfo.amountPurchased;
+        if (minted == maxSlots) {
             $(`#${id}-mint-button`).text("SOLD OUT");
             $(`#${id}-mint-button`).addClass("purchased");
             $(`#${id}-mint-button`).prop("disabled", true);

@@ -347,7 +347,12 @@ h4 {
 }
 
 .purchased:hover {
-    background-color: grey;
+    background-color: grey !important;
+}
+
+.cover button:hover {
+    background-color: white !important;
+    cursor: default;
 }
 
 .down-arrow {
