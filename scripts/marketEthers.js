@@ -214,8 +214,8 @@ const loadCollections = async() => {
     $("#past-collections").empty();
     $("#live-collections").append(liveJSX);
     $("#past-collections").append(pastJSX);
-    $("#num-live").text(` (${numLive})`);
-    $("#num-past").text(` (${numPast})`);
+    $("#num-live").html(`<br>(${numLive})`);
+    $("#num-past").html(`<br>(${numPast})`);
     if (numLive >= 4) {
         $("#scroll-indicator-live").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL<span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
     }
