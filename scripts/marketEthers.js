@@ -171,8 +171,9 @@ const loadCollections = async() => {
         // Data from JSON file
         let maxSlots = WLinfo.amountAvailable;
         let minted = WLinfo.amountPurchased;
+        let valid =  WLinfo.deadline > (Date.now()/1000);
 
-        if (minted != maxSlots) {
+        if (minted != maxSlots && valid) {
             numLive += 1;
             let button;
             if (await market.contractToWLPurchased(currentTokenAddress, i, await getAddress())) {
@@ -196,6 +197,13 @@ const loadCollections = async() => {
         }
         else {
             numPast +=1;
+            let button;
+            if (!valid) {
+                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">EXPIRED</button>`;
+            }
+            else {
+                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
+            }
             let fakeJSX = `<div class="partner-collection" id="project-${id}">
                             <img class="collection-img" src="${WLinfo.imageUri}">
                             <div class="collection-info">
@@ -205,7 +213,7 @@ const loadCollections = async() => {
                                 ${WLinfo.description}
                                 </div>
                             </div>
-                            <button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>
+                            ${button}
                             </div>`
            pastJSX += fakeJSX;
         }
