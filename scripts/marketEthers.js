@@ -186,7 +186,12 @@ const loadCollections = async() => {
                             <img class="collection-img" src="${WLinfo.imageUri}">
                             <div class="collection-info">
                                 <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
-                                <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
+                                <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
+                                <br>
+                                <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
+                                <br>
+                                Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()}
+                                </h4>
                                 <div class="inside-text collection-description">
                                 ${WLinfo.description}
                                 </div>
@@ -224,10 +229,10 @@ const loadCollections = async() => {
     $("#past-collections").append(pastJSX);
     $("#num-live").html(`<br>(${numLive})`);
     $("#num-past").html(`<br>(${numPast})`);
-    if (numLive > 4) {
+    if (numLive > 3) {
         $("#scroll-indicator-live").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL<span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
     }
-    if (numPast > 4) {
+    if (numPast > 3) {
         $("#scroll-indicator-past").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL <span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
     }
     loadedCollections = true;
@@ -350,7 +355,9 @@ window.onload = async() => {
                                     <img class="collection-img" src="./images/question.jpeg">
                                     <div class="collection-info">
                                         <h3>???</h3>
-                                        <h4>??? | ???/??? Purchased</h4>
+                                        <h4>???/??? Purchased <br>
+                                        Ends MM/DD/YYYY
+                                        </h4>
                                        <div class="inside-text collection-description">
                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante. Duis sodales eros consequat magna efficitur, non ullamcorper mauris tristique.
                                         </div>

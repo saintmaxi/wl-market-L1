@@ -4,6 +4,13 @@
 	src: URL('../css/Roboto-Medium.ttf') format('truetype');
 }  
 
+
+@font-face {  
+	font-family: 'Space';
+	/* src: URL('../css/Minecraft.ttf') format('truetype'); */
+	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
+}  
+
 /* Approval section */
 
 #approval-container {
@@ -122,7 +129,7 @@ h2 {
 	border-color: white;
 	border-radius: 15px;
 	border-width: .2vw;
-    width: 22%;
+    width: 26%;
     margin: 1%;
     background-color: black;
     color: white !important;
@@ -203,7 +210,7 @@ h2 {
     padding: 2%;
     color: white !important;
     padding-bottom: 10px;
-    /* font-family: "Roboto"; */
+    font-family: "Space";
 }
 
 h3 {
@@ -223,8 +230,10 @@ a {
 
 h4 {
     font-size: 1.4vw;
-    line-height: 1.5vw;
+    line-height: 1.8vw;
     color: white;
+    font-family: "Space";
+
 }
 
 .inside-text {
