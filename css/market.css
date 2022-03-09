@@ -65,7 +65,7 @@ h2 {
     font-size: 2vw;
     line-height: 2vw;
     padding: .2vw;
-    width: 13%;
+    width: 25%;
     background-color: white;
     color: black;
 }
@@ -188,16 +188,13 @@ h2 {
 .collection-img {
     margin: 10px;
 	border-style: solid;
-	border-color: black;
-	border-radius: 20px;
-	border-width: .5vw;
+	border-color: white;
+	border-radius: 15px;
+	border-width: .2vw;
+    background-color: black;
     width: 30%;
-    /* min-width: 200px;
-    min-height: 200px; */
     width: 200px;
     height: 200px;
-    /* max-height: 300px;
-    max-width: 300px; */
 }
 
 .collection-info {

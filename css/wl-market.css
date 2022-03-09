@@ -4,6 +4,12 @@
 	src: URL('../css/Game-Of-Squids.ttf') format('truetype');
 }  
 
+@font-face {  
+	font-family: 'Space';
+	/* src: URL('../css/Minecraft.ttf') format('truetype'); */
+	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
+}  
+
 select {
 	font-size: 2vw !important;
 	border-style: solid;
@@ -280,6 +286,7 @@ h5 {
 	padding: 1vw;
     transform: translate(-50%, -50%);
     text-align: center;
+	font-family: "Space";
 }
 
 @keyframes blinker {

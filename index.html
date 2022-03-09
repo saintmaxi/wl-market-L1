@@ -125,12 +125,13 @@
       </div> -->
    </div>
    <div class="section body-section body-1 wf-section" style="text-align: center;">
-      <h2>Select Project</h2>
+      <!-- <h2>Select Project</h2> -->
       <div id="approval" class="hidden" style="text-align: center;">
          <h2>APPROVE TOKEN</h2><br>
          <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
       </div>
       <select id="wl-select" onchange="selectProject(this.value)" style="text-align: center;">
+         <option disabled selected value="">SELECT PROJECT</option>
       </select>
    </div>
       
@@ -144,14 +145,17 @@
       <div id="live-collections">
          <div id="ex1" class="partner-collection example">
             <div class="cover">
-               <button class="button" onclick="connect()">LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span></button>
+               <button class="button">SELECT PROJECT TO SEE LISTINGS</button>
             </div>
             <img class="collection-img" src="./images/question.jpeg">
             <div class="collection-info">
                <h3>???</h3>
-               <h4>???/??? Purchased <br>
+               <h4>???/??? Purchased
+                  <br>
+                  ??? $TOKEN
+                  <br>
                   Ends MM/DD/YYYY
-               </h4>
+                  </h4>
                <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
                </div>
                <button class="button">PURCHASE</button>
@@ -166,9 +170,12 @@
             <img class="collection-img" src="./images/question.jpeg">
             <div class="collection-info">
                <h3>???</h3>
-               <h4>???/??? Purchased <br>
+               <h4>???/??? Purchased
+                  <br>
+                  ??? $TOKEN
+                  <br>
                   Ends MM/DD/YYYY
-               </h4>
+                  </h4>
                <div class="inside-text collection-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
                </div>
                <button class="button">SOLD OUT</button>

@@ -62,7 +62,12 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
                         <img class="collection-img" src="./images/question.jpeg">
                         <div class="collection-info">
                             <h3>???</h3>
-                            <h4>???/??? Purchased</h4>
+                            <h4>???/??? Purchased
+                            <br>
+                            ??? $TOKEN
+                            <br>
+                            Ends MM/DD/YYYY
+                            </h4>
                             <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
                             </div>
                             <button class="button">PURCHASE</button>
@@ -81,8 +86,8 @@ const selectProject = async(address) => {
         $("#past-collections").empty();
         $("#live-collections").append(loadingDiv);
         $("#past-collections").append(loadingDiv);
-        $("#num-live").html(` (<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
-        $("#num-past").html(` (<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
+        $("#num-live").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
+        $("#num-past").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
         let projectInfo = await market.contractToProjectInfo(address);
         currentTokenAddress = address;
         currentTokenImageURI = projectInfo.tokenImageUri
@@ -262,9 +267,9 @@ const loadPartnerCollections = async() => {
         let projectInfo = await market.contractToProjectInfo(address);
         // projectToWL.set(projectName, winners);
         $("#wl-select").append(`<option value="${address}">${projectInfo.projectName}</option>`);
-        if (i == 0) {
-            selectProject(address);
-        }
+        // if (i == 0) {
+        //     selectProject(address);
+        // }
     }
 }
 
@@ -355,7 +360,10 @@ window.onload = async() => {
                                     <img class="collection-img" src="./images/question.jpeg">
                                     <div class="collection-info">
                                         <h3>???</h3>
-                                        <h4>???/??? Purchased <br>
+                                        <h4>???/??? Purchased
+                                        <br>
+                                        ??? $TOKEN
+                                        <br>
                                         Ends MM/DD/YYYY
                                         </h4>
                                        <div class="inside-text collection-description">
