@@ -377,8 +377,8 @@ window.onload = async() => {
         $("#live-collections").append(connectPrompt);
         $("#past-collections").append(connectPrompt);
     }
-    await loadPartnerCollections();
     await updateInfo();
+    await loadPartnerCollections();
     await loadCollections();
 };
 
