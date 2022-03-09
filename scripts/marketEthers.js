@@ -81,8 +81,8 @@ const selectProject = async(address) => {
         $("#past-collections").empty();
         $("#live-collections").append(loadingDiv);
         $("#past-collections").append(loadingDiv);
-        $("#num-live").text(` (?)`);
-        $("#num-past").text(` (?)`);
+        $("#num-live").html(` (<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
+        $("#num-past").html(` (<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
         let projectInfo = await market.contractToProjectInfo(address);
         currentTokenAddress = address;
         currentTokenImageURI = projectInfo.tokenImageUri
@@ -216,10 +216,10 @@ const loadCollections = async() => {
     $("#past-collections").append(pastJSX);
     $("#num-live").html(`<br>(${numLive})`);
     $("#num-past").html(`<br>(${numPast})`);
-    if (numLive >= 4) {
+    if (numLive > 4) {
         $("#scroll-indicator-live").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL<span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
     }
-    if (numPast >= 4) {
+    if (numPast > 4) {
         $("#scroll-indicator-past").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL <span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
     }
     loadedCollections = true;
