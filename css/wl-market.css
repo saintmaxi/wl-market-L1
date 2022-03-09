@@ -76,12 +76,12 @@ p {
 
 #account {
 	text-align: center;
-	font-size: 1.1vw;
+	font-size: 1.4vw;
 	letter-spacing: 3px;
 	background-color: white;
 	color:black;
 	width: 95%;
-	height: 70%;
+	height: 50%;
   }
 
   #account:hover {
