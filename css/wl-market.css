@@ -84,8 +84,9 @@ p {
 	height: 50%;
   }
 
-  #account:hover {
+  #account.connected:hover {
 	  background-color: white !important;
+	  cursor: default;
   }
 
 .body {
@@ -237,7 +238,7 @@ h5 {
     line-height: 1.5vw;
     padding: 20px;
     text-align: center;
-    border-radius: .2em;
+	border-radius: 15px;
 }
 
 .etherscan-link {
@@ -255,7 +256,7 @@ h5 {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 33vw;
-    border-radius: .2em;
+	border-radius: 15px;
     text-align: center;
     box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
 }
@@ -270,13 +271,13 @@ h5 {
     width: 53vw;
     height: 35vh;
     border: solid .2vw white;
-    border-radius: .2em;
+	border-radius: 15px;
     text-align: center;
     box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
 }
 
 #error-popup p, #status-popup p {
-    width: 100%;
+    width: 90%;
     font-size: 2.5vw !important;
     line-height: 2.7vw !important;
     position: absolute;
@@ -413,7 +414,7 @@ h5 {
 	}
 
 	#mobile-account {
-		width: 90%;
+		width: 80%;
 		background-color: white;
 		color: black
 	  }

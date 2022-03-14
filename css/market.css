@@ -1,15 +1,33 @@
 
 @font-face {  
-	font-family: 'Roboto';
-	src: URL('../css/Roboto-Medium.ttf') format('truetype');
-}  
-
-
-@font-face {  
 	font-family: 'Space';
 	/* src: URL('../css/Minecraft.ttf') format('truetype'); */
 	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
 }  
+
+.token-balance-float {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    font-size: 1.5vw;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+	border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    height: 8vh;
+  }
+  .token-balance-float img {
+    margin-left: 10px;
+  }
+
+  #market-section {
+      padding-bottom: calc(1.5vw + 150px) !important;
+  }
 
 /* Approval section */
 
@@ -25,8 +43,8 @@
     margin: 0;
     width: 45%;
     margin: auto;
-    margin-top: 2vw;
-    margin-bottom: 2vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 
 #approval h2 {
@@ -37,6 +55,8 @@
     background-color: white;
     color: black;
     display: inline;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 
 #approval h1 {
@@ -234,8 +254,8 @@ h4 {
 }
 
 .inside-text {
-    font-size: 1vw;
-    line-height: 1vw;
+    font-size: 1.2vw;
+    line-height: 1.3vw;
 }
 
 #mint-prompt {
@@ -427,7 +447,7 @@ h4 {
    100% { transform: translateY(0);} 
 }
 
-#scroll-indicator-live, #scroll-indicator-past {
+#scroll-indicator {
     -webkit-animation: bounce 1.3s infinite;
     animation: bounce 1.3s infinite;
     color: white !important;
@@ -442,6 +462,29 @@ h4 {
     #live-collections button, #past-collections button {
         width: 90%;
     }
+
+    .token-balance-float {
+        position: fixed;
+        left: 10%;
+        bottom: 30px;
+        width: 80%;
+        margin: auto;
+        font-size: 2.5vh;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 15px;
+        background: white;
+        color: black;
+        border: 1px solid black;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        height: initial;
+      }
+      .token-balance-float img {
+        margin-left: 10px;
+      }
 
     /* Approval section*/
 

@@ -81,6 +81,8 @@ var currentTokenImageURI;
 
 const selectProject = async(address) => {
     if (address) {
+        $("#scroll-indicator").addClass("hidden");
+        $("#token-balance").html(`<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
         await checkTokenApproval();
         $("#live-collections").empty();
         $("#past-collections").empty();
@@ -92,11 +94,16 @@ const selectProject = async(address) => {
         currentTokenAddress = address;
         currentTokenImageURI = projectInfo.tokenImageUri
 
-        // document.getElementById("token-img-1").src = currentTokenImageURI;
-        // document.getElementById("token-img-2").src = currentTokenImageURI;
-
         await checkTokenApproval();
         await loadCollections();
+        await updateTokenBalance();
+
+        if ($("#live-button").hasClass("active")) {
+            showLive();
+        }
+        else {
+            showPast();
+        }
     }
 }
 
@@ -122,6 +129,15 @@ const checkTokenApproval = async() => {
         }
     }
 };
+
+const updateTokenBalance = async() => {
+    if (currentTokenAddress) {
+        const userAddress = await getAddress();
+        const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
+        let balance = formatEther((await token.balanceOf(userAddress)));
+        $("#token-balance").html(`${balance} <img src="${currentTokenImageURI}" class="token-icon">`);
+    }
+}
 
 const purchase = async(tokenAddress, id) => {
     try {
@@ -172,6 +188,7 @@ const loadCollections = async() => {
         let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, i);
         let id = i;
         let collectionPrice = Number(formatEther(WLinfo.price));
+        let purchased = await market.contractToWLPurchased(currentTokenAddress, i, await getAddress());
 
         // Data from JSON file
         let maxSlots = WLinfo.amountAvailable;
@@ -181,7 +198,7 @@ const loadCollections = async() => {
         if (minted != maxSlots && valid) {
             numLive += 1;
             let button;
-            if (await market.contractToWLPurchased(currentTokenAddress, i, await getAddress())) {
+            if (purchased) {
                 button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
             }
             else {
@@ -208,10 +225,13 @@ const loadCollections = async() => {
         else {
             numPast +=1;
             let button;
-            if (!valid) {
+            if (purchased) {
+                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
+            }
+            else if (!valid) {
                 button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">EXPIRED</button>`;
             }
-            else {
+            else if (minted == maxSlots) {
                 button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
             }
             let fakeJSX = `<div class="partner-collection" id="project-${id}">
@@ -234,24 +254,23 @@ const loadCollections = async() => {
     $("#past-collections").append(pastJSX);
     $("#num-live").html(`<br>(${numLive})`);
     $("#num-past").html(`<br>(${numPast})`);
-    if (numLive > 3) {
-        $("#scroll-indicator-live").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL<span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
-    }
-    if (numPast > 3) {
-        $("#scroll-indicator-past").html(`<img class="down-arrow" src="images/down-arrow.png"> SCROLL <span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">`);
-    }
     loadedCollections = true;
 }
 
 const updateSupplies = async() => {
     let numListings = Number(await market.getWLVendingItemsLength(currentTokenAddress));
-    for (let i = 0; i < numListings; i++) {
-        let purchased = (await market.getWLPurchasersOf()).length;
-        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, i);
-        let id = i;
+    for (let id = 0; id < numListings; id++) {
+        let buyers = (await market.getWLPurchasersOf(currentTokenAddress, id));
+        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
         let maxSlots = WLinfo.amountAvailable;
         let minted = WLinfo.amountPurchased;
-        if (minted == maxSlots) {
+        let purchased = buyers.includes((await getAddress)) ? true : false;
+        if (purchased) {
+            $(`#${id}-mint-button`).text("PURCHASED");
+            $(`#${id}-mint-button`).addClass("purchased");
+            $(`#${id}-mint-button`).prop("disabled", true);
+        }
+        else if (minted == maxSlots ) {
             $(`#${id}-mint-button`).text("SOLD OUT");
             $(`#${id}-mint-button`).addClass("purchased");
             $(`#${id}-mint-button`).prop("disabled", true);
@@ -262,15 +281,13 @@ const updateSupplies = async() => {
 
 const loadPartnerCollections = async() => {
     let collections = await market.getAllEnabledContracts();
+    let fakeJSX = "";
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
         let projectInfo = await market.contractToProjectInfo(address);
-        // projectToWL.set(projectName, winners);
-        $("#wl-select").append(`<option value="${address}">${projectInfo.projectName}</option>`);
-        // if (i == 0) {
-        //     selectProject(address);
-        // }
+        fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;
     }
+    $("#wl-select").append(fakeJSX);
 }
 
 // Processing txs
@@ -284,7 +301,7 @@ const waitForTransaction = async(tx_) => {
 };
 
 // Resuming UI display, refreshing market for pending txs across pages
-var pendingTransactions = localStorage.getItem("WLMarketPendingTxs");
+var pendingTransactions = localStorage.getItem("MartianMarketPendingTxs");
 
 if (!pendingTransactions) {
     pendingTransactions = new Set();
@@ -297,11 +314,11 @@ else {
     for (let i =0; i < pendingTxArray.length; i++) {
         waitForTransaction(pendingTxArray[i]);
     }
-    localStorage.removeItem("WLMarketPendingTxs");
+    localStorage.removeItem("MartianMarketPendingTxs");
 }
 
 function cachePendingTransactions() {
-    localStorage.setItem("WLMarketPendingTxs", JSON.stringify(Array.from(pendingTransactions)));
+    localStorage.setItem("MartianMarketPendingTxs", JSON.stringify(Array.from(pendingTransactions)));
 }
 
 function startLoading(tx) {
@@ -328,7 +345,7 @@ async function endLoading(tx, txStatus) {
     $(`#etherscan-link-${txHash}`).remove();
     pendingTransactions.delete(tx);
     if (pendingTransactions.size == 0) {
-        // await updateSupplies();
+        await updateSupplies();
     }
 }
 
@@ -336,13 +353,14 @@ const updateInfo = async () => {
     await checkTokenApproval();
     let userAddress = await getAddress();
     $("#account").text(`${userAddress.substr(0,9)}..`);
+    $("#account").addClass(`connected`);
     $("#mobile-account").text(`${userAddress.substr(0,9)}...`);
 };
 
 setInterval( async() => {
     await updateInfo();
     if (loadedCollections) {
-        // await updateSupplies();
+        await updateSupplies();
     }
 }, 5000)
 
@@ -380,6 +398,7 @@ window.onload = async() => {
     await updateInfo();
     await loadPartnerCollections();
     await loadCollections();
+    await updateTokenBalance();
 };
 
 window.onunload = async()=>{

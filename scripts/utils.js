@@ -19,8 +19,12 @@ function sleep(ms) {
 function showLive() {
     $('#past-collections').addClass('hidden');
     $('#live-collections').removeClass('hidden');
-    $("#scroll-indicator-past").addClass("hidden");
-    $("#scroll-indicator-live").removeClass("hidden");
+    if ($("#live-collections .partner-collection").length > 3) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+    else {
+        $("#scroll-indicator").addClass("hidden");
+    }
     $("#live-button").addClass("active");
     $("#past-button").removeClass("active");
 }
@@ -28,8 +32,12 @@ function showLive() {
 function showPast() {
     $('#live-collections').addClass('hidden');
     $('#past-collections').removeClass('hidden');
-    $("#scroll-indicator-past").removeClass("hidden");
-    $("#scroll-indicator-live").addClass("hidden");
+    if ($("#past-collections .partner-collection").length > 3) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+    else {
+        $("#scroll-indicator").addClass("hidden");
+    }
     $("#past-button").addClass("active");
     $("#live-button").removeClass("active");
 }

@@ -1,15 +1,32 @@
+h1 {
+    color: white;
+}
+
 h2 {
     margin-top: 1.5vw !important;
     margin-bottom:1.5vw !important;
 }
 
+#lookup {
+    width: 70%;
+    color: white !important;
+}
+
+#your-wl-spots {
+    font-size: 1.6vw;
+    line-height: 2vw;
+}
+
+#wl-select {
+    width: 80%;
+}
+
 #wl-section {
     width: 90%;
     min-height: 20vh;
-    max-height: 50vh;
     overflow-y: scroll;
-    border: .5vw black solid;
-    border-radius: 20px;
+    /* border: .5vw black solid; */
+    /* border-radius: 20px; */
     margin: auto;
     text-align: center;
     padding-top: 1.5vw;
@@ -18,22 +35,11 @@ h2 {
     line-height: 1.2vw;
 }
 
-input {
-    border: .5vw black solid;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 2vw;
-    line-height: 2vw;
-    width: 50%;
-}
-
 #lookup-button {
     width: 50%;
 }
 
 select {
-    border: .5vw black solid;
-    border-radius: 15px;
     text-align: center;
     font-size: 1.5vw;
     line-height: 2vw;
@@ -50,17 +56,23 @@ select {
 }
 
 #download-button {
-    width: 5%;
+    width: 3.5%;
 }
 
 @media screen and (max-width: 991px) {
-    #lookup-button {
-        width: 98%;
+
+    #lookup {
+        width: 97%;
+    }
+
+    #your-wl-spots {
+        font-size: 2.8vh;
+        line-height: 3.2vh;
     }
 
     h2 {
-        margin-top: 2vh !important;
-        margin-bottom:2vh !important;
+        margin-top: 4vh !important;
+        margin-bottom:4vh !important;
     }
 
     #wl-section {
@@ -68,8 +80,8 @@ select {
         border-width: 5px;
         padding-top:2vh;
         padding-bottom: 2vh;
-        font-size: 1.2vh;
-        line-height: 1.2vh;
+        font-size: 1.5vh;
+        line-height: 1.5vh;
     }
 
     input, select {
@@ -86,8 +98,14 @@ select {
     }
 
     select {
-        margin-bottom: 2vh;
+        margin-bottom: 4vh;
     }
+
+    #wl-select {
+        width: 95%;
+    }
+
+
 
     #spacer {
         height: 2vh;
