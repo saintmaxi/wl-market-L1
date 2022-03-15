@@ -1,12 +1,10 @@
 @font-face {  
-	font-family: 'Minecraft';
-	/* src: URL('../css/Minecraft.ttf') format('truetype'); */
+	font-family: 'Martian';
 	src: URL('../css/Game-Of-Squids.ttf') format('truetype');
 }  
 
 @font-face {  
 	font-family: 'Space';
-	/* src: URL('../css/Minecraft.ttf') format('truetype'); */
 	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
 }  
 
@@ -23,7 +21,7 @@ select {
 
 html, body {
 	overscroll-behavior: none;
-	font-family: 'Minecraft', sans-serif;
+	font-family: 'Martian', sans-serif;
 	margin: 0;
 	width: 100%;
 	height: 100%;
@@ -55,7 +53,7 @@ h1, h2 {
 }
 
 h1 {
-	font-family: "Minecraft";
+	font-family: "Martian";
 	color: black;
 	font-size: 3vw !important;
 	line-height: 3vw !important;
@@ -91,7 +89,7 @@ p {
 
 .body {
 	background-color: white;
-	font-family: 'Minecraft', sans-serif;
+	font-family: 'Martian', sans-serif;
 	background-size: auto;
 	background-repeat: repeat;
 	color: black;
@@ -167,7 +165,7 @@ p {
 	line-height: 1.7vw;
 	padding: .5vw;
 	border-radius: 5px;
-	font-family: 'Minecraft', sans-serif;
+	font-family: 'Martian', sans-serif;
 	font-weight: bolder;
 }
 
