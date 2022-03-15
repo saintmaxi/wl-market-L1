@@ -264,7 +264,7 @@ const updateSupplies = async() => {
         let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
         let maxSlots = WLinfo.amountAvailable;
         let minted = WLinfo.amountPurchased;
-        let purchased = buyers.includes((await getAddress)) ? true : false;
+        let purchased = buyers.includes((await getAddress())) ? true : false;
         if (purchased) {
             $(`#${id}-mint-button`).text("PURCHASED");
             $(`#${id}-mint-button`).addClass("purchased");
