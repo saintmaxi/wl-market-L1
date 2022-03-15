@@ -171,7 +171,6 @@ h2 {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: 15px;
-    max-width: 550px;
     position: relative;
 }
 
@@ -213,13 +212,12 @@ h2 {
 	border-width: .2vw;
     background-color: black;
     width: 30%;
-    width: 200px;
-    height: 200px;
+    width: 175px;
+    height: 175px;
 }
 
 .collection-info {
     width:90%;
-    margin-left:2%
 }
 
 .collection-description {
@@ -254,6 +252,12 @@ h4 {
 }
 
 .inside-text {
+    font-size: 1.2vw;
+    line-height: 1.3vw;
+    padding-bottom: 20px;
+}
+
+.end-time {
     font-size: 1.2vw;
     line-height: 1.3vw;
 }
@@ -555,14 +559,19 @@ h4 {
 
     h4 {
         font-size: 3vh;
-        line-height: 3vh;
+        line-height: 3.2vh;
         color: white;
     }
 
     .inside-text {
         font-size: 3vh;
-        line-height: 3vh;
+        line-height: 3.2vh;
         padding-bottom: 20px;
+    }
+
+    .end-time {
+        font-size: 3vh;
+        line-height: 3.2vh;   
     }
 
     #mint-prompt {

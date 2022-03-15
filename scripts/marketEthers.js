@@ -66,7 +66,7 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
                             <br>
                             ??? $TOKEN
                             <br>
-                            Ends MM/DD/YYYY
+                            <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
                             </h4>
                             <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
                             </div>
@@ -81,6 +81,7 @@ var currentTokenImageURI;
 
 const selectProject = async(address) => {
     if (address) {
+        $("#approval-button").html(`Approve`);
         $("#scroll-indicator").addClass("hidden");
         $("#token-balance").html(`<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
         await checkTokenApproval();
@@ -124,7 +125,6 @@ const checkTokenApproval = async() => {
             $("#approval").addClass("hidden");
         }
         else {
-            $("#approval-button").html(`Approve`) // see if can fix when switching projects mid tx
             $("#approval").removeClass("hidden");
         }
     }
@@ -212,7 +212,7 @@ const loadCollections = async() => {
                                 <br>
                                 <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
                                 <br>
-                                Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()}
+                                <span class="end-time">Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()} ${(new Date(WLinfo.deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                                 </h4>
                                 <div class="inside-text collection-description">
                                 ${WLinfo.description}
