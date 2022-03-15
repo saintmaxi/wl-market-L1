@@ -117,9 +117,9 @@ function selectProject(projectName) {
 function selectListing(listingName) {
     let projectName = $("#wl-select").val();
     let wlArray = [...(projectToWL.get(projectName).get(listingName))];
-    let wlString = wlArray.join("\n");
+    let wlString = wlArray.join("<br>");
     $("#wl-section").empty();
-    $("#wl-section").text(wlString);
+    $("#wl-section").html(wlString);
     updateDownload();
 }
 
