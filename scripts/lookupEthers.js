@@ -69,16 +69,6 @@ const getChainId = async()=>{
     return await signer.getChainId()
 };
 
-const updateCurrentChain = async() => {
-    if ((await getChainId()) !== correctChain) {
-        displayErrorMessage("Error: Wrong Network!", false);
-    }
-    else {
-        $("#error-popup").remove();
-        $("#block-screen-error").remove();
-    }
-}
-
 var projectToWL = new Map();
 var myWL = [];
 
@@ -157,9 +147,7 @@ function updateDownload() {
 
 provider.on("network", async(newNetwork, oldNetwork) => {
     if (oldNetwork) {
-        $("#refresh-notification").remove();
-        await updateCurrentChain();
-        await updateClaimingInfo();
+        location.reload();
     }
 });
 

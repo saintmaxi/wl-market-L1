@@ -384,6 +384,12 @@ ethereum.on("accountsChanged", async (accounts_) => {
     location.reload();
 });
 
+provider.on("network", async(newNetwork, oldNetwork) => {
+    if (oldNetwork) {
+        location.reload();
+    }
+});
+
 window.onload = async() => {
     await setMarket();
     if (!(await getAddress())) {
