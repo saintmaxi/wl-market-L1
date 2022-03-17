@@ -279,7 +279,7 @@ const loadCollections = async() => {
                                 </div>
                                 ${button}
                                 </div>`
-                                
+
                 idToPastJSX.set(id, fakeJSX);
             }
         }));
@@ -405,6 +405,7 @@ const updateInfo = async () => {
 
 setInterval( async() => {
     await updateInfo();
+    await updateTokenBalance();
     if (loadedCollections) {
         await updateSupplies();
     }
