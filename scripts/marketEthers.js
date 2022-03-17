@@ -193,78 +193,92 @@ const purchase = async(tokenAddress, id) => {
 
 var loadedCollections = false;
 
+const splitArrayToChunks = (array_, chunkSize_) => {
+    let _arrays = Array(Math.ceil(array_.length / chunkSize_))
+    .fill()
+    .map((_, index) => index * chunkSize_)
+    .map((begin) => array_.slice(begin, begin + chunkSize_));
+
+    console.log(_arrays);
+    return _arrays;
+};
+
 const loadCollections = async() => {
     if (!currentTokenAddress) return;
     loadedCollections = false;
 
     let numCollections = Number(await market.getWLVendingItemsLength(currentTokenAddress));
+    let collections = Array.from(Array(numCollections).keys())
+    const chunks = splitArrayToChunks(collections, 5)
     let liveJSX = "";
     let pastJSX = "";
     let numLive = 0;
     let numPast = 0;
-    for (let id = 0; id < numCollections; id++) {
-        // WL data from contract
-        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
-        let collectionPrice = Number(formatEther(WLinfo.price));
-        let purchased = await market.contractToWLPurchased(currentTokenAddress, id, await getAddress());
+    for (const chunk of chunks) {
+        await Promise.all( chunk.map( async(id) => {
+            // WL data from contract
+            let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
+            let collectionPrice = Number(formatEther(WLinfo.price));
+            let purchased = await market.contractToWLPurchased(currentTokenAddress, id, await getAddress());
 
-        // Data from JSON file
-        let maxSlots = WLinfo.amountAvailable;
-        let minted = WLinfo.amountPurchased;
-        let valid =  WLinfo.deadline > (Date.now()/1000);
+            // Data from JSON file
+            let maxSlots = WLinfo.amountAvailable;
+            let minted = WLinfo.amountPurchased;
+            let valid =  WLinfo.deadline > (Date.now()/1000);
 
-        if (minted != maxSlots && valid) {
-            numLive += 1;
-            let button;
-            if (purchased) {
-                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
+            if (minted != maxSlots && valid) {
+                numLive += 1;
+                let button;
+                if (purchased) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
+                }
+                else {
+                    button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
+                }
+                let fakeJSX = `<div class="partner-collection" id="project-${id}">
+                                <img class="collection-img" src="${WLinfo.imageUri}">
+                                <div class="collection-info">
+                                    <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                    <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
+                                    <br>
+                                    <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
+                                    <br>
+                                    <span class="end-time">Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()} ${(new Date(WLinfo.deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                    </h4>
+                                    <div class="inside-text collection-description">
+                                    ${WLinfo.description}
+                                    </div>
+                                </div>
+                                ${button}
+                                </div>`
+                liveJSX += fakeJSX;
             }
             else {
-                button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
-            }
-            let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                            <img class="collection-img" src="${WLinfo.imageUri}">
-                            <div class="collection-info">
-                                <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
-                                <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
-                                <br>
-                                <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
-                                <br>
-                                <span class="end-time">Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()} ${(new Date(WLinfo.deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                </h4>
-                                <div class="inside-text collection-description">
-                                ${WLinfo.description}
+                numPast +=1;
+                let button;
+                if (purchased) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
+                }
+                else if (!valid) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">EXPIRED</button>`;
+                }
+                else if (minted == maxSlots) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
+                }
+                let fakeJSX = `<div class="partner-collection" id="project-${id}">
+                                <img class="collection-img" src="${WLinfo.imageUri}">
+                                <div class="collection-info">
+                                    <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                    <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
+                                    <div class="inside-text collection-description">
+                                    ${WLinfo.description}
+                                    </div>
                                 </div>
-                            </div>
-                            ${button}
-                            </div>`
-            liveJSX += fakeJSX;
-        }
-        else {
-            numPast +=1;
-            let button;
-            if (purchased) {
-                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
+                                ${button}
+                                </div>`
+                pastJSX += fakeJSX;
             }
-            else if (!valid) {
-                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">EXPIRED</button>`;
-            }
-            else if (minted == maxSlots) {
-                button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
-            }
-            let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                            <img class="collection-img" src="${WLinfo.imageUri}">
-                            <div class="collection-info">
-                                <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
-                                <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
-                                <div class="inside-text collection-description">
-                                ${WLinfo.description}
-                                </div>
-                            </div>
-                            ${button}
-                            </div>`
-           pastJSX += fakeJSX;
-        }
+        }));
     }
     $("#live-collections").empty();
     $("#past-collections").empty();
