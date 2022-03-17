@@ -198,12 +198,11 @@ const loadCollections = async() => {
     let pastJSX = "";
     let numLive = 0;
     let numPast = 0;
-    for (let i = 0; i < numCollections; i++) {
+    for (let id = 0; id < numCollections; id++) {
         // WL data from contract
-        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, i);
-        let id = i;
+        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
         let collectionPrice = Number(formatEther(WLinfo.price));
-        let purchased = await market.contractToWLPurchased(currentTokenAddress, i, await getAddress());
+        let purchased = await market.contractToWLPurchased(currentTokenAddress, id, await getAddress());
 
         // Data from JSON file
         let maxSlots = WLinfo.amountAvailable;
