@@ -208,12 +208,14 @@ const loadCollections = async() => {
     loadedCollections = false;
 
     let numCollections = Number(await market.getWLVendingItemsLength(currentTokenAddress));
-    let collections = Array.from(Array(numCollections).keys())
-    const chunks = splitArrayToChunks(collections, 5)
+    let collections = Array.from(Array(numCollections).keys());
+    const chunks = splitArrayToChunks(collections, 5);
     let liveJSX = "";
     let pastJSX = "";
     let numLive = 0;
     let numPast = 0;
+    let idToLiveJSX = new Map();
+    let idToPastJSX = new Map();
     for (const chunk of chunks) {
         await Promise.all( chunk.map( async(id) => {
             // WL data from contract
@@ -224,7 +226,7 @@ const loadCollections = async() => {
             // Data from JSON file
             let maxSlots = WLinfo.amountAvailable;
             let minted = WLinfo.amountPurchased;
-            let valid =  WLinfo.deadline > (Date.now()/1000);
+            let valid = WLinfo.deadline > (Date.now()/1000);
 
             if (minted != maxSlots && valid) {
                 numLive += 1;
@@ -251,7 +253,8 @@ const loadCollections = async() => {
                                 </div>
                                 ${button}
                                 </div>`
-                liveJSX += fakeJSX;
+
+                idToLiveJSX.set(id, fakeJSX);
             }
             else {
                 numPast +=1;
@@ -276,10 +279,21 @@ const loadCollections = async() => {
                                 </div>
                                 ${button}
                                 </div>`
-                pastJSX += fakeJSX;
+                                
+                idToPastJSX.set(id, fakeJSX);
             }
         }));
     }
+
+    let liveIds = Array.from(idToLiveJSX.keys()).map(Number).sort(function(a, b){return b-a});
+    let pastIds = Array.from(idToPastJSX.keys()).map(Number).sort(function(a, b){return b-a});
+    for (const liveId of liveIds) {
+        liveJSX += idToLiveJSX.get(liveId);
+    }
+    for (const pastId of pastIds) {
+        pastJSX += idToPastJSX.get(pastId);
+    }
+    
     $("#live-collections").empty();
     $("#past-collections").empty();
     $("#live-collections").append(liveJSX);
@@ -436,7 +450,6 @@ window.onload = async() => {
     }
     await updateInfo();
     await loadPartnerCollections();
-    await loadCollections();
     await updateTokenBalance();
 };
 
