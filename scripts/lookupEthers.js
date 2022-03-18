@@ -87,7 +87,6 @@ const loadCollectionsData = async() => {
         let listingsToBuyers = new Map();
         let numListings = await market.getWLVendingItemsLength(collectionAddress);
         for (let id = 0; id < numListings; id++) {
-            let listingToBuyers = new Map();
             let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
             let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
             let title = WLinfo.title;
