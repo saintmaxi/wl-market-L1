@@ -234,6 +234,7 @@ const loadCollections = async() => {
             let maxSlots = WLinfo.amountAvailable;
             let minted = WLinfo.amountPurchased;
             let valid = WLinfo.deadline > (Date.now()/1000);
+            let imageUri = (WLinfo.imageUri).includes("https://") ? WLinfo.imageUri : `https://${WLinfo.imageUri}`
 
             if (minted != maxSlots && valid) {
                 numLive += 1;
@@ -245,7 +246,7 @@ const loadCollections = async() => {
                     button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
                 }
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                                <img class="collection-img" src="${WLinfo.imageUri}">
+                                <img class="collection-img" src="${imageUri}">
                                 <div class="collection-info">
                                     <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
@@ -278,7 +279,7 @@ const loadCollections = async() => {
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
                                 <img class="collection-img" src="${WLinfo.imageUri}">
                                 <div class="collection-info">
-                                    <h3><a class="clickable link" href="${WLinfo.projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                    <h3><a class="clickable link" href="${imageUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
                                     <div class="inside-text collection-description">
                                     ${WLinfo.description}
