@@ -199,7 +199,6 @@ const splitArrayToChunks = (array_, chunkSize_) => {
     .map((_, index) => index * chunkSize_)
     .map((begin) => array_.slice(begin, begin + chunkSize_));
 
-    console.log(_arrays);
     return _arrays;
 };
 
@@ -209,8 +208,13 @@ const loadCollections = async() => {
 
     const userAddress = await getAddress();
     const numCollections = Number( await market.getWLVendingItemsLength(currentTokenAddress) );
-    const allItems = await market.getWLVendingItemsAll( currentTokenAddress);
-    console.log(allItems)
+    let allItems;
+    if (numCollections > 0) {
+        allItems = await market.getWLVendingItemsPaginated( currentTokenAddress, 0, numCollections - 1);
+    }
+    else {
+        allItems = [];
+    }
     let allItemIds = Array.from(Array(numCollections).keys());
     const chunks = splitArrayToChunks(allItemIds, 5);
     let liveJSX = "";
