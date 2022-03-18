@@ -207,9 +207,11 @@ const loadCollections = async() => {
     if (!currentTokenAddress) return;
     loadedCollections = false;
 
-    let numCollections = Number(await market.getWLVendingItemsLength(currentTokenAddress));
-    let collections = Array.from(Array(numCollections).keys());
-    const chunks = splitArrayToChunks(collections, 5);
+    const userAddress = await getAddress();
+    const numCollections = Number( await market.getWLVendingItemsLength(currentTokenAddress) );
+    const allItems = await market.getWLVendingItemsPaginated( currentTokenAddress, 0, numCollections );
+    let allItemIds = Array.from(Array(numCollections).keys());
+    const chunks = splitArrayToChunks(allItemIds, 5);
     let liveJSX = "";
     let pastJSX = "";
     let numLive = 0;
@@ -219,9 +221,9 @@ const loadCollections = async() => {
     for (const chunk of chunks) {
         await Promise.all( chunk.map( async(id) => {
             // WL data from contract
-            let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
+            let WLinfo = allItems[id];
             let collectionPrice = Number(formatEther(WLinfo.price));
-            let purchased = await market.contractToWLPurchased(currentTokenAddress, id, await getAddress());
+            let purchased = await market.contractToWLPurchased(currentTokenAddress, id, userAddress);
 
             // Data from JSON file
             let maxSlots = WLinfo.amountAvailable;
@@ -304,13 +306,14 @@ const loadCollections = async() => {
 }
 
 const updateSupplies = async() => {
+    let userAddress = await getAddress();
     let numListings = Number(await market.getWLVendingItemsLength(currentTokenAddress));
     for (let id = 0; id < numListings; id++) {
-        let buyers = (await market.getWLPurchasersOf(currentTokenAddress, id));
+        let buyers = await market.getWLPurchasersOf(currentTokenAddress, id);
         let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
         let maxSlots = WLinfo.amountAvailable;
         let minted = WLinfo.amountPurchased;
-        let purchased = buyers.includes((await getAddress())) ? true : false;
+        let purchased = buyers.includes(userAddress);
         if (purchased) {
             $(`#${id}-mint-button`).text("PURCHASED");
             $(`#${id}-mint-button`).addClass("purchased");
