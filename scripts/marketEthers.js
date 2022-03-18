@@ -209,7 +209,8 @@ const loadCollections = async() => {
 
     const userAddress = await getAddress();
     const numCollections = Number( await market.getWLVendingItemsLength(currentTokenAddress) );
-    const allItems = await market.getWLVendingItemsPaginated( currentTokenAddress, 0, numCollections );
+    const allItems = await market.getWLVendingItemsAll( currentTokenAddress);
+    console.log(allItems)
     let allItemIds = Array.from(Array(numCollections).keys());
     const chunks = splitArrayToChunks(allItemIds, 5);
     let liveJSX = "";
