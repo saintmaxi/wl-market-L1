@@ -395,12 +395,34 @@ async function endLoading(tx, txStatus) {
     }
 }
 
+var chainLogoSet = false;
+
+const setChainLogo = async() => {
+    let chainLogo = "";
+    let chain = await getChainId();
+    if (chain == 1 || chain == 4) {
+        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/eth.png?raw=true' class='token-icon'>";
+    }
+    else if (chain == 42161) {
+        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/arbitrum.png?raw=true' class='token-icon'>";
+    }
+    else if (chain == 137) {
+        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/polygon.png?raw=true' class='token-icon'>";
+    }
+    chainLogoSet = true;
+    $("#account-chain-logo").html(chainLogo);
+    $("#mobile-account-chain-logo").html(chainLogo);
+}
+
 const updateInfo = async () => {
     await checkTokenApproval();
     let userAddress = await getAddress();
-    $("#account").text(`${userAddress.substr(0,9)}..`);
+    $("#account-text").html(`${userAddress.substr(0,5)}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account").text(`${userAddress.substr(0,9)}...`);
+    $("#mobile-account-text").html(`${userAddress.substr(0,12)}..`);
+    if (!chainLogoSet) {
+        await setChainLogo();
+    }
 };
 
 setInterval( async() => {
