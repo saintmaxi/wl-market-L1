@@ -36,21 +36,12 @@ const tokenImgURL = "https://github.com/saintmaxi/mtmtest/blob/main/images/mes.p
 /*********************************END CONFIG************************************/
 
 if (window.ethereum == undefined) {
-    displayErrorMessage('Use a web3 enabled browser to browse listings!');
+    displayErrorMessage('Use a web3 enabled browser and connect to use workshop!');
 }
 
-// Initiate Provider 
-const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+const provider = new ethers.providers.Web3Provider(window.ethereum,"any");
 const signer = provider.getSigner();
 
-// General Functions
-const connect = async() => { await provider.send("eth_requestAccounts", []) };
-const getAddress = async() => { try { return await signer.getAddress(); } catch { return false; }}; 
-const formatEther = (balance_) => { return ethers.utils.formatEther(balance_) }; // divides by 18 modulus
-const parseEther = (eth_) => { return ethers.utils.parseEther(eth_) }; // multiplies by 18 modulus
-const getChainId = async() => { return await signer.getChainId() };
-
-// Initiate Contracts
 let market;
 let marketAddress;
 
@@ -70,268 +61,34 @@ const setMarket = async() => {
     }
     market = new ethers.Contract(marketAddress, marketAbi(), signer);
 }
+const connect = async()=>{
+    await provider.send("eth_requestAccounts", []);
+};
 
-// General Variables
-const maxInt = "115792089237316195423570985008687907853269984665640564039457584007913129639934";
+const getAddress = async()=>{
+    return await signer.getAddress()
+};
 
-const loadingDiv = `<div id="ex1" class="partner-collection example">
-                        <div class="cover">
-                            <button class="button" onclick="connect()">LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span></button>
-                        </div>
-                        <img class="collection-img" src="./images/question.jpeg">
-                        <div class="collection-info">
-                            <h3>???</h3>
-                            <h4>???/??? Purchased
-                            <br>
-                            ??? $TOKEN
-                            <br>
-                            <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
-                            </h4>
-                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
-                            </div>
-                            <button class="button">PURCHASE</button>
-                        </div>
-                    </div>`
+const formatEther = (balance_)=>{
+    return ethers.utils.formatEther(balance_)
+};
 
-// Approval Functions
+const parseEther = (eth_)=>{
+    return ethers.utils.parseEther(eth_)
+};
 
-var currentTokenAddress;
-var currentTokenImageURI;
+const getChainId = async()=>{
+    return await signer.getChainId()
+};
+
+// --- WORKSHOP FUNCTIONS ---
+
 
 const selectProject = async(address) => {
     if (address) {
-        $("#approval-button").html(`Approve`);
-        $("#scroll-indicator").addClass("hidden");
-        $("#token-balance").html(`<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
-        await checkTokenApproval();
-        $("#live-collections").empty();
-        $("#past-collections").empty();
-        $("#live-collections").append(loadingDiv);
-        $("#past-collections").append(loadingDiv);
-        $("#num-live").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
-        $("#num-past").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
         let projectInfo = await market.contractToProjectInfo(address);
-        currentTokenAddress = address;
         currentTokenImageURI = (projectInfo.tokenImageUri).includes("https://") ? projectInfo.tokenImageUri : `https://${projectInfo.tokenImageUri}`;
-
-        await checkTokenApproval();
-        await loadCollections();
-        await updateTokenBalance();
-
-        if ($("#live-button").hasClass("active")) {
-            showLive();
-        }
-        else {
-            showPast();
-        }
-    }
-}
-
-const approveTokenToMarket = async() => {
-    const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-    await token.approve(marketAddress, maxInt).then (async(tx_) => {
-        await waitForTransaction(tx_);
-        $("#approval-button").html(`Approving<span class="one">.</span><span class="two">.</span><span class="three">.</span>`)
-    });
-}
-
-const checkTokenApproval = async() => {
-    if (currentTokenAddress) {
-        const userAddress = await getAddress();
-        const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-    
-        if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
-            $("#approval").addClass("hidden");
-        }
-        else {
-            $("#approval").removeClass("hidden");
-        }
-    }
-};
-
-const updateTokenBalance = async() => {
-    if (currentTokenAddress) {
-        const userAddress = await getAddress();
-        const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-        let balance = formatEther((await token.balanceOf(userAddress)));
-        $("#token-balance").html(`${balance} <img src="${currentTokenImageURI}" class="token-icon">`);
-    }
-}
-
-const purchase = async(tokenAddress, id) => {
-    try {
-        await market.purchaseWLVendingItem(tokenAddress, id).then( async(tx_) => {
-            await waitForTransaction(tx_);
-        });
-    }
-    catch (error) {
-        if ((error.message).includes("Already purchased")) {
-            await displayErrorMessage(`Error: You already purchased a slot!`);
-        }
-        else if ((error.message).includes("This WLVendingItem does not exist!")) {
-            await displayErrorMessage(`Error: Item does not exist!`);
-        }
-        else if ((error.message).includes("No more WL remaining")) {
-            await displayErrorMessage(`Error: No spots left!`);
-        }
-        else if ((error.message).includes("Passed deadline")) {
-            await displayErrorMessage(`Error: Listing expired!`);
-        }
-        else if ((error.message).includes("Not enough tokens")) {
-            await displayErrorMessage(`Error: Not enough tokens!`);
-        }
-        else if ((error.message).includes("User denied transaction signature")) {
-            console.log("Transaction rejected.");
-        }
-        else {
-            await displayErrorMessage("An error occurred. See console and window alert for details...")
-            window.alert(error);
-            console.log(error);
-        }
-    }
-}
-
-var loadedCollections = false;
-
-const splitArrayToChunks = (array_, chunkSize_) => {
-    let _arrays = Array(Math.ceil(array_.length / chunkSize_))
-    .fill()
-    .map((_, index) => index * chunkSize_)
-    .map((begin) => array_.slice(begin, begin + chunkSize_));
-
-    return _arrays;
-};
-
-const loadCollections = async() => {
-    if (!currentTokenAddress) return;
-    loadedCollections = false;
-
-    const userAddress = await getAddress();
-    const numCollections = Number( await market.getWLVendingItemsLength(currentTokenAddress) );
-    let allItems;
-    if (numCollections > 0) {
-        allItems = await market.getWLVendingItemsPaginated( currentTokenAddress, 0, numCollections - 1);
-    }
-    else {
-        allItems = [];
-    }
-    let allItemIds = Array.from(Array(numCollections).keys());
-    const chunks = splitArrayToChunks(allItemIds, 5);
-    let liveJSX = "";
-    let pastJSX = "";
-    let numLive = 0;
-    let numPast = 0;
-    let idToLiveJSX = new Map();
-    let idToPastJSX = new Map();
-    for (const chunk of chunks) {
-        await Promise.all( chunk.map( async(id) => {
-            // WL data from contract
-            let WLinfo = allItems[id];
-            let collectionPrice = Number(formatEther(WLinfo.price));
-            let purchased = await market.contractToWLPurchased(currentTokenAddress, id, userAddress);
-
-            // Data from JSON file
-            let maxSlots = WLinfo.amountAvailable;
-            let minted = WLinfo.amountPurchased;
-            let valid = WLinfo.deadline > (Date.now()/1000);
-            let imageUri = (WLinfo.imageUri).includes("https://") ? WLinfo.imageUri : `https://${WLinfo.imageUri}`;
-            let projectUri = (WLinfo.projectUri).includes("https://") ? WLinfo.projectUri : `https://${WLinfo.projectUri}`;
-
-            if (minted != maxSlots && valid) {
-                numLive += 1;
-                let button;
-                if (purchased) {
-                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
-                }
-                else {
-                    button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
-                }
-                let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                                <img class="collection-img" src="${imageUri}">
-                                <div class="collection-info">
-                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
-                                    <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
-                                    <br>
-                                    <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
-                                    <br>
-                                    <span class="end-time">Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()} ${(new Date(WLinfo.deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                    </h4>
-                                    <div class="inside-text collection-description">
-                                    ${WLinfo.description}
-                                    </div>
-                                </div>
-                                ${button}
-                                </div>`
-
-                idToLiveJSX.set(id, fakeJSX);
-            }
-            else {
-                numPast +=1;
-                let button;
-                if (purchased) {
-                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
-                }
-                else if (!valid) {
-                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">EXPIRED</button>`;
-                }
-                else if (minted == maxSlots) {
-                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
-                }
-                let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                                <img class="collection-img" src="${imageUri}">
-                                <div class="collection-info">
-                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
-                                    <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
-                                    <div class="inside-text collection-description">
-                                    ${WLinfo.description}
-                                    </div>
-                                </div>
-                                ${button}
-                                </div>`
-
-                idToPastJSX.set(id, fakeJSX);
-            }
-        }));
-    }
-
-    let liveIds = Array.from(idToLiveJSX.keys()).map(Number).sort(function(a, b){return b-a});
-    let pastIds = Array.from(idToPastJSX.keys()).map(Number).sort(function(a, b){return b-a});
-    for (const liveId of liveIds) {
-        liveJSX += idToLiveJSX.get(liveId);
-    }
-    for (const pastId of pastIds) {
-        pastJSX += idToPastJSX.get(pastId);
-    }
-    
-    $("#live-collections").empty();
-    $("#past-collections").empty();
-    $("#live-collections").append(liveJSX);
-    $("#past-collections").append(pastJSX);
-    $("#num-live").html(`<br>(${numLive})`);
-    $("#num-past").html(`<br>(${numPast})`);
-    loadedCollections = true;
-}
-
-const updateSupplies = async() => {
-    let userAddress = await getAddress();
-    let numListings = Number(await market.getWLVendingItemsLength(currentTokenAddress));
-    for (let id = 0; id < numListings; id++) {
-        let buyers = await market.getWLPurchasersOf(currentTokenAddress, id);
-        let WLinfo = await market.contractToWLVendingItems(currentTokenAddress, id);
-        let maxSlots = WLinfo.amountAvailable;
-        let minted = WLinfo.amountPurchased;
-        let purchased = buyers.includes(userAddress);
-        if (purchased) {
-            $(`#${id}-mint-button`).text("PURCHASED");
-            $(`#${id}-mint-button`).addClass("purchased");
-            $(`#${id}-mint-button`).prop("disabled", true);
-        }
-        else if (minted == maxSlots ) {
-            $(`#${id}-mint-button`).text("SOLD OUT");
-            $(`#${id}-mint-button`).addClass("purchased");
-            $(`#${id}-mint-button`).prop("disabled", true);
-        }
-        $(`#${id}-supply`).text(minted);
+        $("#ex-token").attr("src", currentTokenImageURI);
     }
 }
 
@@ -346,9 +103,64 @@ const loadPartnerCollections = async() => {
     $("#wl-select").append(fakeJSX);
 }
 
-// Processing txs
+const generate = async() => {
+    let title = $("#listing-title").val();
+    let image = $("#listing-image").val();
+    let site = ($("#listing-site").val()).includes("https://") ? $("#listing-site").val() : `https://${$("#listing-site").val()}`;
+    let description = $("#listing-description").val();
+    let amount = Number($("#listing-amount").val());
+    let deadline = $("#listing-deadline").val();
+    let price = Number($("#listing-price").val());
 
-// After Tx Hook
+    $("#ex-title").html(title);
+    $("#ex-image").attr("src", image);
+    $("#ex-site").attr("href", site);
+    $("#ex-description").html(description);
+    $("#ex-amount").html(amount);
+    $("#ex-remaining").html(0);
+    $("#ex-deadline").html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
+    $("#ex-price").html(price);
+}
+
+const addListing = async() => {
+    try {
+        let currentProjectAddress = $("#wl-select").val();
+        if (!currentProjectAddress) {
+            await displayErrorMessage("Select a project to add listing!")
+        }
+        else {
+            let title = $("#listing-title").val();
+            let image = $("#listing-image").val();
+            let site = ($("#listing-site").val()).includes("https://") ? $("#listing-site").val() : `https://${$("#listing-site").val()}`;
+            let description = $("#listing-description").val();
+            let amount = Number($("#listing-amount").val());
+            let deadline = Number($("#listing-deadline").val());
+            let price = parseEther($("#listing-price").val());
+            if (!(title && image && site && description && amount && deadline && price)) {
+                await displayErrorMessage("Missing fields!")
+            }
+            else {
+                await market.addWLVendingItem(currentProjectAddress, title, image, site, description, amount, deadline, price).then( async(tx_) => {
+                    await waitForTransaction(tx_);
+                });
+            }
+        }
+    }
+    catch (error) {
+        window.alert(error);
+    }
+}
+
+// General functions
+
+provider.on("network", async(newNetwork, oldNetwork) => {
+    if (oldNetwork) {
+        location.reload();
+    }
+});
+
+
+// Processing tx returns
 const waitForTransaction = async(tx_) => {
     startLoading(tx_);
     provider.once(tx_.hash, async (transaction_) => {
@@ -380,7 +192,7 @@ function cachePendingTransactions() {
 function startLoading(tx) {
     let txHash = tx.hash;
     const etherscanLink = `${etherscanBase}${txHash}`;
-    const loadingDiv = `<a href="${etherscanLink}" class="etherscan-link" id="etherscan-link-${txHash}" target="_blank" rel="noopener noreferrer"><div class="loading-div" id="loading-div-${txHash}">PROCESSING<span class="one">.</span><span class="two">.</span><span class="three">.</span><br>CLICK FOR ETHERSCAN</div></a><br>`;
+    const loadingDiv = `<a href="${etherscanLink}" class="etherscan-link" id="etherscan-link-${txHash}" target="_blank" rel="noopener noreferrer"><div class="loading-div" id="loading-div-${txHash}">PROCESSING<span class="one">.</span><span class="two">.</span><span class="three">.</span>​<br>CLICK FOR ETHERSCAN</div></a><br>`;
     $("#pending-transactions").append(loadingDiv);
     pendingTransactions.add(tx);
 }
@@ -400,90 +212,26 @@ async function endLoading(tx, txStatus) {
     await sleep(7000);
     $(`#etherscan-link-${txHash}`).remove();
     pendingTransactions.delete(tx);
-    if (pendingTransactions.size == 0) {
-        await updateSupplies();
-    }
 }
 
-var chainLogoSet = false;
-
-const setChainLogo = async() => {
-    let chainLogo = "";
-    let chain = await getChainId();
-    if (chain == 1 || chain == 4) {
-        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/eth.png?raw=true' class='token-icon'>";
-    }
-    else if (chain == 42161) {
-        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/arbitrum.png?raw=true' class='token-icon'>";
-    }
-    else if (chain == 137) {
-        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/polygon.png?raw=true' class='token-icon'>";
-    }
-    chainLogoSet = true;
-    $("#account-chain-logo").html(chainLogo);
-    $("#mobile-account-chain-logo").html(chainLogo);
-}
-
-const updateInfo = async () => {
-    await checkTokenApproval();
-    let userAddress = await getAddress();
-    $("#account-text").html(`${userAddress.substr(0,5)}..`);
-    $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${userAddress.substr(0,12)}..`);
-    if (!chainLogoSet) {
-        await setChainLogo();
-    }
-};
-
-setInterval( async() => {
+setInterval(async()=>{
     await updateInfo();
-    await updateTokenBalance();
-    if (loadedCollections) {
-        await updateSupplies();
-    }
 }, 5000)
 
-ethereum.on("accountsChanged", async (accounts_) => { 
-    await updateInfo();
+const updateInfo = async () => {
+    let userAddress = await getAddress();
+    $("#account").text(`${userAddress.substr(0,9)}..`);
+    $("#mobile-account").text(`${userAddress.substr(0,9)}...`);
+};
+
+ethereum.on("accountsChanged", async(accounts_)=>{
     location.reload();
 });
 
-provider.on("network", async(newNetwork, oldNetwork) => {
-    if (oldNetwork) {
-        location.reload();
-    }
-});
-
-window.onload = async() => {
+window.onload = async()=>{
     await setMarket();
-    if (!(await getAddress())) {
-        const connectPrompt = ` <div id="ex1" class="partner-collection example">
-                                    <div class="cover">
-                                        <button class="button" onclick="connect()">CONNECT WALLET TO VIEW LISTINGS</button>
-                                    </div>
-                                    <img class="collection-img" src="./images/question.jpeg">
-                                    <div class="collection-info">
-                                        <h3>???</h3>
-                                        <h4>???/??? Purchased
-                                        <br>
-                                        ??? $TOKEN
-                                        <br>
-                                        Ends MM/DD/YYYY
-                                        </h4>
-                                       <div class="inside-text collection-description">
-                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante. Duis sodales eros consequat magna efficitur, non ullamcorper mauris tristique.
-                                        </div>
-                                        <button class="button">PURCHASE</button>
-                                    </div>
-                                </div>`
-        $("#live-collections").empty();
-        $("#past-collections").empty();
-        $("#live-collections").append(connectPrompt);
-        $("#past-collections").append(connectPrompt);
-    }
     await updateInfo();
     await loadPartnerCollections();
-    await updateTokenBalance();
 };
 
 window.onunload = async()=>{

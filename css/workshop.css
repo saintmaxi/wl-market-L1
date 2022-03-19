@@ -1,0 +1,33 @@
+@font-face {  
+	font-family: 'Space';
+	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
+} 
+
+#ex1 input {
+    width: 85%;
+    font-size: .9vw;
+    line-height: 1.5vw;
+	font-family: 'Space';
+    color: black;
+}
+
+#ex1 a {
+    font-size: .9vw;
+    line-height: 1.5vw;
+	font-family: 'Space';
+}
+
+@media screen and (max-width: 767px) {
+
+    #ex1 input {
+        width: 85%;
+        font-size: 2vh;
+        line-height: 2vh;
+    }
+
+    #ex1 a {
+        font-size: 2vh;
+    }
+
+
+}
