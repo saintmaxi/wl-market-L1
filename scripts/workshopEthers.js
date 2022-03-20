@@ -166,10 +166,11 @@ const loadListings = async(address) => {
     let listings = await market.getWLVendingItemsAll(address);
     for (let i = 0; i < listings.length; i++) {
         let WLinfo = listings[i];
-        let valid =  WLinfo.deadline > (Date.now()/1000);
-        if (valid) {
-            fakeJSX += `<option value="${i}">${WLinfo.title}</option>`;
-        }
+        // let valid =  WLinfo.deadline > (Date.now()/1000);
+        // if (valid) {
+        //     fakeJSX += `<option value="${i}">${WLinfo.title}</option>`;
+        // }
+        fakeJSX += `<option value="${i}">${WLinfo.title}</option>`;
     }
     $("#listing-select").append(fakeJSX);
 }
