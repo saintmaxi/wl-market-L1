@@ -151,7 +151,14 @@ const addListing = async() => {
         }
     }
     catch (error) {
-        window.alert(error);
+        if ((error.message).includes("You are not Authorized for this ERC20 Contract!")) {
+            await displayErrorMessage(`You are not authorized to add listings for this ERC20 contract!`);
+        }
+        else {
+            await displayErrorMessage("An error occurred. See console and window alert for details...")
+            window.alert(error);
+            console.log(error);
+        }
     }
 }
 
