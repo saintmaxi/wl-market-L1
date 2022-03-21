@@ -254,7 +254,6 @@ const loadCollections = async() => {
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
                                     <br>
                                     <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
-                                    <br>
                                     </h4>
                                     <div class="inside-text collection-description">
                                     ${WLinfo.description}
