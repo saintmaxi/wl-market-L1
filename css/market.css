@@ -204,15 +204,14 @@ h2 {
 }
 
 .collection-img {
-    margin: 10px;
 	border-style: solid;
 	border-color: white;
 	border-radius: 15px;
 	border-width: .2vw;
     background-color: black;
     width: 30%;
-    width: 175px;
-    height: 175px;
+    width: 200px;
+    height: 200px;
 }
 
 .collection-info {
@@ -540,8 +539,8 @@ h4 {
 
     .collection-img {
 		border-width: 5px;
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
         min-width: 0px !important;
         min-height: 0px !important;
     }
@@ -559,14 +558,15 @@ h4 {
 
     h4 {
         font-size: 3vh;
-        line-height: 3.2vh;
+        line-height: 3.1vh;
         color: white;
     }
 
     .inside-text {
-        font-size: 3vh;
-        line-height: 3.2vh;
+        font-size: 2.7vh;
+        line-height: 3vh;
         padding-bottom: 20px;
+        padding-top: 0;
     }
 
     .end-time {
