@@ -153,7 +153,7 @@ const updateTokenBalance = async() => {
     if (currentTokenAddress) {
         const userAddress = await getAddress();
         const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-        let balance = formatEther((await token.balanceOf(userAddress)));
+        let balance = Number(formatEther((await token.balanceOf(userAddress)))).toFixed(1);
         $("#token-balance").html(`${balance} <img src="${currentTokenImageURI}" class="token-icon">`);
     }
 }
