@@ -376,10 +376,12 @@ h4 {
 
 .purchased:hover {
     background-color: grey !important;
+    box-shadow: none;
 }
 
 .cover button:hover {
     background-color: white !important;
+    box-shadow: none;
     cursor: default;
 }
 

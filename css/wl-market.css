@@ -85,6 +85,7 @@ p {
   #account.connected:hover {
 	  background-color: white !important;
 	  cursor: default;
+	  box-shadow: none;
   }
 
 .body {
@@ -167,6 +168,7 @@ p {
 	border-radius: 5px;
 	font-family: 'Martian', sans-serif;
 	font-weight: bolder;
+	transition: box-shadow ease 100ms;
 }
 
 .link {
@@ -185,6 +187,9 @@ p {
 
 .button:hover {
 	background-color: #0FFEF2 !important;
+	-webkit-box-shadow:0px 0px 75px 1px rgba(0,255,242,0.9);
+	-moz-box-shadow: 0px 0px 75px 1px rgba(0,255,242,0.9);
+	box-shadow: 0px 0px 75px 1px rgba(0,255,242,0.9);
 }
 
 .link:hover {
