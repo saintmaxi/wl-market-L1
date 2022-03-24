@@ -337,7 +337,8 @@ const updateSupplies = async() => {
 const loadPartnerCollections = async() => {
     let collections = await market.getAllEnabledContracts();
     let fakeJSX = "";
-    for (let i = 0; i < collections.length; i++) {
+    // for (let i = 0; i < collections.length; i++) {
+    for (let i = 0; i < 1; i++) {
         let address = collections[i];
         let projectInfo = await market.contractToProjectInfo(address);
         fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;

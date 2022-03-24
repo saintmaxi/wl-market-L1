@@ -80,7 +80,8 @@ const loadCollectionsData = async() => {
     let collections = await market.getAllEnabledContracts();
     let userAddress = await getAddress();
     let fakeJSX = `<option disabled selected value="">SELECT PROJECT</option>`;
-    for (let i = 0; i < collections.length; i++) {
+    // for (let i = 0; i < collections.length; i++) {
+    for (let i = 0; i < 1; i++) {
         let collectionAddress = collections[i];
         let projectInfo = await market.contractToProjectInfo(collectionAddress);
         let projectName = projectInfo.projectName;
