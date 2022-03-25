@@ -94,7 +94,12 @@ const loadCollectionsData = async() => {
             if (purchased) {
                 myWL.push(title);
             }
-            listingsToBuyers.set(title, buyers);
+            let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
+                let discord = await identityMapper.addressToDiscord(buyer);
+                let discordResult = discord ? discord : "Discord Unknown";
+                return `${discordResult}: ${buyer}`;
+            }));
+            listingsToBuyers.set(title, discordsAndBuyers);
         }
         projectToWL.set(projectName, listingsToBuyers);
         fakeJSX += `<option value="${projectName}">${projectName}</option>`;
@@ -234,9 +239,9 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${userAddress.substr(0,5)}..`);
+    $("#account-text").html(`${userAddress.substr(0,7)}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${userAddress.substr(0,12)}..`);
+    $("#mobile-account-text").html(`${userAddress.substr(0,7)}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }

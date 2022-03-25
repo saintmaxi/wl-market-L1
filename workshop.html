@@ -35,7 +35,6 @@
          </div>
       </div>
       <div id="header" class="header hide-on-mobile">
-         <!-- WHITELIST MARKETPLACE -->
          <div class="header-menu">
             <a href="./index.html" class="link">
                MARKET
@@ -46,16 +45,6 @@
                LOOKUP
             </a>
          </div>
-         <!-- <div class="header-menu">
-            <a href="#" class="link">
-               LINK
-            </a>
-         </div>
-         <div class="header-menu">
-            <a href="#" class="link">
-               LINK
-            </a>
-         </div> -->
       </div>
       <!-- <div class="hide-on-mobile" id="socials">
          <a href="#" target="_blank" class="link w-inline-block">
@@ -79,11 +68,21 @@
             <span id="account-text">CONNECT</span>
             <span id="account-chain-logo"></span>
          </button>
+         <button class="button hide-on-mobile" id="discord">
+            <img id="discord-img" src="./images/dc-black.png">
+            <span id="discord-text"></span>
+            <img id="edit-img" src="./images/edit.png" onclick="promptForDiscord()">
+         </button>
       </div>
       <div id="mobile-wallet-connect-div" class="hide-on-desktop">
          <button id="mobile-account" href="#" class="button" onclick=connect()>
-            <span id="mobile-account-text">CONNECT WALLET</span>
+            <span id="mobile-account-text">CONNECT</span>
             <span id="mobile-account-chain-logo"></span>
+         </button>
+         <button class="button" id="discord-mobile">
+            <img id="discord-img" src="./images/dc-black.png">
+            <span id="discord-text-mobile"></span>
+            <img id="edit-img" src="./images/edit.png" onclick="promptForDiscord()">
          </button>
          <button id="navbar" href="#" class="button" onclick="toggleMenu()"></button>
       </div>

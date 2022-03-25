@@ -361,9 +361,9 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${userAddress.substr(0,5)}..`);
+    $("#account-text").html(`${userAddress.substr(0,7)}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${userAddress.substr(0,12)}..`);
+    $("#mobile-account-text").html(`${userAddress.substr(0,7)}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }
