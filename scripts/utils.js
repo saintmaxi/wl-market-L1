@@ -76,7 +76,7 @@ function toggleMenu() {
     el.classList.toggle('collapsed')
  }
 
- function clearPendingTxs() {
+function clearPendingTxs() {
     localStorage.removeItem("MartianMarketPendingTxs");
     pendingTransactions.clear();
     location.reload();
