@@ -88,11 +88,16 @@ p {
 #desktop-wallet-connect-div button {
 	width: 48%;
 	font-size: 1.2vw;
+	min-height: 3vw;
 	letter-spacing: 2px
 }
 
 #discord-img {
 	height: 1.8vw;
+}
+
+#discord {
+	height: 50%;
 }
 
 #edit-img {
