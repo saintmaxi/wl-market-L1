@@ -177,6 +177,9 @@ const purchase = async(tokenAddress, id) => {
         else if ((error.message).includes("This WLVendingItem does not exist!")) {
             await displayErrorMessage(`Error: Item does not exist!`);
         }
+        else if ((error.message).includes("execution reverted")) {
+            await displayErrorMessage(`Error: Approve token spend at top of page!`);
+        }
         else if ((error.message).includes("No more WL remaining")) {
             await displayErrorMessage(`Error: No spots left!`);
         }
