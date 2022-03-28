@@ -86,8 +86,7 @@ const getChainId = async()=>{
 
 const loadPartnerCollections = async() => {
     let collections = await market.getAllEnabledContracts();
-    // let userAddress = await getAddress();
-    let userAddress = "0x2516c033Ea87D4AC85f03b425B8F0e87Bb2a12c8";
+    let userAddress = await getAddress();
     let fakeJSX = "";
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
