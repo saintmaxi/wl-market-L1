@@ -61,6 +61,7 @@ const setMarket = async() => {
     }
     market = new ethers.Contract(marketAddress, marketAbi(), signer);
 }
+
 const connect = async()=>{
     await provider.send("eth_requestAccounts", []);
 };
@@ -85,12 +86,20 @@ const getChainId = async()=>{
 
 const loadPartnerCollections = async() => {
     let collections = await market.getAllEnabledContracts();
-    let userAddress = await getAddress();
+    // let userAddress = await getAddress();
+    let userAddress = "0x2516c033Ea87D4AC85f03b425B8F0e87Bb2a12c8";
     let fakeJSX = "";
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
         let token = new ethers.Contract(address, baseTokenAbi(), signer);
-        if (userAddress == (await token.owner()) || await market.contractToControllersApproved(address, userAddress)) {
+        let owner;
+        try {
+            owner = (userAddress == await token.owner());
+        } catch {
+            owner = false;
+        };
+        let operator = await market.contractToControllersApproved(address, userAddress);
+        if (owner || operator) {
             let projectInfo = await market.contractToProjectInfo(address);
             fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;
         }
