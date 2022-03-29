@@ -30,6 +30,14 @@
 
 /* Onboarding section */
 
+#onboarding-alert p {
+    width: 50%;
+    margin: auto;
+    font-family: "Space";
+    text-align: center;
+    background-color: black;
+}
+
 .onboarding-wrapper {
     display: flex;
     flex-direction: row;
@@ -495,6 +503,11 @@ h4 {
     #onboarding-section {
         padding-top: 25px !important;
         padding-bottom: 25px !important;
+    }
+
+    #onboarding-alert p {
+        width: 95%;
+        margin: auto !important;
     }
 
     .onboarding-wrapper {

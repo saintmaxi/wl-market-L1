@@ -181,7 +181,6 @@ const updateDiscord = async() => {
             $("#discord-mobile").removeClass("failure");
         }
         else {
-            $("#onboarding-header").removeClass("hidden");
             $("#set-discord").removeClass("hidden");
             $("#discord-text").text("NOT SET!");
             $("#discord").addClass("failure");
@@ -190,9 +189,12 @@ const updateDiscord = async() => {
             $("#discord-mobile").addClass("failure"); 
             $("#discord-mobile").removeClass("success"); 
         }
-    }
-    if ($("#set-discord").hasClass("hidden") && $("#approval").hasClass("hidden")) {
-        $("#onboarding-header").addClass("hidden");
+        if ($("#approval").hasClass("hidden") && $("#set-discord").hasClass("hidden")) {
+            $("#onboarding-alert").addClass("hidden");
+        }
+        else {
+            $("#onboarding-alert").removeClass("hidden");
+        }
     }
 }
 

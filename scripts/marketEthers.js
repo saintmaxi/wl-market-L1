@@ -103,7 +103,6 @@ const selectProject = async(address) => {
         $("#approval-button").html(`Approve`);
         $("#scroll-indicator").addClass("hidden");
         $("#token-balance").html(`<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
-        await checkTokenApproval();
         $("#live-collections").empty();
         $("#past-collections").empty();
         $("#live-collections").append(loadingDiv);
@@ -144,11 +143,13 @@ const checkTokenApproval = async() => {
             $("#approval").addClass("hidden");
         }
         else {
-            $("#onboarding-header").removeClass("hidden");
             $("#approval").removeClass("hidden");
         }
-        if ($("#set-discord").hasClass("hidden") && $("#approval").hasClass("hidden")) {
-            $("#onboarding-header").addClass("hidden");
+        if ($("#approval").hasClass("hidden") && $("#set-discord").hasClass("hidden")) {
+            $("#onboarding-alert").addClass("hidden");
+        }
+        else {
+            $("#onboarding-alert").removeClass("hidden");
         }
     }
 };
@@ -440,7 +441,6 @@ const setChainLogo = async() => {
 }
 
 const updateInfo = async () => {
-    await checkTokenApproval();
     let userAddress = await getAddress();
     $("#account-text").html(`${userAddress.substr(0,7)}..`);
     $("#account").addClass(`connected`);
@@ -451,6 +451,7 @@ const updateInfo = async () => {
 };
 
 setInterval( async() => {
+    await checkTokenApproval();
     await updateInfo();
     await updateTokenBalance();
     if (loadedCollections) {
