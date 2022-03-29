@@ -147,6 +147,7 @@ const setDiscord = async() => {
         else {
             await identityMapper.setDiscordIdentity(name).then( async(tx_) => {
                 await waitForTransaction(tx_);
+                $("#set-discord-button").html(`Setting<span class="one">.</span><span class="two">.</span><span class="three">.</span>`)
                 $('#discord-popup').remove();
                 $('#block-screen-discord').remove();
             });
