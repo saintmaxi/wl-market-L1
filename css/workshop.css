@@ -27,7 +27,7 @@ textarea {
     padding-bottom: 15px !important;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 991px) {
 
     #modify-input input, #modify-input textarea, #create-input input, #create-input textarea {
         width: 85%;
