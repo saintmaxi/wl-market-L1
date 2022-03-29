@@ -461,7 +461,7 @@ h4 {
     color: white !important;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 991px) {
 
     .down-arrow {
         width: 3vh;
