@@ -20,9 +20,6 @@
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     height: 8vh;
   }
-  .token-balance-float img {
-    margin-left: 10px;
-  }
 
   #market-section {
       padding-bottom: calc(1.5vw + 150px) !important;
@@ -493,9 +490,6 @@ h4 {
         border: 1px solid black;
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         height: initial;
-      }
-      .token-balance-float img {
-        margin-left: 10px;
       }
 
     /* Approval section*/
