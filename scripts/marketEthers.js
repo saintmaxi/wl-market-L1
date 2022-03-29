@@ -144,7 +144,11 @@ const checkTokenApproval = async() => {
             $("#approval").addClass("hidden");
         }
         else {
+            $("#onboarding-header").removeClass("hidden");
             $("#approval").removeClass("hidden");
+        }
+        if ($("#set-discord").hasClass("hidden") && $("#approval").hasClass("hidden")) {
+            $("#onboarding-header").addClass("hidden");
         }
     }
 };

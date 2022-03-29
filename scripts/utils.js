@@ -112,7 +112,7 @@ const setIdentityMapper = async() => {
     identityMapper = new ethers.Contract(identityMapperAddress, identityMapperAbi(), signerID);
 }
 
- const promptForDiscord = async() => {
+const promptForDiscord = async() => {
     if (!($("#discord-popup").length)) {
         let userAddress = await signer.getAddress();
         let currentDiscord = await identityMapper.addressToDiscord(userAddress);
@@ -172,14 +172,17 @@ const updateDiscord = async() => {
         let currentDiscord = await identityMapper.addressToDiscord(userAddress);
         if (currentDiscord) {
             discordSet = true
+            $("#set-discord").addClass("hidden");
             $("#discord-text").text("SET!");
             $("#discord").addClass("success");
             $("#discord").removeClass("failure");
             $("#discord-text-mobile").text("SET!");
             $("#discord-mobile").addClass("success");
-            $("#discord-mobile").removeClass("failure"); 
+            $("#discord-mobile").removeClass("failure");
         }
         else {
+            $("#onboarding-header").removeClass("hidden");
+            $("#set-discord").removeClass("hidden");
             $("#discord-text").text("NOT SET!");
             $("#discord").addClass("failure");
             $("#discord").removeClass("success"); 
@@ -187,6 +190,9 @@ const updateDiscord = async() => {
             $("#discord-mobile").addClass("failure"); 
             $("#discord-mobile").removeClass("success"); 
         }
+    }
+    if ($("#set-discord").hasClass("hidden") && $("#approval").hasClass("hidden")) {
+        $("#onboarding-header").addClass("hidden");
     }
 }
 

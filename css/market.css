@@ -28,39 +28,33 @@
       padding-bottom: calc(1.5vw + 150px) !important;
   }
 
-/* Approval section */
+/* Onboarding section */
 
-#approval-container {
+.onboarding-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    height: 70%;
 }
 
-#approval {
+.onboarding {
+    width: 25%;
+    display: inline-block;
     margin: 0;
-    width: 45%;
-    margin: auto;
     margin-top: 1vw;
     margin-bottom: 1vw;
 }
 
-#approval h2 {
-    display: inline;
-}
-
-#approval-button {
+.onboarding button {
     background-color: white;
     color: black;
     display: inline;
     margin-top: 1vw;
     margin-bottom: 1vw;
-    width: 40%;
+    width: 75%;
     height: 7vh;
 }
 
-#approval h1 {
+.onboarding h1 {
     margin: 0;
 }
 
@@ -498,20 +492,29 @@ h4 {
 
     /* Approval section*/
 
-    #approval-container {
-        height: initial;
+    #onboarding-section {
+        padding-top: 25px !important;
+        padding-bottom: 25px !important;
     }
 
-    #approval {
+    .onboarding-wrapper {
+        display: initial;
+    }
+
+    .onboarding {
         width: 90%;
     }
 
-    #approval h1 {
+    .onboarding h1 {
         font-size: 4.5vh !important;
         line-height: 4.5vh !important;
     }
 
-    #approval-button {
+    #wl-select {
+        margin-top: 25px;
+    }
+
+    .onboarding button {
         width: 90%;
     }
 

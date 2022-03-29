@@ -114,12 +114,19 @@
          </div>
       </div>
    </div>
-   <div class="section body-section body-1 wf-section" style="text-align: center;">
-      <!-- <h2>Select Project</h2> -->
-      <div id="approval" class="hidden" style="text-align: center;">
-         <h2>APPROVE TOKEN</h2><br>
-         <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
+   <div class="section body-section body-1 wf-section" id="onboarding-section" style="text-align: center;">
+      <h1 id="onboarding-header" class="hidden" style="color: white;">Before buying...</h1>
+      <div class="onboarding-wrapper">
+         <div id="approval" class="onboarding hidden" style="text-align: center;">
+            <h2>APPROVE TOKEN</h2>
+            <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
+         </div>
+         <div id="set-discord" class="onboarding hidden" style="text-align: center;">
+            <h2>SET DISCORD</h2>
+            <button class="button" id="set-discord-button" onclick="setDiscord()">SET DISCORD</button>
+         </div>
       </div>
+      <br>
       <select id="wl-select" onchange="selectProject(this.value)" style="text-align: center;">
          <option disabled selected value="">SELECT PROJECT</option>
       </select>
