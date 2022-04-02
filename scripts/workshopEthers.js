@@ -116,7 +116,7 @@ const generateCreate = async() => {
     let deadline = $(`#${mode}-input #listing-deadline`).val();
     let price = Number($(`#${mode}-input #listing-price`).val());
 
-    $(`#${mode}-template #ex-title`).html(title);
+    $(`#${mode}-template #ex-title`).html(title.toUpperCase());
     $(`#${mode}-template #ex-image`).attr("src", image);
     $(`#${mode}-template #ex-site`).attr("href", site);
     $(`#${mode}-template #ex-description`).html(description.replaceAll("\n", "<br>"));
@@ -178,7 +178,7 @@ const loadListings = async(address) => {
         // if (valid) {
         //     fakeJSX += `<option value="${i}">${WLinfo.title}</option>`;
         // }
-        fakeJSX += `<option value="${i}">${WLinfo.title}</option>`;
+        fakeJSX += `<option value="${i}">${(WLinfo.title).toUpperCase()}</option>`;
     }
     $("#listing-select").append(fakeJSX);
 }
@@ -211,7 +211,7 @@ const selectListing = async(id) => {
     let deadline = currentlySelectedWLinfo.deadline;
     let price = Number(formatEther(currentlySelectedWLinfo.price));
 
-    $("#modify-template #ex-title").html(title);
+    $("#modify-template #ex-title").html(title.toUpperCase());
     $("#modify-template #ex-image").attr("src", image);
     $("#modify-template #ex-site").attr("href", site);
     $("#modify-template #ex-description").html(description.replaceAll("\n", "<br>"));
@@ -233,7 +233,7 @@ const generateModify = async() => {
     let deadline = $("#modify-input #listing-deadline").val() ? Number($("#modify-input #listing-deadline").val()) : currentlySelectedWLinfo.deadline;
     let price = $("#modify-input #listing-price").val() ? $("#modify-input #listing-price").val() : Number(formatEther(currentlySelectedWLinfo.price));
 
-    $(`#${mode}-template #ex-title`).html(title);
+    $(`#${mode}-template #ex-title`).html(title.toUpperCase());
     $(`#${mode}-template #ex-image`).attr("src", image);
     $(`#${mode}-template #ex-site`).attr("href", siteFormatted);
     $(`#${mode}-template #ex-description`).html(description.replaceAll("\n", "<br>"));
@@ -369,9 +369,9 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${userAddress.substr(0,7)}..`);
+    $("#account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${userAddress.substr(0,7)}..`);
+    $("#mobile-account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }

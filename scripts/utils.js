@@ -12,6 +12,15 @@ async function displayErrorMessage(message, timed=true) {
     }
 }
 
+
+const revealUniswap = async() => {
+    if ($("#uniswap-window").hasClass("hidden")) {
+        $("#uniswap-window").removeClass("hidden");
+        let height = $(document).height();
+        $("body").append(`<div id='block-screen-uniswap' style="height:${height}px" onclick="$('#uniswap-window').addClass('hidden');$('#block-screen-uniswap').remove()"></div>`);
+    }
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

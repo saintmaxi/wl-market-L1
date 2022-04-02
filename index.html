@@ -116,7 +116,7 @@
    </div>
    <div class="section body-section body-1 wf-section" id="onboarding-section" style="text-align: center;">
       <div id="onboarding-alert" class="hidden">
-         <h1 style="color: white;">Before buying...</h1>
+         <h1 style="color: white;">BEFORE BUYING...</h1>
          <p>To purchase from a project, set a Discord ID and approve the market to spend the project's token</p>
       </div>
       <div class="onboarding-wrapper">
@@ -133,8 +133,8 @@
       <select id="wl-select" onchange="selectProject(this.value)" style="text-align: center;">
          <option disabled selected value="">SELECT PROJECT</option>
       </select>
-   </div>
-      
+   </div>      
+   <!-- <iframe id="uniswap-window" class="hidden" src="https://app.uniswap.org/#/swap?exactField=input&exactAmount=1&inputCurrency=0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"> </iframe> -->
    <div id="market-section" class="section body-section body-1 wf-section">
       <div id="selector-div">
          <button id="live-button" class="button active" onclick="showLive()">ACTIVE<span class="hide-on-mobile"> </span><br class="hide-on-desktop">LISTINGS<span id="num-live"><br>(-)</span></button>
@@ -190,8 +190,11 @@
    </div>
    <img src="images/stars.png" loading="lazy" alt="" class="banner-img fixed-banner hide-on-desktop">
    <img src="images/stars.png" loading="lazy" alt="" class="banner-img fixed-banner hide-on-mobile">
+   <!-- <div class="token-balance-float">
+      <div>BALANCE: <span id="token-balance">-</span><img id="uniswap-icon" class="hidden" onclick="revealUniswap()" src="./images/uniswap.png"></div>
+   </div> -->
    <div class="token-balance-float">
-      <div>Balance: <span id="token-balance">-</span></div>
+      <div>BALANCE: <span id="token-balance">-</span></div>
    </div>
    <svg id="clear-cache" onclick="clearPendingTxs()" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="Layer_1" version="1.1" viewBox="0 0 32 32"><path fill="white" d="M28 16c-1.219 0-1.797.859-2 1.766C25.269 21.03 22.167 26 16 26c-5.523 0-10-4.478-10-10S10.477 6 16 6c2.24 0 4.295.753 5.96 2H20c-1.104 0-2 .896-2 2s.896 2 2 2h6c1.104 0 2-.896 2-2V4c0-1.104-.896-2-2-2s-2 .896-2 2v.518C21.733 2.932 18.977 2 16 2 8.268 2 2 8.268 2 16s6.268 14 14 14c9.979 0 14-9.5 14-11.875C30 16.672 28.938 16 28 16z"/></svg>
    <div id="pending-transactions"></div>

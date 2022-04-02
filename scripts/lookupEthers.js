@@ -92,17 +92,17 @@ const loadCollectionsData = async() => {
             let title = WLinfo.title;
             let purchased = buyers.includes(userAddress) ? true : false;
             if (purchased) {
-                myWL.push(title);
+                myWL.push(title.toUpperCase());
             }
             let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
                 let discord = await identityMapper.addressToDiscord(buyer);
-                let discordResult = discord ? discord : "Discord Unknown";
-                return `${discordResult}: ${buyer}`;
+                let discordResult = discord ? discord : "DISCORD UNKNOWN";
+                return {discord: discordResult, address: buyer};
             }));
             listingsToBuyers.set(title, discordsAndBuyers);
         }
         projectToWL.set(projectName, listingsToBuyers);
-        fakeJSX += `<option value="${projectName}">${projectName}</option>`;
+        fakeJSX += `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
     }
     $("#wl-select").empty();
     $("#wl-select").append(fakeJSX);
@@ -110,7 +110,7 @@ const loadCollectionsData = async() => {
 
 const loadMyWL = async() => {
     if (myWL.length == 0) {
-        $("#your-wl-spots").html("No spots purchased!");
+        $("#your-wl-spots").html("NO SPOTS PURCHASED!");
     }
     else {
         let wlString = myWL.join("<br>");
@@ -125,13 +125,20 @@ function selectProject(projectName) {
     let listings = Array.from(projectToWL.get(projectName).keys());
     for (let i = 0; i < listings.length; i++) {
         let title = listings[i];
-        $("#listing-select").append(`<option value="${title}">${title}</option>`);
+        $("#listing-select").append(`<option value="${title}">${title.toUpperCase()}</option>`);
     }
 }
 
 function selectListing(listingName) {
     let projectName = $("#wl-select").val();
-    let wlArray = [...(projectToWL.get(projectName).get(listingName))];
+    let wlArray = [...(projectToWL.get(projectName).get(listingName))].map(x => {
+        if (x.discord) {
+            return `${(x.discord).toUpperCase()}: ${(x.address).toUpperCase()}`;
+        }
+        else {
+            return (x.address).toUpperCase();
+        }
+    });
     let wlString = wlArray.join("<br>");
     $("#wl-section").empty();
     $("#wl-section").html(wlString);
@@ -141,9 +148,20 @@ function selectListing(listingName) {
 function updateDownload() {
     let projectName = $("#wl-select").val();
     let listingName = $("#listing-select").val();
-    let filename = `${projectName} - ${listingName} WL.txt`;
-    let wlArray = [...(projectToWL.get(projectName).get(listingName))];
+    let filename = `${projectName} - ${listingName} WL.csv`;
+    let headerRow = "";
+    let wlArray = [...(projectToWL.get(projectName).get(listingName))].map(x => {
+        if (x.discord) {
+            headerRow = "DISCORD,ADDRESS\n";
+            return `"${x.discord}","${x.address}"`;
+        }
+        else {
+            headerRow = "ADDRESS\n";
+            return `"${x.address}"`;
+        }
+    });
     let wlString = wlArray.join("\n");
+    wlString = headerRow + wlString;
 
     $("#download-link").attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(wlString));
     $("#download-link").attr('download', filename);
@@ -239,9 +257,9 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${userAddress.substr(0,7)}..`);
+    $("#account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${userAddress.substr(0,7)}..`);
+    $("#mobile-account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }
@@ -254,7 +272,7 @@ ethereum.on("accountsChanged", async(accounts_)=>{
 window.onload = async()=>{
     await setMarket();
     await updateInfo();
-    $("#your-wl-spots").html(`Loading<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
+    $("#your-wl-spots").html(`LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
     await loadCollectionsData();
     await loadMyWL();
 };

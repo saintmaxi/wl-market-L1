@@ -8,6 +8,23 @@
 	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
 }  
 
+#uniswap-window {
+	box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
+	border: 0;
+	z-index: 99999;
+	position:fixed;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	max-width: 800px;
+	max-height: 800px;
+	min-width: 300px;
+	background-color: black;
+	width: 50%;
+	height: 80vh;
+}
+
 select {
 	font-size: 2vw !important;
 	border-style: solid;
@@ -25,12 +42,22 @@ html, body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
-	
 }
 
 .token-icon {
 	display: inline;
 	width: 1.8vw;
+}
+
+#uniswap-icon {
+	margin-left: .2vw;
+	display: inline;
+	width: 2.3vw;
+}
+
+#uniswap-icon:hover {
+	opacity: .6;
+	cursor: pointer;
 }
 
 .hidden {
@@ -399,7 +426,7 @@ h5 {
     background-color: #F72119 !important;
 }
 
-#block-screen, #block-screen-error, #block-screen-status, #block-screen-approval, #block-screen-loading, #block-screen-discord {
+#block-screen, #block-screen-error, #block-screen-status, #block-screen-approval, #block-screen-loading, #block-screen-discord, #block-screen-uniswap {
     z-index: 9998;
     width: 100vw;
     opacity: 0;
@@ -445,9 +472,18 @@ h5 {
 
 @media screen and (max-width:991px) {
 
+	#uniswap-window {
+		width: 95%;
+	}
+
 	.token-icon {
 		display: inline;
-		width: 2.8vh;
+		width: 3.4vh;
+	}
+
+	#uniswap-icon {
+		width: 4vh;
+		margin-left: 5px;
 	}
 
 	.box {

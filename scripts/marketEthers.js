@@ -100,8 +100,10 @@ var currentTokenImageURI;
 
 const selectProject = async(address) => {
     if (address) {
-        $("#approval-button").html(`Approve`);
+        $("#approval-button").html(`APPROVE`);
         $("#scroll-indicator").addClass("hidden");
+        $("#uniswap-icon").removeClass("hidden");
+        $("#uniswap-window").attr("src", `https://app.uniswap.org/#/swap?exactField=input&exactAmount=1&inputCurrency=0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&outputCurrency=${address}`);
         $("#token-balance").html(`<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
         $("#live-collections").empty();
         $("#past-collections").empty();
@@ -267,7 +269,7 @@ const loadCollections = async() => {
                                 <h4><span class="end-time">Ends ${(new Date(WLinfo.deadline*1000)).toLocaleDateString()} ${(new Date(WLinfo.deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span></h4>
                                 <img class="collection-img" src="${imageUri}">
                                 <div class="collection-info">
-                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${(WLinfo.title).toUpperCase()}⬈</a></h3>
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
                                     <br>
                                     <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
@@ -296,7 +298,7 @@ const loadCollections = async() => {
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
                                 <img class="collection-img" src="${imageUri}">
                                 <div class="collection-info">
-                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${WLinfo.title}⬈</a></h3>
+                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${(WLinfo.title).toUpperCase()}⬈</a></h3>
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
                                     <div class="inside-text collection-description">
                                     ${(WLinfo.description).replaceAll("\n", "<br>")}
@@ -357,7 +359,7 @@ const loadPartnerCollections = async() => {
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
         let projectInfo = await market.contractToProjectInfo(address);
-        fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;
+        fakeJSX += `<option value="${address}">${(projectInfo.projectName).toUpperCase()}</option>`;
     }
     $("#wl-select").append(fakeJSX);
 }
@@ -442,9 +444,9 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${userAddress.substr(0,7)}..`);
+    $("#account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${userAddress.substr(0,7)}..`);
+    $("#mobile-account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }
