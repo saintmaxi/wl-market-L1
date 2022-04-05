@@ -73,39 +73,72 @@ const getChainId = async()=>{
     return await signer.getChainId()
 };
 
+const splitArrayToChunks = (array_, chunkSize_) => {
+    let _arrays = Array(Math.ceil(array_.length / chunkSize_))
+        .fill()
+        .map((_, index) => index * chunkSize_)
+        .map((begin) => array_.slice(begin, begin + chunkSize_));
+
+    return _arrays;
+};
+
 var projectToWL = new Map();
 var myWL = [];
 
-const loadCollectionsData = async() => {
+const loadCollectionsData = async () => {
+    now = Date.now()
+
     let collections = await market.getAllEnabledContracts();
+    let numCollections = collections.length;
     let userAddress = await getAddress();
     let fakeJSX = `<option disabled selected value="">SELECT PROJECT</option>`;
-    for (let i = 0; i < collections.length; i++) {
-        let collectionAddress = collections[i];
-        let projectInfo = await market.contractToProjectInfo(collectionAddress);
-        let projectName = projectInfo.projectName;
-        let listingsToBuyers = new Map();
-        let numListings = await market.getWLVendingItemsLength(collectionAddress);
-        for (let id = 0; id < numListings; id++) {
-            let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
-            let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
-            let title = WLinfo.title;
-            let purchased = buyers.includes(userAddress) ? true : false;
-            if (purchased) {
-                myWL.push(title.toUpperCase());
+    let allCollectionIds = Array.from(Array(numCollections).keys());
+    let collectionIdToJSX = new Map();
+    let fullCollectionJSX = "";
+    const collectionChunks = splitArrayToChunks(allCollectionIds, 20);
+    for (const chunk of collectionChunks) {
+        await Promise.all(chunk.map(async (i) => {
+            let collectionAddress = collections[i];
+            let projectInfo = await market.contractToProjectInfo(collectionAddress);
+            let projectName = projectInfo.projectName;
+            let listingIdsToInfo = new Map();
+            let listingsToBuyers = new Map();
+            let numListings = Number(await market.getWLVendingItemsLength(collectionAddress));
+            let allListingIds = Array.from(Array(numListings).keys());
+            const chunks = splitArrayToChunks(allListingIds, 20);
+            for (const chunk of chunks) {
+                await Promise.all(chunk.map(async (id) => {
+                    let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
+                    let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
+                    let title = WLinfo.title;
+                    let purchased = buyers.includes(userAddress) ? true : false;
+                    if (purchased) {
+                        myWL.push(title.toUpperCase());
+                    }
+                    let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
+                        let discord = await identityMapper.addressToDiscord(buyer);
+                        let discordResult = discord ? discord : "DISCORD UNKNOWN";
+                        return { discord: discordResult, address: buyer };
+                    }));
+                    listingIdsToInfo.set(id, {title: title, discordsAndBuyers: discordsAndBuyers});
+                }));
             }
-            let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
-                let discord = await identityMapper.addressToDiscord(buyer);
-                let discordResult = discord ? discord : "DISCORD UNKNOWN";
-                return {discord: discordResult, address: buyer};
-            }));
-            listingsToBuyers.set(title, discordsAndBuyers);
-        }
-        projectToWL.set(projectName, listingsToBuyers);
-        fakeJSX += `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
+            for (const listingId of allListingIds) {
+                let listing = listingIdsToInfo.get(listingId);
+                listingsToBuyers.set(listing.title, listing.discordsAndBuyers)
+            }
+            projectToWL.set(projectName, listingsToBuyers);
+            fakeJSX = `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
+            collectionIdToJSX.set(i, fakeJSX);
+        }))
+    };
+    for (const collectionId of allCollectionIds) {
+        fullCollectionJSX += collectionIdToJSX.get(collectionId);
     }
     $("#wl-select").empty();
-    $("#wl-select").append(fakeJSX);
+    $("#wl-select").append(fullCollectionJSX);
+    selectProject($("#wl-select option:first").val());
+    console.log(Date.now() - now)
 }
 
 const loadMyWL = async() => {
