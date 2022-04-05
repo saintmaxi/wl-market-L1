@@ -138,7 +138,7 @@ const loadCollectionsData = async () => {
     $("#wl-select").empty();
     $("#wl-select").append(fullCollectionJSX);
     selectProject($("#wl-select option:first").val());
-    console.log(Date.now() - now)
+    console.log("Lookup time: ", (Date.now() - now)/1000, "s")
 }
 
 const loadMyWL = async() => {
