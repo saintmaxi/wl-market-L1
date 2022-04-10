@@ -130,6 +130,7 @@ const addListing = async() => {
     try {
         let currentProjectAddress = $("#wl-select").val();
         let start = Number($("#create-input #listing-start").val());
+        let deadline = Number($("#create-input #listing-deadline").val());
         if (!currentProjectAddress) {
             await displayErrorMessage("Select a project to add listing!")
         }
@@ -142,7 +143,6 @@ const addListing = async() => {
             let site = ($("#create-input #listing-site").val()).includes("https://") ? $("#create-input #listing-site").val() : `https://${$("#create-input #listing-site").val()}`;
             let description = $("#create-input #listing-description").val();
             let amount = Number($("#create-input #listing-amount").val());
-            let deadline = Number($("#create-input #listing-deadline").val());
             let price = parseEther($("#create-input #listing-price").val());
             if (!(title && image && (site != null) && (description != null) && amount && start && deadline && price)) {
                 await displayErrorMessage("Missing fields!")
