@@ -90,15 +90,8 @@ const loadPartnerCollections = async() => {
     let fakeJSX = "";
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
-        let token = new ethers.Contract(address, baseTokenAbi(), signer);
-        let owner;
-        try {
-            owner = (userAddress == await token.owner());
-        } catch {
-            owner = false;
-        };
-        let operator = await market.contractToControllersApproved(address, userAddress);
-        if (owner || operator) {
+        let approved = await market.isAuthorized(address, userAddress);
+        if (approved) {
             let projectInfo = await market.contractToProjectInfo(address);
             fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;
         }
