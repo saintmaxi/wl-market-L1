@@ -174,6 +174,7 @@ const setDiscord = async() => {
     }
 }
 
+var tries = 0;
 var discordSet = false;
 
 const updateDiscord = async() => {
