@@ -354,7 +354,6 @@ const loadCollections = async() => {
             let imageUri = (WLinfo.imageUri).includes("https://") ? WLinfo.imageUri : `https://${WLinfo.imageUri}`;
             let projectUri = (WLinfo.projectUri).includes("https://") ? WLinfo.projectUri : `https://${WLinfo.projectUri}`;
 
-            let dateString = "";
             if (started && valid) {
                 liveListings.push(id);
                 liveTimerPending.push(true);
