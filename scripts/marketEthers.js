@@ -165,6 +165,98 @@ const updateTokenBalance = async() => {
     }
 }
 
+var loadedCollections = false;
+var liveListings = [];
+var pendingListings = [];
+var liveTimerPending = [];
+var pendingTimerPending = [];
+
+setInterval(async()=>{
+    if (loadedCollections) {
+        for (let i = 0; i < liveListings.length; i++) {
+            if (liveTimerPending[i]) {
+                let id = liveListings[i];
+                let now = Date.now() / 1000;
+                let endTime = Number((await market.contractToWLVendingItems(currentTokenAddress, id)).endTime);
+                let distance = endTime - now;
+        
+                var hours = Math.floor(distance / (60 * 60));
+                var minutes = Math.floor((distance % (60 * 60)) / (60));
+                var seconds = Math.floor((distance % (60)));
+
+                if (hours < 10) {
+                    hours = `0${hours}`;
+                }
+                if (minutes < 10) {
+                    minutes = `0${minutes}`;
+                }
+                if (seconds < 10) {
+                    seconds = `0${seconds}`;
+                }
+                              
+                if (distance <= 0) {
+                    let blockTime = (await provider.getBlock((await provider.getBlockNumber()))).timestamp;
+                    if (blockTime > endTime) {
+                        liveTimerPending[i] = false;
+                        $(`#timer-${id}`).html("EXPIRED");
+                        $(`#timer-${id}`).removeClass("pending");
+                    }
+                    else {
+                        $(`#timer-${id}`).html(`ENDS NEXT BLOCK<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
+                    }
+                }
+                else {
+                    $(`#timer-${id}`).html(`ENDS IN ${hours}:${minutes}:${seconds}`);
+                    $(`#timer-${id}`).addClass("pending");
+                }
+            }
+        }
+    }
+}, 1000)
+
+setInterval(async()=>{
+    if (loadedCollections) {
+        for (let i = 0; i < pendingListings.length; i++) {
+            if (pendingTimerPending[i]) {
+                let id = pendingListings[i];
+                let now = Date.now() / 1000;
+                let startTime = Number((await market.contractToWLVendingItems(currentTokenAddress, id)).startTime);
+                let distance = startTime - now;
+        
+                var hours = Math.floor(distance / (60 * 60));
+                var minutes = Math.floor((distance % (60 * 60)) / (60));
+                var seconds = Math.floor((distance % (60)));
+
+                if (hours < 10) {
+                    hours = `0${hours}`;
+                }
+                if (minutes < 10) {
+                    minutes = `0${minutes}`;
+                }
+                if (seconds < 10) {
+                    seconds = `0${seconds}`;
+                }
+                              
+                if (distance <= 0) {
+                    let blockTime = (await provider.getBlock((await provider.getBlockNumber()))).timestamp;
+                    if (blockTime > startTime) {
+                        pendingTimerPending[i] = false;
+                        $(`#timer-${id}`).html("LIVE NOW");
+                        $(`#timer-${id}`).removeClass("pending");
+                    }
+                    else {
+                        $(`#timer-${id}`).html(`LIVE NEXT BLOCK<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
+                    }
+                }
+                else {
+                    $(`#timer-${id}`).html(`LIVE IN ${hours}:${minutes}:${seconds}`);
+                    $(`#timer-${id}`).addClass("pending");
+                }
+            }
+        }
+    }
+}, 1000)
+
 const purchase = async(tokenAddress, id) => {
     try {
         if (!discordSet) {
@@ -213,8 +305,6 @@ const purchase = async(tokenAddress, id) => {
     }
 }
 
-var loadedCollections = false;
-
 const splitArrayToChunks = (array_, chunkSize_) => {
     let _arrays = Array(Math.ceil(array_.length / chunkSize_))
     .fill()
@@ -226,6 +316,10 @@ const splitArrayToChunks = (array_, chunkSize_) => {
 
 const loadCollections = async() => {
     if (!currentTokenAddress) return;
+    liveListings = [];
+    pendingListings = [];
+    liveTimerPending = [];
+    pendingTimerPending = [];
     loadedCollections = false;
 
     const userAddress = await getAddress();
@@ -262,9 +356,13 @@ const loadCollections = async() => {
 
             let dateString = "";
             if (started && valid) {
+                liveListings.push(id);
+                liveTimerPending.push(true);
                 dateString = `Ends ${(new Date(WLinfo.endTime*1000)).toLocaleDateString()} ${(new Date(WLinfo.endTime*1000)).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})}`;
             }
-            else {
+            else if (!started && valid) {
+                pendingListings.push(id);
+                pendingTimerPending.push(true);
                 dateString = `Starts ${(new Date(WLinfo.startTime*1000)).toLocaleDateString()} ${(new Date(WLinfo.startTime*1000)).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})}`;
             }
 
@@ -278,7 +376,7 @@ const loadCollections = async() => {
                     button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
                 }
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
-                                <h4><span class="end-time">${dateString}</span></h4>
+                                <h4 class="end-time" id="timer-${id}"><span class="one">.</span><span class="two">.</span><span class="three">.</span></h4>
                                 <img class="collection-img" src="${imageUri}">
                                 <div class="collection-info">
                                     <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${(WLinfo.title).toUpperCase()}⬈</a></h3>
