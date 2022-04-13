@@ -90,7 +90,13 @@ const loadPartnerCollections = async() => {
     let fakeJSX = "";
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
-        let approved = await market.isAuthorized(address, userAddress);
+        let approved;
+        try {
+          approved = await market.isAuthorized(address, userAddress);
+        }
+        catch {
+            approved = false;
+        }
         if (approved) {
             let projectInfo = await market.contractToProjectInfo(address);
             fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;
