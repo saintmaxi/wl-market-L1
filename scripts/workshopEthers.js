@@ -109,7 +109,7 @@ const generateCreate = async() => {
     let mode = "create";
     let title = $(`#${mode}-input #listing-title`).val();
     let image = $(`#${mode}-input #listing-image`).val();
-    let site = ($(`#${mode}-input #listing-site`).val()).includes("https://") ? $(`#${mode}-input #listing-image`).val() : `https://${$(`#${mode}-input #listing-image`).val()}`;
+    let site = ($(`#${mode}-input #listing-site`).val()).includes("https://") ? $(`#${mode}-input #listing-site`).val() : `https://${$(`#${mode}-input #listing-site`).val()}`;
     let description = $(`#${mode}-input #listing-description`).val();
     let amount = Number($(`#${mode}-input #listing-amount`).val());
     let start = $(`#${mode}-input #listing-start`).val();
