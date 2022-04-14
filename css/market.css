@@ -189,6 +189,16 @@ h2 {
     color: white !important;
 }
 
+.partner-collection .link {
+	color: #0FFEF2 !important;
+	text-decoration: none
+}
+
+.partner-collection .link:hover {
+	color: #bef9f6 !important;
+	text-decoration: none
+}
+
 .partner-collection button {
     margin-top: auto;
 }
