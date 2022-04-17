@@ -177,6 +177,17 @@ h2 {
     position: relative;
 }
 
+.partner-collection .website {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 15%;
+}
+
+.partner-collection .website:hover {
+    opacity: .6;
+}
+
 .partner-collection {
     flex-direction: column;
     align-items: center;

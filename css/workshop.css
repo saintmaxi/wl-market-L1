@@ -27,7 +27,17 @@ textarea {
     padding-bottom: 15px !important;
 }
 
+.end-time, .start-time {
+    font-size: .94vw;
+    line-height: .94vw;
+}
+
 @media screen and (max-width: 991px) {
+
+    .end-time, .start-time {
+        font-size: 1.9vh !important;
+        line-height: 2vh !important;   
+    }
 
     #modify-input input, #modify-input textarea, #create-input input, #create-input textarea {
         width: 85%;

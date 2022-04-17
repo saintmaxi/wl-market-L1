@@ -375,10 +375,11 @@ const loadCollections = async() => {
                     button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${currentTokenAddress}', ${id})">PURCHASE</button>`;
                 }
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
+                                <a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;"><img class="website" src="./images/website.png"></a>
                                 <h4 class="end-time" id="timer-${id}"><span class="one">.</span><span class="two">.</span><span class="three">.</span></h4>
                                 <img class="collection-img" src="${imageUri}">
                                 <div class="collection-info">
-                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${(WLinfo.title).toUpperCase()}⬈</a></h3>
+                                    <h3>${(WLinfo.title).toUpperCase()}</h3>
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon">
                                     <br>
                                     <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
@@ -405,9 +406,10 @@ const loadCollections = async() => {
                     button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
                 }
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
+                                <a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;"><img class="website" src="./images/website.png"></a>
                                 <img class="collection-img" src="${imageUri}">
                                 <div class="collection-info">
-                                    <h3><a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;">${(WLinfo.title).toUpperCase()}⬈</a></h3>
+                                    <h3>${(WLinfo.title).toUpperCase()}</h3>
                                     <h4>${collectionPrice} <img src="${currentTokenImageURI}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
                                     <div class="inside-text collection-description">
                                     ${(WLinfo.description).replaceAll("\n", "<br>")}
