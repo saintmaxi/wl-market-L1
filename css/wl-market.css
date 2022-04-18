@@ -271,6 +271,10 @@ p {
 	color: #0FFEF2;
 }
 
+.lookup-link {
+	color: #0FFEF2;
+}
+
 .section-title{
 	font-size:  2.3vw;
 	text-align: center;
@@ -340,7 +344,7 @@ h5 {
     box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
 }
 
-#error-popup, #status-popup, #discord-popup {
+#error-popup, #status-popup, #discord-popup, #result-popup {
 	background-color: black;
     z-index: 99999;
     position:fixed;
@@ -359,7 +363,7 @@ h5 {
     height: 50vh;
 }
 
-#error-popup p, #status-popup p, #discord-popup p {
+#error-popup p, #status-popup p, #discord-popup p, #result-popup p {
     width: 90%;
     font-size: 2.5vw !important;
     line-height: 2.7vw !important;
@@ -373,7 +377,7 @@ h5 {
 	font-family: "Space";
 }
 
-#discord-popup p {
+#discord-popup p, #result-popup p {
 	position: initial;
 	top: initial;
 	left: initial;
@@ -383,7 +387,7 @@ h5 {
 	padding-bottom: 0;
 }
   
-  #discord-popup #content {
+  #discord-popup #content, #result-popup #content {
 	width: 100%;
 	font-size: 2vw;
 	line-height: 2vw;
@@ -395,13 +399,13 @@ h5 {
 	transform: translate(-50%, -50%);
   }
   
-  #discord-popup #content input {
+  #discord-popup #content input, #result-popup #content input {
 	text-align: center;
 	border: solid black .5vw;
 	width: 80%;
   }
   
-  #discord-popup #content button {
+  #discord-popup #content button, #result-popup #content button {
 	margin: auto;
 	margin-top: 3%;
 	width: 75%;
@@ -426,7 +430,7 @@ h5 {
     background-color: #F72119 !important;
 }
 
-#block-screen, #block-screen-error, #block-screen-status, #block-screen-approval, #block-screen-loading, #block-screen-discord, #block-screen-uniswap {
+#block-screen, #block-screen-error, #block-screen-status, #block-screen-approval, #block-screen-loading, #block-screen-discord, #block-screen-uniswap, #block-screen-result {
     z-index: 9998;
     width: 100vw;
     opacity: 0;
@@ -593,13 +597,13 @@ h5 {
 		line-height: 5.4vh !important;
 	}
 
-    #error-popup, #status-popup, #discord-popup {
+    #error-popup, #status-popup, #discord-popup, #result-popup {
         width: 75vw;
         height: 15vh;
 		border-width: 5px;
     }
 
-	#discord-popup {
+	#discord-popu, #result-popup {
 		height: 45vh;
 	  }
 
@@ -609,7 +613,7 @@ h5 {
 		width: 80%;
     }
 
-	#discord-popup p {
+	#discord-popup p, #result-popup p {
 		padding: 0;
 		font-size: 3vh !important;
 		line-height: 3vh !important;
@@ -617,14 +621,14 @@ h5 {
 		margin-bottom: 3%;
 	  }
 	
-	  #discord-popup #content input {
+	  #discord-popup #content input, #result-popup #content input {
 		border-width: 2px;
 		font-size: 4vw;
 		line-height: 4vw;
 		width: 90%;
 	  }
 
-	  #discord-popup #content button {
+	  #discord-popup #content button, #result-popup #content button {
 		margin-top: 7%;
 		width: 90%;
   }

@@ -521,9 +521,11 @@ async function endLoading(tx, txStatus) {
     $(`#loading-div-${txHash}`).addClass("blinking");
     if (txStatus == 1) {
         $(`#loading-div-${txHash}`).addClass("success");
+        await showTransactionResult(1);
     }
     else if (txStatus == 0) {
         $(`#loading-div-${txHash}`).addClass("failure");
+        await showTransactionResult(0);
     }
     $(`#loading-div-${txHash}`).append(`TRANSACTION ${status}.<br>VIEW ON ETHERSCAN.`);
     await sleep(7000);

@@ -12,6 +12,29 @@ async function displayErrorMessage(message, timed=true) {
     }
 }
 
+const showTransactionResult = async(result) => {
+    if (!($("#result-popup").length)) {
+        let fakeJSX;
+        if (result == 1) {
+            fakeJSX = `<div id="result-popup">
+            <div id="content">
+             <p>Your purchase was successful! You can confirm by looking at the project's whitelist on the <a class="lookup-link clickable link" href="./lookup.html">LOOKUP⬈</a> page.</p>
+            </div>
+           </div>`;
+        }
+        else if (result == 0) {
+            fakeJSX = `<div id="result-popup">
+            <div id="content">
+             <p>Something went wrong with your transaction. Check the Etherscan page for more information.</p>
+            </div>
+           </div>`;
+        }
+        $("body").append(fakeJSX);
+        let height = $(document).height();
+        $("body").append(`<div id='block-screen-result' style="height:${height}px" onclick="$('#result-popup').remove();$('#block-screen-result').remove()"></div>`);
+    }
+}
+
 
 const revealUniswap = async() => {
     if ($("#uniswap-window").hasClass("hidden")) {
