@@ -100,6 +100,8 @@ const loadPartnerCollections = async() => {
         if (approved) {
             let projectInfo = await market.contractToProjectInfo(address);
             fakeJSX += `<option value="${address}">${projectInfo.projectName}</option>`;
+            $("#workshop-link").removeClass("hidden");
+            $("#mobile-workshop-link").removeClass("hidden");
         }
     }
     $("#wl-select").append(fakeJSX);

@@ -87,7 +87,6 @@ var myWL = [];
 
 const loadCollectionsData = async () => {
     now = Date.now()
-
     let collections = await market.getAllEnabledContracts();
     let numCollections = collections.length;
     let userAddress = await getAddress();
@@ -99,13 +98,17 @@ const loadCollectionsData = async () => {
     for (const chunk of collectionChunks) {
         await Promise.all(chunk.map(async (i) => {
             let collectionAddress = collections[i];
+            if ((await market.isAuthorized(collectionAddress, userAddress))) {
+                $("#workshop-link").removeClass("hidden");
+                $("#mobile-workshop-link").removeClass("hidden");
+            }
             let projectInfo = await market.contractToProjectInfo(collectionAddress);
             let projectName = projectInfo.projectName;
             let listingIdsToInfo = new Map();
             let listingsToBuyers = new Map();
             let numListings = Number(await market.getWLVendingItemsLength(collectionAddress));
             let allListingIds = Array.from(Array(numListings).keys());
-            const chunks = splitArrayToChunks(allListingIds, 20);
+            const chunks = splitArrayToChunks(allListingIds, 10);
             for (const chunk of chunks) {
                 await Promise.all(chunk.map(async (id) => {
                     let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
@@ -120,7 +123,7 @@ const loadCollectionsData = async () => {
                         let discordResult = discord ? discord : "DISCORD UNKNOWN";
                         return { discord: discordResult, address: buyer };
                     }));
-                    listingIdsToInfo.set(id, {title: title, discordsAndBuyers: discordsAndBuyers});
+                    listingIdsToInfo.set(id, {title: `#${id}: ${title}`, discordsAndBuyers: discordsAndBuyers});
                 }));
             }
             for (const listingId of allListingIds) {

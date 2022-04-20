@@ -467,8 +467,13 @@ const updateSupplies = async() => {
 const loadPartnerCollections = async() => {
     let collections = await market.getAllEnabledContracts();
     let fakeJSX = "";
+    let userAddress = await getAddress();
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
+        if ((await market.isAuthorized(address, userAddress))) {
+            $("#workshop-link").removeClass("hidden");
+            $("#mobile-workshop-link").removeClass("hidden");
+        }
         let projectInfo = await market.contractToProjectInfo(address);
         fakeJSX += `<option value="${address}">${(projectInfo.projectName).toUpperCase()}</option>`;
     }
