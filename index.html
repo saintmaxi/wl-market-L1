@@ -125,18 +125,20 @@
       </div>
    </div>
    <div class="section body-section body-1 wf-section" id="onboarding-section" style="text-align: center;">
-      <div id="onboarding-alert" class="hidden">
-         <h1 style="color: white;">BEFORE BUYING...</h1>
-         <p>To purchase from a project, set a Discord ID and approve the market to spend the project's token</p>
-      </div>
-      <div class="onboarding-wrapper">
-         <div id="approval" class="onboarding hidden" style="text-align: center;">
-            <h2>APPROVE TOKEN</h2>
-            <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
+      <div id="onboarding-wrapper" class="hidden">
+         <div id="onboarding-alert" class="hidden">
+            <h1 style="color: white;">BEFORE BUYING...</h1>
+            <p>To purchase from <span id="approval-project"></span>, set a Discord ID and approve the market to spend your $<span id="approval-token"></span>.</p>
          </div>
-         <div id="set-discord" class="onboarding hidden" style="text-align: center;">
-            <h2>SET DISCORD</h2>
-            <button class="button" id="set-discord-button" onclick="promptForDiscord()">SET DISCORD</button>
+         <div class="onboarding-wrapper">
+            <div id="approval" class="onboarding hidden" style="text-align: center;">
+               <h2>APPROVE $<span id="approval-token-2"></span></h2>
+               <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
+            </div>
+            <div id="set-discord" class="onboarding hidden" style="text-align: center;">
+               <h2>SET DISCORD</h2>
+               <button class="button" id="set-discord-button" onclick="promptForDiscord()">SET DISCORD</button>
+            </div>
          </div>
       </div>
       <br>
@@ -159,7 +161,7 @@
       <div id="live-collections">
          <div id="ex1" class="partner-collection example">
             <div class="cover">
-               <button class="button">SELECT PROJECT TO SEE LISTINGS</button>
+               <button class="button select-prompt">SELECT PROJECT TO SEE LISTINGS</button>
             </div>
             <img class="collection-img" src="./images/question.jpeg">
             <div class="collection-info">
@@ -170,7 +172,7 @@
                   <br>
                   <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
                   </h4>
-               <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+               <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis.
                </div>
                <button class="button">PURCHASE</button>
             </div>
@@ -179,7 +181,7 @@
       <div id="past-collections" class="hidden">
          <div id="ex2" class="partner-collection example">
             <div class="cover">
-               <button class="button">SELECT PROJECT TO SEE LISTINGS</button>
+               <button class="button select-prompt">SELECT PROJECT TO SEE LISTINGS</button>
             </div>
             <img class="collection-img" src="./images/question.jpeg">
             <div class="collection-info">
@@ -190,7 +192,7 @@
                   <br>
                   <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
                   </h4>
-               <div class="inside-text collection-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+               <div class="inside-text collection-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis.
                </div>
                <button class="button">SOLD OUT</button>
             </div>

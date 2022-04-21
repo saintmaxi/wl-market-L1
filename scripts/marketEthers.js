@@ -87,7 +87,7 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
                             <br>
                             <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
                             </h4>
-                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis.
                             </div>
                             <button class="button">PURCHASE</button>
                         </div>
@@ -112,6 +112,10 @@ const selectProject = async(address) => {
         $("#num-live").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
         $("#num-past").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
         let projectInfo = await market.contractToProjectInfo(address);
+        $("#approval-project").html(projectInfo.projectName);
+        $("#approval-token").html((projectInfo.tokenName).toUpperCase());
+        $("#approval-token-2").html((projectInfo.tokenName).toUpperCase());
+
         currentTokenAddress = address;
         currentTokenImageURI = (projectInfo.tokenImageUri).includes("https://") ? projectInfo.tokenImageUri : `https://${projectInfo.tokenImageUri}`;
 
@@ -149,9 +153,11 @@ const checkTokenApproval = async() => {
         }
         if ($("#approval").hasClass("hidden") && $("#set-discord").hasClass("hidden")) {
             $("#onboarding-alert").addClass("hidden");
+            $("#onboarding-wrapper").addClass("hidden");
         }
         else {
             $("#onboarding-alert").removeClass("hidden");
+            $("#onboarding-wrapper").removeClass("hidden");
         }
     }
 };
@@ -607,7 +613,7 @@ window.onload = async() => {
                                         Ends MM/DD/YYYY
                                         </h4>
                                        <div class="inside-text collection-description">
-                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante. Duis sodales eros consequat magna efficitur, non ullamcorper mauris tristique.
+                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante.
                                         </div>
                                         <button class="button">PURCHASE</button>
                                     </div>

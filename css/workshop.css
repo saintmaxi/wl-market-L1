@@ -32,7 +32,22 @@ textarea {
     line-height: .94vw;
 }
 
+.partner-collection .website {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 10%;
+}
+
+#create-input, #modify-input {
+    width: 40%;
+}
+
 @media screen and (max-width: 991px) {
+
+    #create-input, #modify-input {
+        width: 90%;
+    }
 
     .end-time, .start-time {
         font-size: 1.9vh !important;

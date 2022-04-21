@@ -27,12 +27,23 @@
 
 /* Onboarding section */
 
+#onboarding-wrapper {
+    width: 60%;
+    margin: auto;
+    background-color: rgba(255, 0, 0, 0.484);
+    border: solid .5vw rgb(81, 20, 20);
+	border-radius: 1vw;
+    padding: 1vw;
+}
+
 #onboarding-alert p {
-    width: 50%;
+    width: 80%;
     margin: auto;
     font-family: "Space";
     text-align: center;
-    background-color: black;
+    /* background-color: black; */
+    /* background-color: rgba(255, 0, 0, 0.484); */
+
 }
 
 .onboarding-wrapper {
@@ -42,7 +53,7 @@
 }
 
 .onboarding {
-    width: 25%;
+    width: 50%;
     display: inline-block;
     margin: 0;
     margin-top: 1vw;
@@ -82,13 +93,18 @@ h2 {
 
 #selector-div {
     text-align: center;
+    width: 50%;
+    margin: auto;
+    border: .2vw solid rgba(0,255,242);
+    border-radius: 1vw;
+    padding: 1vw;
 }
 
 #selector-div button {
     font-size: 2vw;
     line-height: 2vw;
     padding: .2vw;
-    width: 25%;
+    width: 49%;
     background-color: white;
     color: black;
 }
@@ -127,6 +143,10 @@ h2 {
     position: relative;
 }
 
+.select-prompt {
+    height: initial !important;
+}
+
 .cover {
     position: absolute;
 	border-width: .2vw;
@@ -152,7 +172,7 @@ h2 {
 	border-color: white;
 	border-radius: 15px;
 	border-width: .2vw;
-    width: 25%;
+    width: 22%;
     margin: 1%;
     background-color: black;
     color: white !important;
@@ -212,6 +232,7 @@ h2 {
 
 .partner-collection button {
     margin-top: auto;
+    height: 7vh;
 }
 
 .collection-twitter {
@@ -515,6 +536,16 @@ h4 {
 
     /* Approval section*/
 
+    #onboarding-wrapper {
+        width: 95%;
+        border-radius: 15px;
+        border-width: 5px;
+    }
+
+    .button {
+        border-radius: 5px;
+    }
+
     #onboarding-section {
         padding-top: 25px !important;
         padding-bottom: 25px !important;
@@ -547,6 +578,13 @@ h4 {
     }
 
     /* End approval section*/
+
+    #selector-div {
+        width: 90%;
+        border-width: 5px;
+        border-radius: 15px;
+        padding: 1.5vh;
+    }
 
 
     #selector-div button {

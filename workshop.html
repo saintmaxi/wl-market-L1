@@ -162,21 +162,14 @@
             <h3>ENTER INFO</h3>
             <br>
             <input id="listing-title" placeholder="title">
-            <br>
-            <input id="listing-image" placeholder="imageUri (1:1 aspect ratio)">
-            <br>
-            <input id="listing-site" placeholder="projectUri (website, can be empty)">
-            <br>
+            <input id="listing-image" placeholder="imageUri (link to image, 1:1 aspect ratio)">
+            <input id="listing-site" placeholder="projectUri (link to site, can be empty)">
             <textarea id="listing-description" placeholder="description (can be empty)" rows="1"></textarea>
-            <br>
             <input type="number" min="1" id="listing-amount" placeholder="amountAvailable">
-            <br>
-            <input id="listing-start" placeholder="start time (unix style - in seconds)">
-            <br>
-            <input id="listing-deadline" placeholder="deadline (unix style - in seconds)">
-            <br>
+            <input id="listing-start" placeholder="start time (unix timestamp in seconds)">
+            <input id="listing-deadline" placeholder="deadline (unix timestamp in seconds)">
             <input type="number" min="0" id="listing-price" placeholder="price (in $TOKEN - ex: 20)">
-            <br>
+            <br class="hide-on-desktop">
             <a href="https://www.epochconverter.com/" target="_blank">LINK TO UNIX TIMESTAMP TOOL<br>Use "Human Date to
                Timestamp" -> Epoch Timestamp</a>
             <br>
@@ -198,8 +191,7 @@
                      id="ex-token">
                </h4>
                <div class="inside-text collection-description" id="ex-description">Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non
-                  augue volutpat, eu convallis nibh pretium.
+                  adipiscing elit.
                </div>
                <button class="button" onclick="addListing()">ADD LISTING</button>
             </div>
@@ -210,21 +202,14 @@
             <h3>ENTER INFO</h3>
             <br>
             <input id="listing-title" placeholder="title">
-            <br>
-            <input id="listing-image" placeholder="imageUri (1:1 aspect ratio)">
-            <br>
-            <input id="listing-site" placeholder="projectUri (website, can be empty)">
-            <br>
-            <textarea id="listing-description" placeholder="description (can be empty)" rows="1"></textarea>
-            <br>
+            <input id="listing-image" placeholder="imageUri (link to image, 1:1 aspect ratio)">
+            <input id="listing-site" placeholder="projectUri (link to site, can be empty)">
+            <textarea id="listing-description" placeholder="description (can be empty, less chars = less gas)" rows="1"></textarea>
             <input type="number" min="1" id="listing-amount" placeholder="amountAvailable">
-            <br>
-            <input id="listing-start" placeholder="start time (unix style - in seconds)">
-            <br>
-            <input id="listing-deadline" placeholder="deadline (unix style - in seconds)">
-            <br>
+            <input id="listing-start" placeholder="start time (unix timestamp in seconds)">
+            <input id="listing-deadline" placeholder="deadline (unix timestamp in seconds)">
             <input type="number" min="0" id="listing-price" placeholder="price (in $TOKEN - ex: 20)">
-            <br>
+            <br class="hide-on-desktop">
             <a href="https://www.epochconverter.com/" target="_blank">LINK TO UNIX TIMESTAMP TOOL<br>Use "Human Date to Timestamp" -> Epoch Timestamp</a>
             <br>
             <button class="button" onclick="generateModify()">UPDATE</button>
@@ -240,7 +225,7 @@
                   <br>
                   <span id="ex-price">???</span> <img src="https://github.com/saintmaxi/mtmtest/blob/main/images/mes.png?raw=true" class="token-icon" id="ex-token">
                   </h4>
-               <div class="inside-text collection-description" id="ex-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+               <div class="inside-text collection-description" id="ex-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                </div>
                <button class="button" onclick="modifyListing()">MODIFY LISTING</button>
             </div>

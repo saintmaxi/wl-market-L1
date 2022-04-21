@@ -32,7 +32,7 @@ select {
 	background-color: black;
 	color: white !important;
 	border-width: .2vw;
-	border-radius: 15px;
+	border-radius: 1vw;
 	min-width: 35%;
 }
 
@@ -240,7 +240,7 @@ p {
 	font-size: 1.4vw;
 	line-height: 1.7vw;
 	padding: .5vw;
-	border-radius: 5px;
+	border-radius: 1vw;
 	font-family: 'Martian', sans-serif;
 	font-weight: bolder;
 	transition: box-shadow ease 100ms;
@@ -320,7 +320,7 @@ h5 {
     line-height: 1.5vw;
     padding: 20px;
     text-align: center;
-	border-radius: 15px;
+	border-radius: 1vw;
 	border: 1px solid black;
 }
 

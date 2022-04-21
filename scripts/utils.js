@@ -51,7 +51,7 @@ function sleep(ms) {
 function showLive() {
     $('#past-collections').addClass('hidden');
     $('#live-collections').removeClass('hidden');
-    if ($("#live-collections .partner-collection").length > 3) {
+    if ($("#live-collections .partner-collection").length > 4) {
         $("#scroll-indicator").removeClass("hidden");
     }
     else {
@@ -64,7 +64,7 @@ function showLive() {
 function showPast() {
     $('#live-collections').addClass('hidden');
     $('#past-collections').removeClass('hidden');
-    if ($("#past-collections .partner-collection").length > 3) {
+    if ($("#past-collections .partner-collection").length > 4) {
         $("#scroll-indicator").removeClass("hidden");
     }
     else {
@@ -77,7 +77,7 @@ function showPast() {
 function showCreate() {
     $('#past-collections').addClass('hidden');
     $('#live-collections').removeClass('hidden');
-    if ($("#live-collections .partner-collection").length > 3) {
+    if ($("#live-collections .partner-collection").length > 4) {
         $("#scroll-indicator").removeClass("hidden");
     }
     else {
@@ -91,7 +91,7 @@ function showCreate() {
 function showModify() {
     $('#live-collections').addClass('hidden');
     $('#past-collections').removeClass('hidden');
-    if ($("#past-collections .partner-collection").length > 3) {
+    if ($("#past-collections .partner-collection").length > 4) {
         $("#scroll-indicator").removeClass("hidden");
     }
     else {
