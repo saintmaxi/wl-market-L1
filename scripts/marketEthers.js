@@ -476,9 +476,14 @@ const loadPartnerCollections = async() => {
     let userAddress = await getAddress();
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
-        if ((await market.isAuthorized(address, userAddress))) {
-            $("#workshop-link").removeClass("hidden");
-            $("#mobile-workshop-link").removeClass("hidden");
+        try {
+            if ((await market.isAuthorized(address, userAddress))) {
+                $("#workshop-link").removeClass("hidden");
+                $("#mobile-workshop-link").removeClass("hidden");
+            }
+        }
+        catch (error) {
+            console.log("Error with auth check:", error);
         }
         let projectInfo = await market.contractToProjectInfo(address);
         fakeJSX += `<option value="${address}">${(projectInfo.projectName).toUpperCase()}</option>`;

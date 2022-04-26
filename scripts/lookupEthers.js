@@ -98,9 +98,14 @@ const loadCollectionsData = async () => {
     for (const chunk of collectionChunks) {
         await Promise.all(chunk.map(async (i) => {
             let collectionAddress = collections[i];
-            if ((await market.isAuthorized(collectionAddress, userAddress))) {
-                $("#workshop-link").removeClass("hidden");
-                $("#mobile-workshop-link").removeClass("hidden");
+            try {
+                if ((await market.isAuthorized(collectionAddress, userAddress))) {
+                    $("#workshop-link").removeClass("hidden");
+                    $("#mobile-workshop-link").removeClass("hidden");
+                }
+            }
+            catch (error) {
+                console.log("Error with auth check:", error);
             }
             let projectInfo = await market.contractToProjectInfo(collectionAddress);
             let projectName = projectInfo.projectName;
