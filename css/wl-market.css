@@ -126,6 +126,7 @@ p {
 
 #discord {
 	height: 50%;
+	transition: all 0.5s;
 }
 
 #edit-img {
