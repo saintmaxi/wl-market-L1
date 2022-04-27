@@ -166,13 +166,12 @@
             <input id="listing-site" placeholder="projectUri (link to site, can be empty)">
             <textarea id="listing-description" placeholder="description (can be empty)" rows="1"></textarea>
             <input type="number" min="1" id="listing-amount" placeholder="amountAvailable">
-            <input id="listing-start" placeholder="start time (unix timestamp in seconds)">
-            <input id="listing-deadline" placeholder="deadline (unix timestamp in seconds)">
+            START TIME (LOCAL TIMEZONE)
+            <input type="datetime-local" id="listing-start">
+            END TIME (LOCAL TIMEZONE)
+            <input type="datetime-local" id="listing-deadline">
             <input type="number" min="0" id="listing-price" placeholder="price (in $TOKEN - ex: 20)">
             <br class="hide-on-desktop">
-            <a href="https://www.epochconverter.com/" target="_blank">LINK TO UNIX TIMESTAMP TOOL<br>Use "Human Date to
-               Timestamp" -> Epoch Timestamp</a>
-            <br>
             <button class="button" onclick="generateCreate()">GENERATE</button>
          </div>
          <div id="create-template" class="partner-collection example">
@@ -206,12 +205,13 @@
             <input id="listing-site" placeholder="projectUri (link to site, can be empty)">
             <textarea id="listing-description" placeholder="description (can be empty, less chars = less gas)" rows="1"></textarea>
             <input type="number" min="1" id="listing-amount" placeholder="amountAvailable">
-            <input id="listing-start" placeholder="start time (unix timestamp in seconds)">
-            <input id="listing-deadline" placeholder="deadline (unix timestamp in seconds)">
+            START TIME (LOCAL TIMEZONE)
+            <input type="datetime-local" id="listing-start">
+            END TIME (LOCAL TIMEZONE))
+            <input type="datetime-local" id="listing-deadline">
             <input type="number" min="0" id="listing-price" placeholder="price (in $TOKEN - ex: 20)">
-            <br class="hide-on-desktop">
-            <a href="https://www.epochconverter.com/" target="_blank">LINK TO UNIX TIMESTAMP TOOL<br>Use "Human Date to Timestamp" -> Epoch Timestamp</a>
-            <br>
+            <br class="hide-on-mobile">
+            If you want to modify a field, enter it above. If left empty, the existing value will remain unchanged.
             <button class="button" onclick="generateModify()">UPDATE</button>
          </div>
          <div id="modify-template" class="partner-collection example">

@@ -108,37 +108,36 @@ const loadPartnerCollections = async() => {
 }
 
 const generateCreate = async() => {
-    let mode = "create";
-    let title = $(`#${mode}-input #listing-title`).val();
-    let image = $(`#${mode}-input #listing-image`).val();
-    let site = ($(`#${mode}-input #listing-site`).val()).includes("https://") ? $(`#${mode}-input #listing-site`).val() : `https://${$(`#${mode}-input #listing-site`).val()}`;
-    let description = $(`#${mode}-input #listing-description`).val();
-    let amount = Number($(`#${mode}-input #listing-amount`).val());
-    let start = $(`#${mode}-input #listing-start`).val();
-    let deadline = $(`#${mode}-input #listing-deadline`).val();
-    let price = Number($(`#${mode}-input #listing-price`).val());
+    let title = $(`#create-input #listing-title`).val();
+    let image = $(`#create-input #listing-image`).val();
+    let site = ($(`#create-input #listing-site`).val()).includes("https://") ? $(`#create-input #listing-site`).val() : `https://${$(`#create-input #listing-site`).val()}`;
+    let description = $(`#create-input #listing-description`).val();
+    let amount = Number($(`#create-input #listing-amount`).val());
+    let start = (new Date($(`#create-input #listing-start`).val()).valueOf())/1000;
+    let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf())/1000;
+    let price = Number($(`#create-input #listing-price`).val());
 
     if (start > deadline) {
         await displayErrorMessage("Error: Start time must be before deadline!");
     }
     else {
-        $(`#${mode}-template #ex-title`).html(title.toUpperCase());
-        $(`#${mode}-template #ex-image`).attr("src", image);
-        $(`#${mode}-template #ex-site`).attr("href", site);
-        $(`#${mode}-template #ex-description`).html(description.replaceAll("\n", "<br>"));
-        $(`#${mode}-template #ex-amount`).html(amount);
-        $(`#${mode}-template #ex-remaining`).html(0);
-        $(`#${mode}-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#${mode}-template #ex-deadline`).html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#${mode}-template #ex-price`).html(price);
+        $(`#create-template #ex-title`).html(title.toUpperCase());
+        $(`#create-template #ex-image`).attr("src", image);
+        $(`#create-template #ex-site`).attr("href", site);
+        $(`#create-template #ex-description`).html(description.replaceAll("\n", "<br>"));
+        $(`#create-template #ex-amount`).html(amount);
+        $(`#create-template #ex-remaining`).html(0);
+        $(`#create-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
+        $(`#create-template #ex-deadline`).html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
+        $(`#create-template #ex-price`).html(price);
     }
 }
 
 const addListing = async() => {
     try {
         let currentProjectAddress = $("#wl-select").val();
-        let start = Number($("#create-input #listing-start").val());
-        let deadline = Number($("#create-input #listing-deadline").val());
+        let start = (new Date($(`#create-input #listing-start`).val()).valueOf())/1000;
+        let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf())/1000;
         if (!currentProjectAddress) {
             await displayErrorMessage("Select a project to add listing!")
         }
@@ -244,8 +243,8 @@ const generateModify = async() => {
     let description = $("#modify-input #listing-description").val() ? $("#modify-input #listing-description").val() : currentlySelectedWLinfo.description;
     let amount = $("#modify-input #listing-amount").val() ? Number($("#modify-input #listing-amount").val()) : currentlySelectedWLinfo.amountAvailable;
     let purchased = currentlySelectedWLinfo.amountPurchased;
-    let start = $("#modify-input #listing-start").val() ? Number($("#modify-input #listing-start").val()) : currentlySelectedWLinfo.startTime;
-    let deadline = $("#modify-input #listing-deadline").val() ? Number($("#modify-input #listing-deadline").val()) : currentlySelectedWLinfo.endTime;
+    let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
+    let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
     let price = $("#modify-input #listing-price").val() ? $("#modify-input #listing-price").val() : Number(formatEther(currentlySelectedWLinfo.price));
 
     if (start > deadline) {
@@ -273,8 +272,8 @@ const modifyListing = async() => {
         let description = $("#modify-input #listing-description").val() ? $("#modify-input #listing-description").val() : currentlySelectedWLinfo.description;
         let amount = $("#modify-input #listing-amount").val() ? Number($("#modify-input #listing-amount").val()) : currentlySelectedWLinfo.amountAvailable;
         let purchased = currentlySelectedWLinfo.amountPurchased;
-        let start = $("#modify-input #listing-start").val() ? Number($("#modify-input #listing-start").val()) : currentlySelectedWLinfo.startTime;
-        let deadline = $("#modify-input #listing-deadline").val() ? Number($("#modify-input #listing-deadline").val()) : currentlySelectedWLinfo.endTime;
+        let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
+        let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
         let price = $("#modify-input #listing-price").val() ? parseEther($("#modify-input #listing-price").val()) : currentlySelectedWLinfo.price;
         if (!(title && image && (site != null) && (description != null) && amount && start && deadline && price && (purchased != null))) {
             await displayErrorMessage("Missing fields!")
