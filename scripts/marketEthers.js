@@ -270,7 +270,9 @@ const purchase = async(tokenAddress, id) => {
             await promptForDiscord();
         }
         else {
-            await market.purchaseWLVendingItem(tokenAddress, id).then( async(tx_) => {
+            const gasLimit = await market.estimateGas.purchaseWLVendingItem(tokenAddress, id);
+            const newGasLimit = parseInt((gasLimit * 1.15)).toString();
+            await market.purchaseWLVendingItem(tokenAddress, id, {gasLimit: newGasLimit}).then( async(tx_) => {
                 await waitForTransaction(tx_);
             });
         }
