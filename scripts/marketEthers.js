@@ -305,7 +305,7 @@ const purchase = async(tokenAddress, id) => {
         }
         else {
             await displayErrorMessage("An error occurred. See console and window alert for details...")
-            window.alert(error);
+            window.alert(JSON.stringify(error));
             console.log(error);
         }
     }

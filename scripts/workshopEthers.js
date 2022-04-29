@@ -170,7 +170,7 @@ const addListing = async() => {
         }
         else {
             await displayErrorMessage("An error occurred. See console and window alert for details...")
-            window.alert(error);
+            window.alert(JSON.stringify(error));
             console.log(error);
         }
     }
@@ -299,7 +299,7 @@ const modifyListing = async() => {
         }
         else {
             await displayErrorMessage("An error occurred. See console and window alert for details...")
-            window.alert(error);
+            window.alert(JSON.stringify(error));
             console.log(error);
         }
     }
