@@ -210,11 +210,10 @@ const selectProject = async(address) => {
 }
 
 var currentlySelectedListing;
-var currentlySelectedWLinfo;
 
 const selectListing = async(id) => {
     currentlySelectedListing = Number(id);
-    currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, id);
+    let currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, id);
     let title = currentlySelectedWLinfo.title;
     let image = currentlySelectedWLinfo.imageUri;
     let site = (currentlySelectedWLinfo.projectUri).includes("https://") ? currentlySelectedWLinfo.projectUri : `https://${currentlySelectedWLinfo.projectUri}`;
@@ -238,6 +237,7 @@ const selectListing = async(id) => {
 
 const generateModify = async() => {
     let mode = "modify";
+    let currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, currentlySelectedListing);
     let title = $("#modify-input #listing-title").val() ? $("#modify-input #listing-title").val() : currentlySelectedWLinfo.title;
     let image = $("#modify-input #listing-image").val()? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
     let site = $("#modify-input #listing-site").val() ? $("#modify-input #listing-site").val() : currentlySelectedWLinfo.projectUri;
@@ -267,6 +267,7 @@ const generateModify = async() => {
 
 const modifyListing = async() => {
     try {
+        let currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, currentlySelectedListing);
         let title = $("#modify-input #listing-title").val() ? $("#modify-input #listing-title").val() : currentlySelectedWLinfo.title;
         let image = $("#modify-input #listing-image").val()? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
         let site = $("#modify-input #listing-site").val() ? $("#modify-input #listing-site").val() : currentlySelectedWLinfo.projectUri;
