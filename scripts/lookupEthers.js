@@ -95,8 +95,8 @@ const loadCollectionsData = async () => {
     let collectionIdToJSX = new Map();
     let fullCollectionJSX = "";
     const collectionChunks = splitArrayToChunks(allCollectionIds, 20);
-    for (const chunk of collectionChunks) {
-        await Promise.all(chunk.map(async (i) => {
+    // for (const chunk of collectionChunks) {
+        await Promise.all(allCollectionIds.map(async (i) => {
             let collectionAddress = collections[i];
             try {
                 if ((await market.isAuthorized(collectionAddress, userAddress))) {
@@ -139,7 +139,7 @@ const loadCollectionsData = async () => {
             fakeJSX = `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
             collectionIdToJSX.set(i, fakeJSX);
         }))
-    };
+    // };
     for (const collectionId of allCollectionIds) {
         fullCollectionJSX += collectionIdToJSX.get(collectionId);
     }
