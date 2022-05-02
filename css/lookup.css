@@ -8,7 +8,7 @@ h2 {
 }
 
 #lookup {
-    width: 70%;
+    width: 80%;
     color: white !important;
 }
 
@@ -21,18 +21,53 @@ h2 {
     width: 80%;
 }
 
+
 #wl-section {
+    border-radius: 1vw;
+    background: #0ffef26f;
+    border: solid .5vw #0fdad0;
     width: 90%;
-    min-height: 20vh;
+    /* min-height: 20vh; */
     overflow-y: scroll;
     /* border: .5vw black solid; */
     /* border-radius: 20px; */
     margin: auto;
     text-align: center;
-    padding-top: 1.5vw;
-    padding-bottom: 1.5vw;
+    padding-top: .5vw;
+    /* padding-bottom: 1.5vw; */
     font-size: 1.2vw;
     line-height: 1.3vw;
+    padding: 1.5vw;
+}
+
+.wl-row {
+    width: 100%;
+    border-radius: .5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: "Space";
+    padding: 1vw;
+}
+
+.wl-discord, .wl-address {
+    width: 50%;
+}
+
+.wl-discord {
+    text-align: left;
+}
+
+.wl-address {
+    text-align: right;
+}
+
+#wl-section > .wl-row:nth-child(1) {
+    background: #03b4ab !important;
+}
+
+#wl-section > .wl-row:nth-of-type(odd) {
+    background: #03b4abbd;
 }
 
 #lookup-button {
@@ -60,6 +95,24 @@ select {
 }
 
 @media screen and (max-width: 991px) {
+
+    .wl-row {
+        display: block;
+        padding: 8px;
+        border-radius: 1vw;
+    }
+
+    #discord-header, #address-header {
+        font-size: 2vh;
+        line-height: 2vh;
+    }
+
+    .wl-discord, .wl-address {
+        width: 100%;
+        text-align: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
 
     #lookup {
         width: 97%;

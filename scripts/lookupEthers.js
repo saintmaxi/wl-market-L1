@@ -160,6 +160,7 @@ const loadMyWL = async() => {
 }
 
 function selectProject(projectName) {
+    $("#wl-section").addClass("hidden");
     $("#wl-section").empty();
     $("#listing-select").empty();
     $("#listing-select").append(`<option disabled selected value="">SELECT WHITELIST</option>`);
@@ -174,15 +175,16 @@ function selectListing(listingName) {
     let projectName = $("#wl-select").val();
     let wlArray = [...(projectToWL.get(projectName).get(listingName))].map(x => {
         if (x.discord) {
-            return `${(x.discord).toUpperCase()}: ${(x.address).toUpperCase()}`;
+            return `<div class="wl-row"><div class="wl-discord">${(x.discord).toUpperCase()}</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>`;
         }
         else {
-            return (x.address).toUpperCase();
+            return <div class="wl-row"><div class="wl-discord">NO DISCORD</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>
         }
     });
-    let wlString = wlArray.join("<br>");
+    let wlString = `<div class="wl-row"><div class="wl-discord" id="discord-header">DISCORD</div> <div class="wl-address" id="address-header">ADDRESS</div> </div>` + wlArray.join('');
     $("#wl-section").empty();
-    $("#wl-section").html(wlString);
+    $("#wl-section").append(wlString);
+    $("#wl-section").removeClass("hidden");
     updateDownload();
 }
 
