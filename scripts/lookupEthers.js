@@ -178,7 +178,7 @@ function selectListing(listingName) {
             return `<div class="wl-row"><div class="wl-discord">${(x.discord).toUpperCase()}</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>`;
         }
         else {
-            return <div class="wl-row"><div class="wl-discord">NO DISCORD</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>
+            return `<div class="wl-row"><div class="wl-discord">NO DISCORD</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>`;
         }
     });
     let wlString = `<div class="wl-row"><div class="wl-discord" id="discord-header">DISCORD</div> <div class="wl-address" id="address-header">ADDRESS</div> </div>` + wlArray.join('');
