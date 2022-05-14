@@ -109,12 +109,13 @@ const loadCollectionsData = async () => {
 
             let purchased;
             for (purchaser of result.purchasers) {
-                purchased = (userAddress == purchaser.address) ? true : false;
+                purchased = (userAddress == purchaser.address);
+                if (purchased) {
+                    myWL.push(result.listingName.toUpperCase());
+                    break;
+                }
             }
 
-            if (purchased) {
-                myWL.push(result.listingName.toUpperCase());
-            }
         }
         let fakeJSX;
         let projects = Array.from(condensed.keys()).sort();
