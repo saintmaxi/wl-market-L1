@@ -5,22 +5,21 @@ AWS.config.update({region:'us-east-1'});
 
 let ddb = new AWS.DynamoDB.DocumentClient();
 
-const getListingsData = function () {
-
+const getListingsData = async() => {
     const params = {
-        TableName: config.aws_table_name
+        TableName: config.aws_table_name,
     };
 
-    ddb.scan(params, function (err, data) {
-
-        if (err) {
-            return { results: [] }
-        } 
-        else {
-            const { items } = data;
-            return { results: items }
-        }
-    }); 
+    const scanResults = [];
+    let items;
+    do{
+        items =  await ddb.scan(params).promise();
+        items.Items.forEach((item) => scanResults.push(item));
+        params.ExclusiveStartKey  = items.LastEvaluatedKey;
+    }
+    while(typeof items.LastEvaluatedKey !== "undefined");
+    
+    return { results: scanResults };
 }
 
 exports.handler = async function(event, context) {
