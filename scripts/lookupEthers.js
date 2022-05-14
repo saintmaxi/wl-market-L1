@@ -113,7 +113,7 @@ const loadCollectionsData = async () => {
             }
 
             if (purchased) {
-                myWL.push(result.contract.toUpperCase());
+                myWL.push(result.listingName.toUpperCase());
             }
         }
         let fakeJSX;
