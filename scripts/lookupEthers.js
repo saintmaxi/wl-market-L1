@@ -119,8 +119,8 @@ const loadCollectionsData = async () => {
         }
         let fakeJSX;
         let projects = Array.from(condensed.keys()).sort();
-        for (let i = 0; i < projects.length; i++) {
-            fakeJSX += `<option value="${projects[i]}">${i}: ${projects[i].toUpperCase()}</option>`;
+        for (project of projects) {
+            fakeJSX += `<option value="${project}">${project.toUpperCase()}</option>`;
         }
         $("#wl-select").empty();
         $("#wl-select").append(fakeJSX);
