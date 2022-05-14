@@ -112,8 +112,8 @@ const loadCollectionsData = async () => {
         }
         $("#wl-select").empty();
         $("#wl-select").append(fakeJSX);
-        selectProject($("#wl-select option:first").val());
         projectToWL = condensed;
+        selectProject($("#wl-select option:first").val());
     }
     else {
         let collections = await market.getAllEnabledContracts();
