@@ -476,6 +476,7 @@ const loadPartnerCollections = async() => {
     let collections = await market.getAllEnabledContracts();
     let fakeJSX = "";
     let userAddress = await getAddress();
+    let projectToAddress = new Map();
     for (let i = 0; i < collections.length; i++) {
         let address = collections[i];
         try {
@@ -488,8 +489,14 @@ const loadPartnerCollections = async() => {
             console.log("Error with auth check:", error);
         }
         let projectInfo = await market.contractToProjectInfo(address);
-        fakeJSX += `<option value="${address}">${(projectInfo.projectName).toUpperCase()}</option>`;
+        projectToAddress.set(projectInfo.projectName, address);
     }
+
+    let alphabetical = Array.from(projectToAddress.keys()).sort();
+    for (name of alphabetical) {
+        fakeJSX += `<option value="${projectToAddress.get(name)}">${(name).toUpperCase()}</option>`;
+    }
+
     $("#wl-select").append(fakeJSX);
 }
 
