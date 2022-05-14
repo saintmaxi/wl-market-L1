@@ -87,65 +87,96 @@ var myWL = [];
 
 const loadCollectionsData = async () => {
     now = Date.now()
-    let collections = await market.getAllEnabledContracts();
-    let numCollections = collections.length;
-    let userAddress = await getAddress();
-    let fakeJSX = `<option disabled selected value="">SELECT PROJECT</option>`;
-    let allCollectionIds = Array.from(Array(numCollections).keys());
-    let collectionIdToJSX = new Map();
-    let fullCollectionJSX = "";
-    const collectionChunks = splitArrayToChunks(allCollectionIds, 20);
-    // for (const chunk of collectionChunks) {
-        await Promise.all(allCollectionIds.map(async (i) => {
-            let collectionAddress = collections[i];
-            try {
-                if ((await market.isAuthorized(collectionAddress, userAddress))) {
-                    $("#workshop-link").removeClass("hidden");
-                    $("#mobile-workshop-link").removeClass("hidden");
-                }
+
+    let currentChain = await getChainId();
+    if (currentChain == 1) {
+        const listingData = await fetch(`https://market.messagetomartians.com/.netlify/functions/listing-data`).then(res => res.text());
+        const jsonData = listingData ? JSON.parse(listingData) : [];
+        let condensed = new Map();
+        let results = jsonData["results"];
+        for (result of results) {
+            if (condensed.get(result.contract)) {
+                let data = condensed.get(result.contract);
+                data.set(result.listingName, result.purchasers);
+                condensed.set(result.contract, data);
             }
-            catch (error) {
-                console.log("Error with auth check:", error);
+            else {
+                let listingData = new Map();
+                listingData.set(result.listingName, result.purchasers)
+                condensed.set(result.contract, listingData)
             }
-            let projectInfo = await market.contractToProjectInfo(collectionAddress);
-            let projectName = projectInfo.projectName;
-            let listingIdsToInfo = new Map();
-            let listingsToBuyers = new Map();
-            let numListings = Number(await market.getWLVendingItemsLength(collectionAddress));
-            let allListingIds = Array.from(Array(numListings).keys());
-            const chunks = splitArrayToChunks(allListingIds, 10);
-            for (const chunk of chunks) {
-                await Promise.all(chunk.map(async (id) => {
-                    let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
-                    let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
-                    let title = WLinfo.title;
-                    let purchased = buyers.includes(userAddress) ? true : false;
-                    if (purchased) {
-                        myWL.push(title.toUpperCase());
-                    }
-                    let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
-                        let discord = await identityMapper.addressToDiscord(buyer);
-                        let discordResult = discord ? discord : "DISCORD UNKNOWN";
-                        return { discord: discordResult, address: buyer };
-                    }));
-                    listingIdsToInfo.set(id, {title: `#${id}: ${title}`, discordsAndBuyers: discordsAndBuyers});
-                }));
-            }
-            for (const listingId of allListingIds) {
-                let listing = listingIdsToInfo.get(listingId);
-                listingsToBuyers.set(listing.title, listing.discordsAndBuyers)
-            }
-            projectToWL.set(projectName, listingsToBuyers);
-            fakeJSX = `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
-            collectionIdToJSX.set(i, fakeJSX);
-        }))
-    // };
-    for (const collectionId of allCollectionIds) {
-        fullCollectionJSX += collectionIdToJSX.get(collectionId);
+        }
+        let fakeJSX;
+        let projects = Array.from(condensed.keys().sort());
+        for (project of projects) {
+            fakeJSX += `<option value="${project}">${project.toUpperCase()}</option>`;
+        }
+        $("#wl-select").empty();
+        $("#wl-select").append(fakeJSX);
+        projectToWL = condensed;
+        selectProject($("#wl-select option:first").val());
     }
-    $("#wl-select").empty();
-    $("#wl-select").append(fullCollectionJSX);
-    selectProject($("#wl-select option:first").val());
+    else {
+        let collections = await market.getAllEnabledContracts();
+        let numCollections = collections.length;
+        let userAddress = await getAddress();
+        let fakeJSX = `<option disabled selected value="">SELECT PROJECT</option>`;
+        let allCollectionIds = Array.from(Array(numCollections).keys());
+        let collectionIdToJSX = new Map();
+        let fullCollectionJSX = "";
+        const collectionChunks = splitArrayToChunks(allCollectionIds, 20);
+        // for (const chunk of collectionChunks) {
+            await Promise.all(allCollectionIds.map(async (i) => {
+                let collectionAddress = collections[i];
+                try {
+                    if ((await market.isAuthorized(collectionAddress, userAddress))) {
+                        $("#workshop-link").removeClass("hidden");
+                        $("#mobile-workshop-link").removeClass("hidden");
+                    }
+                }
+                catch (error) {
+                    console.log("Error with auth check:", error);
+                }
+                let projectInfo = await market.contractToProjectInfo(collectionAddress);
+                let projectName = projectInfo.projectName;
+                let listingIdsToInfo = new Map();
+                let listingsToBuyers = new Map();
+                let numListings = Number(await market.getWLVendingItemsLength(collectionAddress));
+                let allListingIds = Array.from(Array(numListings).keys());
+                const chunks = splitArrayToChunks(allListingIds, 10);
+                for (const chunk of chunks) {
+                    await Promise.all(chunk.map(async (id) => {
+                        let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
+                        let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
+                        let title = WLinfo.title;
+                        let purchased = buyers.includes(userAddress) ? true : false;
+                        if (purchased) {
+                            myWL.push(title.toUpperCase());
+                        }
+                        let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
+                            let discord = await identityMapper.addressToDiscord(buyer);
+                            let discordResult = discord ? discord : "DISCORD UNKNOWN";
+                            return { discord: discordResult, address: buyer };
+                        }));
+                        listingIdsToInfo.set(id, {title: `#${id}: ${title}`, discordsAndBuyers: discordsAndBuyers});
+                    }));
+                }
+                for (const listingId of allListingIds) {
+                    let listing = listingIdsToInfo.get(listingId);
+                    listingsToBuyers.set(listing.title, listing.discordsAndBuyers)
+                }
+                projectToWL.set(projectName, listingsToBuyers);
+                fakeJSX = `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
+                collectionIdToJSX.set(i, fakeJSX);
+            }))
+        // };
+        for (const collectionId of allCollectionIds) {
+            fullCollectionJSX += collectionIdToJSX.get(collectionId);
+        }
+        $("#wl-select").empty();
+        $("#wl-select").append(fullCollectionJSX);
+        selectProject($("#wl-select option:first").val());
+    }
     console.log("Lookup time: ", (Date.now() - now)/1000, "s")
 }
 
