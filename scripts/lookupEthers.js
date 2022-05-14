@@ -90,6 +90,7 @@ const loadCollectionsData = async () => {
 
     let currentChain = await getChainId();
     if (currentChain == 1) {
+        let userAddress = await getAddress();
         const listingData = await fetch(`https://market.messagetomartians.com/.netlify/functions/listing-data`).then(res => res.text());
         const jsonData = listingData ? JSON.parse(listingData) : [];
         let condensed = new Map();
@@ -105,9 +106,18 @@ const loadCollectionsData = async () => {
                 listingData.set(result.listingName, result.purchasers)
                 condensed.set(result.contract, listingData)
             }
+
+            let purchased;
+            for (purchaser of result.purchasers) {
+                purchased = (userAddress == purchaser.address) ? true : false;
+            }
+
+            if (purchased) {
+                myWL.push(title.toUpperCase());
+            }
         }
         let fakeJSX;
-        let projects = Array.from(condensed.keys().sort());
+        let projects = Array.from(condensed.keys()).sort();
         for (project of projects) {
             fakeJSX += `<option value="${project}">${project.toUpperCase()}</option>`;
         }
