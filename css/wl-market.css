@@ -127,6 +127,10 @@ p {
 #discord {
 	height: 50%;
 	transition: all 0.5s;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
 }
 
 #edit-img {

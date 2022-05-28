@@ -417,6 +417,13 @@
         width: 40%;
     }
 
+    #discord-mobile {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
     /* end header/navbar styling */
 
     /* start about section styling */
