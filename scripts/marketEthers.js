@@ -113,8 +113,11 @@ const selectProject = async(address) => {
         $("#num-past").html(`<br>(<span class="one">.</span><span class="two">.</span><span class="three">.</span>)`);
         let projectInfo = await market.contractToProjectInfo(address);
         $("#approval-project").html(projectInfo.projectName);
-        $("#approval-token").html((projectInfo.tokenName).toUpperCase());
-        $("#approval-token-2").html((projectInfo.tokenName).toUpperCase());
+
+        let tokenName = (projectInfo.tokenName[0] == "$") ? projectInfo.tokenName.substring(1).toUpperCase() : projectInfo.tokenName.toUpperCase();
+
+        $("#approval-token").html(tokenName);
+        $("#approval-token-2").html(tokenName);
 
         currentTokenAddress = address;
         currentTokenImageURI = (projectInfo.tokenImageUri).includes("https://") ? projectInfo.tokenImageUri : `https://${projectInfo.tokenImageUri}`;
