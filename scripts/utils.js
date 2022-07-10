@@ -119,6 +119,7 @@ function clearPendingTxs() {
 const identityMapperAddressMainnet = "0xaD48C81ac9CdcD4fE3e25B8493b2798eA5104e6f";
 const identityMapperAddressPolygon = "0x88C6a2aDc73Aaf4A5E659d5f170480fcdc595532";
 const identityMapperAddressArbitrum = "0x9d00D9b009Ab80a18013675011c93796d89de6B4";
+const identityMapperAddressTestnet = "0xffccE647DA8a266A8779875b9c68cb51DC236C80";
 const identityMapperAbi = () => {
     return `[{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"addressToDiscord","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"addressToTwitter","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"discordTag_","type":"string"}],"name":"setDiscordIdentity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"twitterTag_","type":"string"}],"name":"setTwitterIdentity","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
 }
@@ -135,11 +136,14 @@ const setIdentityMapper = async() => {
     if (currentChain == 1) {
         identityMapperAddress = identityMapperAddressMainnet;
     }
-    else if (currentChain == 42161) {
-        identityMapperAddress = identityMapperAddressArbitrum;
+    else if (currentChain == 4) {
+        identityMapperAddress = identityMapperAddressTestnet;
     }
     else if (currentChain == 137) {
         identityMapperAddress = identityMapperAddressPolygon;
+    }
+    else if (currentChain == 42161) {
+        identityMapperAddress = identityMapperAddressArbitrum;
     }
     identityMapper = new ethers.Contract(identityMapperAddress, identityMapperAbi(), signerID);
 }
