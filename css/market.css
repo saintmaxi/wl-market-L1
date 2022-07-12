@@ -251,6 +251,7 @@ h2 {
 
 .collection-img {
 	border-style: solid;
+    object-fit: cover;
 	border-color: white;
 	border-radius: 15px;
 	border-width: .2vw;
