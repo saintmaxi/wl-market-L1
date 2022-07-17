@@ -232,7 +232,7 @@ h2 {
 
 .partner-collection button {
     margin-top: auto;
-    height: 7vh;
+    min-height: 7vh;
 }
 
 .collection-twitter {
@@ -426,7 +426,7 @@ h4 {
     box-shadow: none;
 }
 
-.cover button:hover {
+.cover .select-prompt:hover {
     background-color: white !important;
     box-shadow: none;
     cursor: default;

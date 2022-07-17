@@ -78,16 +78,15 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
                         <div class="cover">
                             <button class="button" onclick="connect()">LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span></button>
                         </div>
+                        <h4 class="end-time">--:--:--</h4>
                         <img class="collection-img" src="./images/question.jpeg">
                         <div class="collection-info">
                             <h3>???</h3>
-                            <h4>???/??? Purchased
+                            <h4>??? $TOKEN
                             <br>
-                            ??? $TOKEN
-                            <br>
-                            <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
+                            ???/??? Purchased
                             </h4>
-                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis.
+                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet.
                             </div>
                             <button class="button">PURCHASE</button>
                         </div>
@@ -620,17 +619,16 @@ window.onload = async() => {
                                     <div class="cover">
                                         <button class="button" onclick="connect()">CONNECT WALLET TO VIEW LISTINGS</button>
                                     </div>
+                                    <h4 class="end-time">--:--:--</h4>
                                     <img class="collection-img" src="./images/question.jpeg">
                                     <div class="collection-info">
                                         <h3>???</h3>
-                                        <h4>???/??? Purchased
+                                        <h4>??? $TOKEN
                                         <br>
-                                        ??? $TOKEN
-                                        <br>
-                                        Ends MM/DD/YYYY
+                                        ???/??? Purchased
                                         </h4>
                                        <div class="inside-text collection-description">
-                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante.
+                                       Lorem ipsum dolor sit amet.
                                         </div>
                                         <button class="button">PURCHASE</button>
                                     </div>
