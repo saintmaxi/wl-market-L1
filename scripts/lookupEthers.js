@@ -91,8 +91,7 @@ const loadCollectionsData = async () => {
     let currentChain = await getChainId();
     if (currentChain == 1) {
         let userAddress = await getAddress();
-        const listingData = await fetch(`https://market.messagetomartians.com/.netlify/functions/listing-data`).then(res => res.text());
-        const jsonData = listingData ? JSON.parse(listingData) : [];
+        const jsonData = await fetch(`https://n6uswzj9gd.execute-api.us-east-1.amazonaws.com/prod/martian-market-lookup-API`).then(res => res.json());
         let condensed = new Map();
         let results = jsonData["results"];
         for (result of results) {
