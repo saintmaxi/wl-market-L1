@@ -301,6 +301,9 @@ const purchase = async(tokenAddress, id) => {
         else if ((error.message).includes("User denied transaction signature")) {
             console.log("Transaction rejected.");
         }
+        else if ((error.message).includes("User rejected the transaction")) {
+            console.log("Transaction rejected.");
+        }
         else if ((error.message).includes("Not started yet")) {
             await displayErrorMessage(`Error: Listing not started yet!`);
         }
