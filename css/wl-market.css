@@ -388,6 +388,10 @@ h5 {
   font-family: "Space";
 }
 
+#discord-name {
+  font-family: "Space" !important;
+}
+
 #discord-popup p,
 #result-popup p {
   position: initial;
