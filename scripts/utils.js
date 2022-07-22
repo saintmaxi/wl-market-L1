@@ -12,6 +12,87 @@ async function displayErrorMessage(message, timed = true) {
     }
 }
 
+async function displayNetworkPrompt() {
+    if (!($("#status-popup").length)) {
+        let fakeJSX = `<div id="status-popup">
+                            <h2>Select a network to view registered markets.</h2>
+                            <div>
+                                <img onclick="changeNetwork(1)" src="./images/eth.png">
+                                <img onclick="changeNetwork(137)" src="./images/polygon.png">
+                                <img onclick="changeNetwork(10)" src="./images/optimism.png">
+                                <img onclick="changeNetwork(42161)" src="./images/arbitrum.png">
+                            </div>
+                        </div>`;
+        $("body").append(fakeJSX);
+        let height = $(document).height();
+        $("body").append(`<div id='block-screen-status' onclick='$("#status-popup").remove();$("#block-screen-status").remove()' style="height:${height}px"></div>`);
+    }
+}
+
+const changeNetwork = async (chainID) => {
+    let currentChain = await getChainId();
+    if (currentChain == chainID) {
+        await displayErrorMessage("Already on this network!")
+    }
+    else {
+        let hexChainID = `0x${Number(chainID).toString(16)}`;
+        if (chainID == 1) {
+            window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: hexChainID }],
+            });
+        }
+        else if (chainID == 137) {
+            window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [{
+                    chainId: hexChainID,
+                    rpcUrls: ["https://rpc-mainnet.matic.network/"],
+                    chainName: "Matic Mainnet",
+                    nativeCurrency: {
+                        name: "MATIC",
+                        symbol: "MATIC",
+                        decimals: 18
+                    },
+                    blockExplorerUrls: ["https://polygonscan.com/"]
+                }]
+            });
+        }
+        else if (chainID == 10) {
+            window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [{
+                    chainId: hexChainID,
+                    rpcUrls: ["https://opt-mainnet.g.alchemy.com/v2/_s4UBmcf_Oa43v847RRY0740A7-NH6ic"],
+                    chainName: "Optimism Mainnet (Alchemy)",
+                    nativeCurrency: {
+                        name: "Ether",
+                        symbol: "ETH",
+                        decimals: 18
+                    },
+                    blockExplorerUrls: ["https://optimistic.etherscan.io"]
+                }]
+            });
+        }
+        else if (chainID == 42161) {
+            window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [{
+                    chainId: hexChainID,
+                    rpcUrls: ["https://arb1.arbitrum.io/rpc"],
+                    chainName: "Arb1",
+                    nativeCurrency: {
+                        name: "Ether",
+                        symbol: "ETH",
+                        decimals: 18
+                    },
+                    blockExplorerUrls: ["https://arbiscan.io/"]
+                }]
+            });
+        }
+    }
+}
+
 const showTransactionResult = async (result) => {
     if (!($("#result-popup").length)) {
         let fakeJSX;

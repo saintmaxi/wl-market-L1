@@ -1,208 +1,209 @@
-@font-face {  
-	font-family: 'Martian';
-	src: URL('../css/Game-Of-Squids.ttf') format('truetype');
-}  
+@font-face {
+  font-family: "Martian";
+  src: URL("../css/Game-Of-Squids.ttf") format("truetype");
+}
 
-@font-face {  
-	font-family: 'Space';
-	src: URL('../css/SpaceMono-Regular.ttf') format('truetype');
-}  
+@font-face {
+  font-family: "Space";
+  src: URL("../css/SpaceMono-Regular.ttf") format("truetype");
+}
 
 #uniswap-window {
-	box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
-	border: 0;
-	z-index: 99999;
-	position:fixed;
-	top:50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 10px;
-	max-width: 800px;
-	max-height: 800px;
-	min-width: 300px;
-	background-color: black;
-	width: 50%;
-	height: 80vh;
+  box-shadow: 0 0 5000px 5000px rgba(0, 0, 0, 0.88);
+  border: 0;
+  z-index: 99999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  max-width: 800px;
+  max-height: 800px;
+  min-width: 300px;
+  background-color: black;
+  width: 50%;
+  height: 80vh;
 }
 
 select {
-	font-size: 2vw !important;
-	border-style: solid;
-	border-color: white;
-	background-color: black;
-	color: white !important;
-	border-width: .2vw;
-	border-radius: 1vw;
-	min-width: 35%;
+  font-size: 2vw !important;
+  border-style: solid;
+  border-color: white;
+  background-color: black;
+  color: white !important;
+  border-width: 0.2vw;
+  border-radius: 1vw;
+  min-width: 35%;
 }
 
-html, body {
-	overscroll-behavior: none;
-	font-family: 'Martian', sans-serif;
-	margin: 0;
-	width: 100%;
-	height: 100%;
+html,
+body {
+  overscroll-behavior: none;
+  font-family: "Martian", sans-serif;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .token-icon {
-	display: inline;
-	width: 1.8vw;
+  display: inline;
+  width: 1.8vw;
 }
 
 #uniswap-icon {
-	margin-left: .2vw;
-	display: inline;
-	width: 2.3vw;
+  margin-left: 0.2vw;
+  display: inline;
+  width: 2.3vw;
 }
 
 #uniswap-icon:hover {
-	opacity: .6;
-	cursor: pointer;
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .hidden {
-	display: none !important;
+  display: none !important;
 }
 
 .banner-img {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-.fixed-banner{
-	position:fixed;
-    bottom:0px;
-    z-index: -1;
+.fixed-banner {
+  position: fixed;
+  bottom: 0px;
+  z-index: -1;
 }
 
-h1, h2 {
-	letter-spacing: 3px;
+h1,
+h2 {
+  letter-spacing: 3px;
 }
 
 h1 {
-	font-family: "Martian";
-	color: black;
-	font-size: 3vw !important;
-	line-height: 3vw !important;
+  font-family: "Martian";
+  color: black;
+  font-size: 3vw !important;
+  line-height: 3vw !important;
 }
 
 p {
-	text-align: left;
-	font-weight: bold;
-	font-size: 1.4vw !important;
-	line-height: 1.7vw !important;
-	color: white;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.4vw !important;
+  line-height: 1.7vw !important;
+  color: white;
 }
 
 #clear-cache {
-	position: absolute;
-	top: 3%;
-	left: 2%;
-	height: 3vh;
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  height: 3vh;
 }
 
 #clear-cache:hover {
-	cursor: pointer;
-	opacity: .6;
+  cursor: pointer;
+  opacity: 0.6;
 }
 
 #desktop-wallet-connect-div {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 31%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 31%;
 }
 
 #desktop-wallet-connect-div button {
-	width: 48%;
-	font-size: 1.2vw;
-	min-height: 3vw;
-	letter-spacing: 2px
+  width: 48%;
+  font-size: 1.2vw;
+  min-height: 3vw;
+  letter-spacing: 2px;
 }
 
 #discord-img {
-	height: 1.8vw;
+  height: 1.8vw;
 }
 
 #discord {
-	height: 50%;
-	transition: all 0.5s;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
+  height: 50%;
+  transition: all 0.5s;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #edit-img {
-	height: 1.4vw;
+  height: 1.4vw;
 }
 
 #edit-img:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 #account {
-	text-align: center;
-	background-color: white;
-	color:black;
-	height: 50%;
-  }
+  text-align: center;
+  background-color: white;
+  color: black;
+  height: 50%;
+}
 
 #account.connected:hover {
-	background-color: white !important;
-	cursor: default;
-	box-shadow: none;
+  background-color: white !important;
+  cursor: default;
+  box-shadow: none;
 }
 
 #discord:hover {
-	cursor: default;
-	box-shadow: none;
+  cursor: default;
+  box-shadow: none;
 }
 
 #discord.success:hover {
-    background-color: rgb(49, 219, 49) !important;
-	color: black !important;
+  background-color: rgb(49, 219, 49) !important;
+  color: black !important;
 }
 
 #discord.failure:hover {
-    background-color: #F72119 !important;
+  background-color: #f72119 !important;
 }
 
 .body {
-	background-color: white;
-	font-family: 'Martian', sans-serif;
-	background-size: auto;
-	background-repeat: repeat;
-	color: black;
+  background-color: white;
+  font-family: "Martian", sans-serif;
+  background-size: auto;
+  background-repeat: repeat;
+  color: black;
 }
 
 .header {
-	padding-top: 40px;
-	padding-bottom: 40px
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .hide-on-desktop {
-	display: none !important;
+  display: none !important;
 }
 
 .section {
-	padding-top: 50px;
-	padding-bottom: 50px !important;
-	background-position: 0 0;
-	background-size: 500px
-
+  padding-top: 50px;
+  padding-bottom: 50px !important;
+  background-position: 0 0;
+  background-size: 500px;
 }
 
 .section.footer {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	background-position: 100% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-position: 100% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .footer .link {
-	transition: transform ease 300ms;
+  transition: transform ease 300ms;
 }
 
 .footer .link:hover {
@@ -210,480 +211,547 @@ p {
 }
 
 .footer-section {
-	margin: auto;
-	padding: 5px;
-	width: 100%;
-	text-align: center;
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
 }
 
 .center-div {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	margin-bottom: 50px;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-ms-flex-align: center;
-	align-items: center
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 50px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .button {
-	touch-action: manipulation;
-	background-color: white;
-    /* border: .3vw black solid; */
-	color: black;
-	font-size: 1.4vw;
-	line-height: 1.7vw;
-	padding: .5vw;
-	border-radius: 1vw;
-	font-family: 'Martian', sans-serif;
-	font-weight: bolder;
-	transition: box-shadow ease 100ms;
+  touch-action: manipulation;
+  background-color: white;
+  /* border: .3vw black solid; */
+  color: black;
+  font-size: 1.4vw;
+  line-height: 1.7vw;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  font-family: "Martian", sans-serif;
+  font-weight: bolder;
+  transition: box-shadow ease 100ms;
 }
 
 .link {
-	color: white;
-	text-decoration: none
+  color: white;
+  text-decoration: none;
 }
 
 .title-link {
-	color: white;
-	text-decoration: none
+  color: white;
+  text-decoration: none;
 }
 
 .title-link:hover {
-	color: #0FFEF2;
+  color: #0ffef2;
 }
 
 .button:hover {
-	background-color: #0FFEF2 !important;
-	-webkit-box-shadow:0px 0px 75px 1px rgba(0,255,242,0.9);
-	-moz-box-shadow: 0px 0px 75px 1px rgba(0,255,242,0.9);
-	box-shadow: 0px 0px 75px 1px rgba(0,255,242,0.9);
+  background-color: #0ffef2 !important;
+  -webkit-box-shadow: 0px 0px 75px 1px rgba(0, 255, 242, 0.9);
+  -moz-box-shadow: 0px 0px 75px 1px rgba(0, 255, 242, 0.9);
+  box-shadow: 0px 0px 75px 1px rgba(0, 255, 242, 0.9);
 }
 
 .link:hover {
-	color: #0FFEF2;
+  color: #0ffef2;
 }
 
 .lookup-link {
-	color: #0FFEF2;
+  color: #0ffef2;
 }
 
-.section-title{
-	font-size:  2.3vw;
-	text-align: center;
+.section-title {
+  font-size: 2.3vw;
+  text-align: center;
 }
 
 h2 {
-	font-size:  1.9vw;
-	line-height:  1.9vw;
+  font-size: 1.9vw;
+  line-height: 1.9vw;
 }
 
 h4 {
-	font-size:  1.4vw;
-	line-height:  1.8vw;
+  font-size: 1.4vw;
+  line-height: 1.8vw;
 }
 
 h5 {
-	font-size:  1vw !important;
-	line-height:  1.3vw !important;
+  font-size: 1vw !important;
+  line-height: 1.3vw !important;
 }
 
 .banner-img {
-	width: 100%;
+  width: 100%;
 }
 
 #pending-transactions {
-    text-align: center;
-    min-width: 20%;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 99999999;
-  }
-  
+  text-align: center;
+  min-width: 20%;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 99999999;
+}
+
 .loading-div {
-    cursor: pointer;
-    width: 100%;
-    text-decoration: none;
-    height: 5%;
-    background-color: white;
-    border: solid white .3em;
-    color: black;
-    font-size: 1.2vw;
-    line-height: 1.5vw;
-    padding: 20px;
-    text-align: center;
-	border-radius: 1vw;
-	border: 1px solid black;
+  cursor: pointer;
+  width: 100%;
+  text-decoration: none;
+  height: 5%;
+  background-color: white;
+  border: solid white 0.3em;
+  color: black;
+  font-size: 1.2vw;
+  line-height: 1.5vw;
+  padding: 20px;
+  text-align: center;
+  border-radius: 1vw;
+  border: 1px solid black;
 }
 
 .etherscan-link {
-    text-decoration: none;
+  text-decoration: none;
 }
-
 
 #loading-popup {
-    border: solid .5vw white;
-    background-color: white;
-    padding:5vw;
-    z-index: 99999;
-    position:fixed;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 33vw;
-	border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
+  border: solid 0.5vw white;
+  background-color: white;
+  padding: 5vw;
+  z-index: 99999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 33vw;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 5000px 5000px rgba(0, 0, 0, 0.88);
 }
 
-#error-popup, #status-popup, #discord-popup, #result-popup {
-	background-color: black;
-    z-index: 99999;
-    position:fixed;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 53vw;
-    height: 35vh;
-    border: solid .2vw white;
-	border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
+#error-popup,
+#status-popup,
+#discord-popup,
+#result-popup {
+  background-color: black;
+  z-index: 99999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 53vw;
+  height: 35vh;
+  border: solid 0.2vw white;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 5000px 5000px rgba(0, 0, 0, 0.88);
 }
 
 #discord-popup {
-    height: 50vh;
+  height: 50vh;
 }
 
-#error-popup p, #status-popup p, #discord-popup p, #result-popup p {
-    width: 90%;
-    font-size: 2.5vw !important;
-    line-height: 2.7vw !important;
-    position: absolute;
-    color: white;
-    top: 50%;
-    left: 50%;
-	padding: 1vw;
-    transform: translate(-50%, -50%);
-    text-align: center;
-	font-family: "Space";
+#error-popup p,
+#status-popup p,
+#discord-popup p,
+#result-popup p {
+  width: 90%;
+  font-size: 2.5vw !important;
+  line-height: 2.7vw !important;
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  padding: 1vw;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: "Space";
 }
 
-#discord-popup p, #result-popup p {
-	position: initial;
-	top: initial;
-	left: initial;
-	transform: none;
-	width: 95%;
-	margin: auto;
-	padding-bottom: 0;
+#discord-popup p,
+#result-popup p {
+  position: initial;
+  top: initial;
+  left: initial;
+  transform: none;
+  width: 95%;
+  margin: auto;
+  padding-bottom: 0;
 }
-  
-  #discord-popup #content, #result-popup #content {
-	width: 100%;
-	font-size: 2vw;
-	line-height: 2vw;
-	position: absolute;
-	color: black;
-	top: 50%;
-	left: 50%;
-	width: 90%;
-	transform: translate(-50%, -50%);
-  }
-  
-  #discord-popup #content input, #result-popup #content input {
-	text-align: center;
-	border: solid black .5vw;
-	width: 80%;
-  }
-  
-  #discord-popup #content button, #result-popup #content button {
-	margin: auto;
-	margin-top: 3%;
-	width: 75%;
-  }
+
+#discord-popup #content,
+#result-popup #content {
+  width: 100%;
+  font-size: 2vw;
+  line-height: 2vw;
+  position: absolute;
+  color: black;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  transform: translate(-50%, -50%);
+}
+
+#discord-popup #content input,
+#result-popup #content input {
+  text-align: center;
+  border: solid black 0.5vw;
+  width: 80%;
+}
+
+#discord-popup #content button,
+#result-popup #content button {
+  margin: auto;
+  margin-top: 3%;
+  width: 75%;
+}
 
 @keyframes blinker {
-    50% {
-      opacity: 0;
-    }
+  50% {
+    opacity: 0;
+  }
 }
 
 .blinking {
-    animation: blinker 1.6s linear infinite;
+  animation: blinker 1.6s linear infinite;
 }
 
 .success {
-    background-color: rgb(49, 219, 49) !important;
-	color: black !important;
+  background-color: rgb(49, 219, 49) !important;
+  color: black !important;
 }
 
 .failure {
-    background-color: #F72119 !important;
+  background-color: #f72119 !important;
 }
 
-#block-screen, #block-screen-error, #block-screen-status, #block-screen-approval, #block-screen-loading, #block-screen-discord, #block-screen-uniswap, #block-screen-result {
-    z-index: 9998;
-    width: 100vw;
-    opacity: 0;
-    position: absolute;
-    top: 0;
+#block-screen,
+#block-screen-error,
+#block-screen-status,
+#block-screen-approval,
+#block-screen-loading,
+#block-screen-discord,
+#block-screen-uniswap,
+#block-screen-result {
+  z-index: 9998;
+  width: 100vw;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+
+#status-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#status-popup h2 {
+  width: 90%;
+  font-family: "Space" !important;
+}
+
+#status-popup div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#status-popup img {
+  width: 12%;
+}
+
+#status-popup img:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 1000px) {
-	.footer-section {
-		margin: auto;
-		padding: 5px;
-		width: 100%;
-		text-align: center;
-	}
+  .footer-section {
+    margin: auto;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .mint-container {
-	text-align: center;
+  text-align: center;
 }
 
 .box {
-	border-style: solid;
-	border-color: black;
-	/* border-radius: 20px; */
-	border-width: .5vw;
-	padding: 20px;
-	backdrop-filter: blur(25px);
-    background-color: white;
+  border-style: solid;
+  border-color: black;
+  /* border-radius: 20px; */
+  border-width: 0.5vw;
+  padding: 20px;
+  backdrop-filter: blur(25px);
+  background-color: white;
 }
 
 .box2 {
-	background-color: rgba(95, 92, 92, 0.336);
+  background-color: rgba(95, 92, 92, 0.336);
 }
 
 .box3 {
-	background-color: rgba(95, 92, 92, 0.336);
-	padding: 50px;
-	border-style: solid;
-	border-color: white;
-	border-radius: 2px;
-	min-height: 60vh;
+  background-color: rgba(95, 92, 92, 0.336);
+  padding: 50px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 2px;
+  min-height: 60vh;
 }
 
-@media screen and (max-width:991px) {
-
-	#uniswap-window {
-		width: 95%;
-	}
-
-	.token-icon {
-		display: inline;
-		width: 3.4vh;
-	}
-
-	#uniswap-icon {
-		width: 4vh;
-		margin-left: 5px;
-	}
-
-	.box {
-		border-width: 5px;
-	}
-
-
-    .section-title {
-        font-size: 3vh;
-        text-align: center;
-    }
-
-	h2 {
-		font-size:  3.4vh;
-		line-height: 3.4vh;
-	}
-
-	h3 {
-		font-size:  2.4vh !important;
-		line-height:  2.9vh !important;
-	}
-
-	h4 {
-		font-size:  2vh;
-		line-height:  2.4vh;
-	}
-
-	h5 {
-		font-size:  1.8vh !important;
-		line-height:  2vh !important;
-	}
-
-	.button {
-		font-size: 2.3vh;
-		line-height: 2.8vh ;	
-		padding: 5px;
-		border-width: 5px;
-		min-height: 9vh;
-	}
-
-	p {
-		font-size: 2.8vh !important;
-		line-height: 3.1vh !important;
-		margin: 0 !important;
-		padding: 10px !important;
-	}
-
-	.hide-on-mobile {
-        display: none !important;
-    }
-
-	.hide-on-desktop {
-		display: block !important;
-	}
-
-	#mobile-account {
-		width: 80%;
-		background-color: white;
-		color: black
-	  }
-
-	#about {
-		padding: 0;
-	}
-
-	.header {
-		padding-top: 10px;
-		padding-right: 40px;
-		padding-left: 40px
-	}
-
-	.header-menu {
-		font-size: 2.5vh;
-		margin: 5px;
-	}
-
-	.box3 {
-		margin-top: 15vh;
-		width: 100%;
-		position: relative;
-		background-color: rgba(95, 92, 92, 0.336);
-		padding: 50px;
-		min-height: 40vh;
-	}
-
-	#pending-transactions {
-        min-width: 85%;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translate(-50%, 0);
-      }
-    
-      .loading-div {
-        font-size: 4vw !important;
-        line-height: 4.6vw !important;
-		border-width: 5px;
-      }
-
-	  #loading-popup {
-        width: 75vw;
-		border-width: 5px;
-    }
-
-	h1 {
-		font-size: 5.4vh !important;
-		line-height: 5.4vh !important;
-	}
-
-    #error-popup, #status-popup, #discord-popup, #result-popup {
-        width: 75vw;
-        height: 15vh;
-		border-width: 5px;
-    }
-
-	#discord-popu, #result-popup {
-		height: 45vh;
-	  }
-
-    #error-popup p, #status-popup p {
-        font-size: 4vw !important;
-		line-height: 4.2vw !important;
-		width: 80%;
-    }
-
-	#discord-popup p, #result-popup p {
-		padding: 0;
-		font-size: 3vh !important;
-		line-height: 3vh !important;
-		margin: auto !important;
-		margin-bottom: 3%;
-	  }
-	
-	  #discord-popup #content input, #result-popup #content input {
-		border-width: 2px;
-		font-size: 4vw;
-		line-height: 4vw;
-		width: 90%;
-	  }
-
-	  #discord-popup #content button, #result-popup #content button {
-		margin-top: 7%;
-		width: 90%;
+@media screen and (max-width: 991px) {
+  #uniswap-window {
+    width: 95%;
   }
 
+  .token-icon {
+    display: inline;
+    width: 3.4vh;
+  }
+
+  #uniswap-icon {
+    width: 4vh;
+    margin-left: 5px;
+  }
+
+  .box {
+    border-width: 5px;
+  }
+
+  .section-title {
+    font-size: 3vh;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 3.4vh;
+    line-height: 3.4vh;
+  }
+
+  h3 {
+    font-size: 2.4vh !important;
+    line-height: 2.9vh !important;
+  }
+
+  h4 {
+    font-size: 2vh;
+    line-height: 2.4vh;
+  }
+
+  h5 {
+    font-size: 1.8vh !important;
+    line-height: 2vh !important;
+  }
+
+  .button {
+    font-size: 2.3vh;
+    line-height: 2.8vh;
+    padding: 5px;
+    border-width: 5px;
+    min-height: 9vh;
+  }
+
+  p {
+    font-size: 2.8vh !important;
+    line-height: 3.1vh !important;
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .hide-on-desktop {
+    display: block !important;
+  }
+
+  #mobile-account {
+    width: 80%;
+    background-color: white;
+    color: black;
+  }
+
+  #about {
+    padding: 0;
+  }
+
+  .header {
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  .header-menu {
+    font-size: 2.5vh;
+    margin: 5px;
+  }
+
+  .box3 {
+    margin-top: 15vh;
+    width: 100%;
+    position: relative;
+    background-color: rgba(95, 92, 92, 0.336);
+    padding: 50px;
+    min-height: 40vh;
+  }
+
+  #pending-transactions {
+    min-width: 85%;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .loading-div {
+    font-size: 4vw !important;
+    line-height: 4.6vw !important;
+    border-width: 5px;
+  }
+
+  #loading-popup {
+    width: 75vw;
+    border-width: 5px;
+  }
+
+  h1 {
+    font-size: 5.4vh !important;
+    line-height: 5.4vh !important;
+  }
+
+  #error-popup,
+  #status-popup,
+  #discord-popup,
+  #result-popup {
+    width: 75vw;
+    height: 15vh;
+    border-width: 5px;
+  }
+
+  #status-popup {
+    height: 70vh;
+  }
+
+  #status-popup div {
+    flex-wrap: wrap;
+  }
+
+  #status-popup img {
+    width: 30%;
+    margin: 4%;
+  }
+
+  #discord-popu,
+  #result-popup {
+    height: 45vh;
+  }
+
+  #error-popup p,
+  #status-popup p {
+    font-size: 4vw !important;
+    line-height: 4.2vw !important;
+    width: 80%;
+  }
+
+  #discord-popup p,
+  #result-popup p {
+    padding: 0;
+    font-size: 3vh !important;
+    line-height: 3vh !important;
+    margin: auto !important;
+    margin-bottom: 3%;
+  }
+
+  #discord-popup #content input,
+  #result-popup #content input {
+    border-width: 2px;
+    font-size: 4vw;
+    line-height: 4vw;
+    width: 90%;
+  }
+
+  #discord-popup #content button,
+  #result-popup #content button {
+    margin-top: 7%;
+    width: 90%;
+  }
 }
 
-@media screen and (max-width:991px) {
-
-	#clear-cache {
-		top:1%;
-	}
-
-	.header {
-		padding-right: 20px;
-		padding-left: 20px
-	}
-
-	select {
-		border-width: 3px;
-		font-size: 3vh !important;
-		width: 90%;
-	}
-
-	#discord-img {
-		height: 3.3vh;
-	}
-	
-	#edit-img {
-		height: 2.3vh;
-	}
+#account-chain-logo:hover,
+#mobile-account-chain-logo:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
-@media screen and (max-width:479px) {
-	.header {
-		padding-bottom: 20px
-	}
-	.button.connect-button {
-		margin-top: 0
-	}
+@media screen and (max-width: 991px) {
+  #clear-cache {
+    top: 1%;
+  }
+
+  .header {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  select {
+    border-width: 3px;
+    font-size: 3vh !important;
+    width: 90%;
+  }
+
+  #discord-img {
+    height: 3.3vh;
+  }
+
+  #edit-img {
+    height: 2.3vh;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .header {
+    padding-bottom: 20px;
+  }
+  .button.connect-button {
+    margin-top: 0;
+  }
 }
 
 .mint-section {
-	padding-top: 50px;
+  padding-top: 50px;
 }
 
 #top {
-	padding-bottom: 0px;
-	padding-top: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 #about {
-	z-index: 4;
+  z-index: 4;
 }
