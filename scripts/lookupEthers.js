@@ -5,6 +5,7 @@
 
 const marketAddressMainnet = "0xFD8f4aC172457FD30Df92395BC69d4eF6d92eDd4";
 const marketAddressPolygon = "0x0225960D274966524C4Fafe3804386Df0F6B8742";
+const marketAddressOptimism = "0x4D479aAA35fc98DDd836f0270C46e4C52d93C731";
 const marketAddressArbitrum = "0x6c1b3eBd9Eb46679662b2ABDD28325B32C892FEa";
 const marketAddressTestnet = "0x07f4de9cDFf4FB65AC00166A1090D5a750FFA25b";
 const marketAbi = () => {
@@ -30,12 +31,12 @@ if (window.ethereum == undefined) {
     displayErrorMessage('Use a web3 enabled browser and connect to use lookup tool!');
 }
 
-const provider = new ethers.providers.Web3Provider(window.ethereum,"any");
+const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 const signer = provider.getSigner();
 
 let market;
 
-const setMarket = async() => {
+const setMarket = async () => {
     let currentChain = await getChainId();
     let marketAddress;
     if (currentChain == 1) {
@@ -43,6 +44,9 @@ const setMarket = async() => {
     }
     else if (currentChain == 4) {
         marketAddress = marketAddressTestnet;
+    }
+    else if (currentChain == 10) {
+        marketAddress = marketAddressOptimism;
     }
     else if (currentChain == 42161) {
         marketAddress = marketAddressArbitrum;
@@ -53,23 +57,23 @@ const setMarket = async() => {
     market = new ethers.Contract(marketAddress, marketAbi(), signer);
 }
 
-const connect = async()=>{
+const connect = async () => {
     await provider.send("eth_requestAccounts", []);
 };
 
-const getAddress = async()=>{
+const getAddress = async () => {
     return await signer.getAddress()
 };
 
-const formatEther = (balance_)=>{
+const formatEther = (balance_) => {
     return ethers.utils.formatEther(balance_)
 };
 
-const parseEther = (eth_)=>{
+const parseEther = (eth_) => {
     return ethers.utils.parseEther(eth_)
 };
 
-const getChainId = async()=>{
+const getChainId = async () => {
     return await signer.getChainId()
 };
 
@@ -136,49 +140,49 @@ const loadCollectionsData = async () => {
         let fullCollectionJSX = "";
         const collectionChunks = splitArrayToChunks(allCollectionIds, 20);
         // for (const chunk of collectionChunks) {
-            await Promise.all(allCollectionIds.map(async (i) => {
-                let collectionAddress = collections[i];
-                try {
-                    if ((await market.isAuthorized(collectionAddress, userAddress))) {
-                        $("#workshop-link").removeClass("hidden");
-                        $("#mobile-workshop-link").removeClass("hidden");
+        await Promise.all(allCollectionIds.map(async (i) => {
+            let collectionAddress = collections[i];
+            try {
+                if ((await market.isAuthorized(collectionAddress, userAddress))) {
+                    $("#workshop-link").removeClass("hidden");
+                    $("#mobile-workshop-link").removeClass("hidden");
+                }
+            }
+            catch (error) {
+                console.log("Error with auth check:", error);
+            }
+            let projectInfo = await market.contractToProjectInfo(collectionAddress);
+            let projectName = projectInfo.projectName;
+            let listingIdsToInfo = new Map();
+            let listingsToBuyers = new Map();
+            let numListings = Number(await market.getWLVendingItemsLength(collectionAddress));
+            let allListingIds = Array.from(Array(numListings).keys());
+            const chunks = splitArrayToChunks(allListingIds, 10);
+            for (const chunk of chunks) {
+                await Promise.all(chunk.map(async (id) => {
+                    let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
+                    let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
+                    let title = WLinfo.title;
+                    let purchased = buyers.includes(userAddress) ? true : false;
+                    if (purchased) {
+                        myWL.push(title.toUpperCase());
                     }
-                }
-                catch (error) {
-                    console.log("Error with auth check:", error);
-                }
-                let projectInfo = await market.contractToProjectInfo(collectionAddress);
-                let projectName = projectInfo.projectName;
-                let listingIdsToInfo = new Map();
-                let listingsToBuyers = new Map();
-                let numListings = Number(await market.getWLVendingItemsLength(collectionAddress));
-                let allListingIds = Array.from(Array(numListings).keys());
-                const chunks = splitArrayToChunks(allListingIds, 10);
-                for (const chunk of chunks) {
-                    await Promise.all(chunk.map(async (id) => {
-                        let buyers = (await market.getWLPurchasersOf(collectionAddress, id));
-                        let WLinfo = await market.contractToWLVendingItems(collectionAddress, id);
-                        let title = WLinfo.title;
-                        let purchased = buyers.includes(userAddress) ? true : false;
-                        if (purchased) {
-                            myWL.push(title.toUpperCase());
-                        }
-                        let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
-                            let discord = await identityMapper.addressToDiscord(buyer);
-                            let discordResult = discord ? discord : "DISCORD UNKNOWN";
-                            return { discord: discordResult, address: buyer };
-                        }));
-                        listingIdsToInfo.set(id, {title: `#${id}: ${title}`, discordsAndBuyers: discordsAndBuyers});
+                    let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
+                        let discord = await identityMapper.addressToDiscord(buyer);
+                        let discordResult = discord ? discord : "DISCORD UNKNOWN";
+                        return { discord: discordResult, address: buyer };
                     }));
-                }
-                for (const listingId of allListingIds) {
-                    let listing = listingIdsToInfo.get(listingId);
-                    listingsToBuyers.set(listing.title, listing.discordsAndBuyers)
-                }
-                projectToWL.set(projectName, listingsToBuyers);
-                fakeJSX = `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
-                collectionIdToJSX.set(i, fakeJSX);
-            }))
+                    listingIdsToInfo.set(id, { title: `#${id}: ${title}`, discordsAndBuyers: discordsAndBuyers });
+                }));
+            }
+            for (const listingId of allListingIds) {
+                let listing = listingIdsToInfo.get(listingId);
+                listingsToBuyers.set(listing.title, listing.discordsAndBuyers)
+            }
+            projectToWL.set(projectName, listingsToBuyers);
+            fakeJSX = `<option value="${projectName}">${projectName.toUpperCase()}</option>`;
+            collectionIdToJSX.set(i, fakeJSX);
+        }))
         // };
         for (const collectionId of allCollectionIds) {
             fullCollectionJSX += collectionIdToJSX.get(collectionId);
@@ -187,10 +191,10 @@ const loadCollectionsData = async () => {
         $("#wl-select").append(fullCollectionJSX);
         selectProject($("#wl-select option:first").val());
     }
-    console.log("Lookup time: ", (Date.now() - now)/1000, "s")
+    console.log("Lookup time: ", (Date.now() - now) / 1000, "s")
 }
 
-const loadMyWL = async() => {
+const loadMyWL = async () => {
     if (myWL.length == 0) {
         $("#your-wl-spots").html("NO SPOTS PURCHASED!");
     }
@@ -255,7 +259,7 @@ function updateDownload() {
 
 // General functions
 
-provider.on("network", async(newNetwork, oldNetwork) => {
+provider.on("network", async (newNetwork, oldNetwork) => {
     if (oldNetwork) {
         location.reload();
     }
@@ -263,7 +267,7 @@ provider.on("network", async(newNetwork, oldNetwork) => {
 
 
 // Processing tx returns
-const waitForTransaction = async(tx_) => {
+const waitForTransaction = async (tx_) => {
     startLoading(tx_);
     provider.once(tx_.hash, async (transaction_) => {
         await endLoading(tx_, transaction_.status);
@@ -281,7 +285,7 @@ else {
     pendingTxArray = Array.from(pendingTransactions);
     pendingTransactions = new Set();
 
-    for (let i =0; i < pendingTxArray.length; i++) {
+    for (let i = 0; i < pendingTxArray.length; i++) {
         waitForTransaction(pendingTxArray[i]);
     }
     localStorage.removeItem("MartianMarketPendingTxs");
@@ -316,17 +320,20 @@ async function endLoading(tx, txStatus) {
     pendingTransactions.delete(tx);
 }
 
-setInterval(async()=>{
+setInterval(async () => {
     await updateInfo();
 }, 5000)
 
 var chainLogoSet = false;
 
-const setChainLogo = async() => {
+const setChainLogo = async () => {
     let chainLogo = "";
     let chain = await getChainId();
     if (chain == 1 || chain == 4) {
         chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/eth.png?raw=true' class='token-icon'>";
+    }
+    else if (chain == 10) {
+        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/optimism.png?raw=true' class='token-icon'>";
     }
     else if (chain == 42161) {
         chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/arbitrum.png?raw=true' class='token-icon'>";
@@ -341,19 +348,19 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
+    $("#account-text").html(`${(userAddress.substr(0, 7)).toUpperCase()}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
+    $("#mobile-account-text").html(`${(userAddress.substr(0, 7)).toUpperCase()}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }
 };
 
-ethereum.on("accountsChanged", async(accounts_)=>{
+ethereum.on("accountsChanged", async (accounts_) => {
     location.reload();
 });
 
-window.onload = async()=>{
+window.onload = async () => {
     await setMarket();
     await updateInfo();
     $("#your-wl-spots").html(`LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
@@ -361,6 +368,6 @@ window.onload = async()=>{
     await loadMyWL();
 };
 
-window.onunload = async()=>{
+window.onunload = async () => {
     cachePendingTransactions();
 }

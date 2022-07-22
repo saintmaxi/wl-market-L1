@@ -2,12 +2,13 @@
 /********************************PRODUCTION CONFIG********************************/
 /*********************************************************************************/
 
-const baseTokenAbi = () => { 
+const baseTokenAbi = () => {
     return `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"burnByController","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"from_","type":"address[]"},{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{ "inputs": [], "name": "owner", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }]`;
 };
 
 const marketAddressMainnet = "0xFD8f4aC172457FD30Df92395BC69d4eF6d92eDd4";
 const marketAddressPolygon = "0x0225960D274966524C4Fafe3804386Df0F6B8742";
+const marketAddressOptimism = "0x4D479aAA35fc98DDd836f0270C46e4C52d93C731";
 const marketAddressArbitrum = "0x6c1b3eBd9Eb46679662b2ABDD28325B32C892FEa";
 const marketAddressTestnet = "0x07f4de9cDFf4FB65AC00166A1090D5a750FFA25b";
 const marketAbi = () => {
@@ -44,23 +45,26 @@ const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 const signer = provider.getSigner();
 
 // General Functions
-const connect = async() => { await provider.send("eth_requestAccounts", []) };
-const getAddress = async() => { try { return await signer.getAddress(); } catch { return false; }}; 
+const connect = async () => { await provider.send("eth_requestAccounts", []) };
+const getAddress = async () => { try { return await signer.getAddress(); } catch { return false; } };
 const formatEther = (balance_) => { return ethers.utils.formatEther(balance_) }; // divides by 18 modulus
 const parseEther = (eth_) => { return ethers.utils.parseEther(eth_) }; // multiplies by 18 modulus
-const getChainId = async() => { return await signer.getChainId() };
+const getChainId = async () => { return await signer.getChainId() };
 
 // Initiate Contracts
 let market;
 let marketAddress;
 
-const setMarket = async() => {
+const setMarket = async () => {
     let currentChain = await getChainId();
     if (currentChain == 1) {
         marketAddress = marketAddressMainnet;
     }
     else if (currentChain == 4) {
         marketAddress = marketAddressTestnet;
+    }
+    else if (currentChain == 10) {
+        marketAddress = marketAddressOptimism;
     }
     else if (currentChain == 42161) {
         marketAddress = marketAddressArbitrum;
@@ -97,7 +101,7 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
 var currentTokenAddress;
 var currentTokenImageURI;
 
-const selectProject = async(address) => {
+const selectProject = async (address) => {
     if (address) {
         $("#approval-button").html(`APPROVE`);
         $("#scroll-indicator").addClass("hidden");
@@ -134,19 +138,19 @@ const selectProject = async(address) => {
     }
 }
 
-const approveTokenToMarket = async() => {
+const approveTokenToMarket = async () => {
     const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-    await token.approve(marketAddress, maxInt).then (async(tx_) => {
+    await token.approve(marketAddress, maxInt).then(async (tx_) => {
         await waitForTransaction(tx_);
         $("#approval-button").html(`Approving<span class="one">.</span><span class="two">.</span><span class="three">.</span>`)
     });
 }
 
-const checkTokenApproval = async() => {
+const checkTokenApproval = async () => {
     if (currentTokenAddress) {
         const userAddress = await getAddress();
         const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
-    
+
         if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
             $("#approval").addClass("hidden");
         }
@@ -164,7 +168,7 @@ const checkTokenApproval = async() => {
     }
 };
 
-const updateTokenBalance = async() => {
+const updateTokenBalance = async () => {
     if (currentTokenAddress) {
         const userAddress = await getAddress();
         const token = new ethers.Contract(currentTokenAddress, baseTokenAbi(), signer);
@@ -179,7 +183,7 @@ var pendingListings = [];
 var liveTimerPending = [];
 var pendingTimerPending = [];
 
-setInterval(async()=>{
+setInterval(async () => {
     if (loadedCollections) {
         for (let i = 0; i < liveListings.length; i++) {
             if (liveTimerPending[i]) {
@@ -187,7 +191,7 @@ setInterval(async()=>{
                 let now = Date.now() / 1000;
                 let endTime = Number((await market.contractToWLVendingItems(currentTokenAddress, id)).endTime);
                 let distance = endTime - now;
-        
+
                 var hours = Math.floor(distance / (60 * 60));
                 var minutes = Math.floor((distance % (60 * 60)) / (60));
                 var seconds = Math.floor((distance % (60)));
@@ -201,7 +205,7 @@ setInterval(async()=>{
                 if (seconds < 10) {
                     seconds = `0${seconds}`;
                 }
-                              
+
                 if (distance <= 0) {
                     let blockTime = (await provider.getBlock((await provider.getBlockNumber()))).timestamp;
                     if (blockTime > endTime) {
@@ -222,7 +226,7 @@ setInterval(async()=>{
     }
 }, 1000)
 
-setInterval(async()=>{
+setInterval(async () => {
     if (loadedCollections) {
         for (let i = 0; i < pendingListings.length; i++) {
             if (pendingTimerPending[i]) {
@@ -230,7 +234,7 @@ setInterval(async()=>{
                 let now = Date.now() / 1000;
                 let startTime = Number((await market.contractToWLVendingItems(currentTokenAddress, id)).startTime);
                 let distance = startTime - now;
-        
+
                 var hours = Math.floor(distance / (60 * 60));
                 var minutes = Math.floor((distance % (60 * 60)) / (60));
                 var seconds = Math.floor((distance % (60)));
@@ -244,7 +248,7 @@ setInterval(async()=>{
                 if (seconds < 10) {
                     seconds = `0${seconds}`;
                 }
-                              
+
                 if (distance <= 0) {
                     let blockTime = (await provider.getBlock((await provider.getBlockNumber()))).timestamp;
                     if (blockTime > startTime) {
@@ -265,7 +269,7 @@ setInterval(async()=>{
     }
 }, 1000)
 
-const purchase = async(tokenAddress, id) => {
+const purchase = async (tokenAddress, id) => {
     try {
         if (!discordSet) {
             await displayErrorMessage("Error: Must set Discord ID to associate with purchases!")
@@ -274,7 +278,7 @@ const purchase = async(tokenAddress, id) => {
         else {
             const gasLimit = await market.estimateGas.purchaseWLVendingItem(tokenAddress, id);
             const newGasLimit = parseInt((gasLimit * 1.15)).toString();
-            await market.purchaseWLVendingItem(tokenAddress, id, {gasLimit: newGasLimit}).then( async(tx_) => {
+            await market.purchaseWLVendingItem(tokenAddress, id, { gasLimit: newGasLimit }).then(async (tx_) => {
                 await waitForTransaction(tx_);
             });
         }
@@ -320,14 +324,14 @@ const purchase = async(tokenAddress, id) => {
 
 const splitArrayToChunks = (array_, chunkSize_) => {
     let _arrays = Array(Math.ceil(array_.length / chunkSize_))
-    .fill()
-    .map((_, index) => index * chunkSize_)
-    .map((begin) => array_.slice(begin, begin + chunkSize_));
+        .fill()
+        .map((_, index) => index * chunkSize_)
+        .map((begin) => array_.slice(begin, begin + chunkSize_));
 
     return _arrays;
 };
 
-const loadCollections = async() => {
+const loadCollections = async () => {
     if (!currentTokenAddress) return;
     liveListings = [];
     pendingListings = [];
@@ -336,10 +340,10 @@ const loadCollections = async() => {
     loadedCollections = false;
 
     const userAddress = await getAddress();
-    const numCollections = Number( await market.getWLVendingItemsLength(currentTokenAddress) );
+    const numCollections = Number(await market.getWLVendingItemsLength(currentTokenAddress));
     let allItems;
     if (numCollections > 0) {
-        allItems = await market.getWLVendingObjectsPaginated( currentTokenAddress, 0, numCollections - 1);
+        allItems = await market.getWLVendingObjectsPaginated(currentTokenAddress, 0, numCollections - 1);
     }
     else {
         allItems = [];
@@ -353,7 +357,7 @@ const loadCollections = async() => {
     let idToLiveJSX = new Map();
     let idToPastJSX = new Map();
     for (const chunk of chunks) {
-        await Promise.all( chunk.map( async(id) => {
+        await Promise.all(chunk.map(async (id) => {
             // WL data from contract
             let WLinfo = allItems[id];
             let collectionPrice = Number(formatEther(WLinfo.price));
@@ -362,20 +366,20 @@ const loadCollections = async() => {
             // Data from JSON file
             let maxSlots = WLinfo.amountAvailable;
             let minted = WLinfo.amountPurchased;
-            let started = (Date.now()/1000) > WLinfo.startTime;
-            let valid = WLinfo.endTime > (Date.now()/1000);
+            let started = (Date.now() / 1000) > WLinfo.startTime;
+            let valid = WLinfo.endTime > (Date.now() / 1000);
             let imageUri = (WLinfo.imageUri).includes("https://") ? WLinfo.imageUri : `https://${WLinfo.imageUri}`;
             let projectUri = (WLinfo.projectUri).includes("https://") ? WLinfo.projectUri : `https://${WLinfo.projectUri}`;
 
             if (started && valid) {
                 liveListings.push(id);
                 liveTimerPending.push(true);
-                dateString = `Ends ${(new Date(WLinfo.endTime*1000)).toLocaleDateString()} ${(new Date(WLinfo.endTime*1000)).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})}`;
+                dateString = `Ends ${(new Date(WLinfo.endTime * 1000)).toLocaleDateString()} ${(new Date(WLinfo.endTime * 1000)).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
             }
             else if (!started && valid) {
                 pendingListings.push(id);
                 pendingTimerPending.push(true);
-                dateString = `Starts ${(new Date(WLinfo.startTime*1000)).toLocaleDateString()} ${(new Date(WLinfo.startTime*1000)).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})}`;
+                dateString = `Starts ${(new Date(WLinfo.startTime * 1000)).toLocaleDateString()} ${(new Date(WLinfo.startTime * 1000)).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
             }
 
             if (minted != maxSlots && valid) {
@@ -407,7 +411,7 @@ const loadCollections = async() => {
                 idToLiveJSX.set(id, fakeJSX);
             }
             else {
-                numPast +=1;
+                numPast += 1;
                 let button;
                 if (purchased) {
                     button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
@@ -436,15 +440,15 @@ const loadCollections = async() => {
         }));
     }
 
-    let liveIds = Array.from(idToLiveJSX.keys()).map(Number).sort(function(a, b){return b-a});
-    let pastIds = Array.from(idToPastJSX.keys()).map(Number).sort(function(a, b){return b-a});
+    let liveIds = Array.from(idToLiveJSX.keys()).map(Number).sort(function (a, b) { return b - a });
+    let pastIds = Array.from(idToPastJSX.keys()).map(Number).sort(function (a, b) { return b - a });
     for (const liveId of liveIds) {
         liveJSX += idToLiveJSX.get(liveId);
     }
     for (const pastId of pastIds) {
         pastJSX += idToPastJSX.get(pastId);
     }
-    
+
     $("#live-collections").empty();
     $("#past-collections").empty();
     $("#live-collections").append(liveJSX);
@@ -454,7 +458,7 @@ const loadCollections = async() => {
     loadedCollections = true;
 }
 
-const updateSupplies = async() => {
+const updateSupplies = async () => {
     let userAddress = await getAddress();
     let numListings = Number(await market.getWLVendingItemsLength(currentTokenAddress));
     for (let id = 0; id < numListings; id++) {
@@ -468,7 +472,7 @@ const updateSupplies = async() => {
             $(`#${id}-mint-button`).addClass("purchased");
             $(`#${id}-mint-button`).prop("disabled", true);
         }
-        else if (minted == maxSlots ) {
+        else if (minted == maxSlots) {
             $(`#${id}-mint-button`).text("SOLD OUT");
             $(`#${id}-mint-button`).addClass("purchased");
             $(`#${id}-mint-button`).prop("disabled", true);
@@ -477,7 +481,7 @@ const updateSupplies = async() => {
     }
 }
 
-const loadPartnerCollections = async() => {
+const loadPartnerCollections = async () => {
     let collections = await market.getAllEnabledContracts();
     let fakeJSX = "";
     let userAddress = await getAddress();
@@ -508,7 +512,7 @@ const loadPartnerCollections = async() => {
 // Processing txs
 
 // After Tx Hook
-const waitForTransaction = async(tx_) => {
+const waitForTransaction = async (tx_) => {
     startLoading(tx_);
     provider.once(tx_.hash, async (transaction_) => {
         await endLoading(tx_, transaction_.status);
@@ -526,7 +530,7 @@ else {
     pendingTxArray = Array.from(pendingTransactions);
     pendingTransactions = new Set();
 
-    for (let i =0; i < pendingTxArray.length; i++) {
+    for (let i = 0; i < pendingTxArray.length; i++) {
         waitForTransaction(pendingTxArray[i]);
     }
     localStorage.removeItem("MartianMarketPendingTxs");
@@ -568,11 +572,14 @@ async function endLoading(tx, txStatus) {
 
 var chainLogoSet = false;
 
-const setChainLogo = async() => {
+const setChainLogo = async () => {
     let chainLogo = "";
     let chain = await getChainId();
     if (chain == 1 || chain == 4) {
         chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/eth.png?raw=true' class='token-icon'>";
+    }
+    else if (chain == 10) {
+        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/optimism.png?raw=true' class='token-icon'>";
     }
     else if (chain == 42161) {
         chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/arbitrum.png?raw=true' class='token-icon'>";
@@ -587,15 +594,15 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
+    $("#account-text").html(`${(userAddress.substr(0, 7)).toUpperCase()}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
+    $("#mobile-account-text").html(`${(userAddress.substr(0, 7)).toUpperCase()}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }
 };
 
-setInterval( async() => {
+setInterval(async () => {
     await checkTokenApproval();
     await updateInfo();
     await updateTokenBalance();
@@ -604,18 +611,18 @@ setInterval( async() => {
     }
 }, 5000)
 
-ethereum.on("accountsChanged", async (accounts_) => { 
+ethereum.on("accountsChanged", async (accounts_) => {
     await updateInfo();
     location.reload();
 });
 
-provider.on("network", async(newNetwork, oldNetwork) => {
+provider.on("network", async (newNetwork, oldNetwork) => {
     if (oldNetwork) {
         location.reload();
     }
 });
 
-window.onload = async() => {
+window.onload = async () => {
     await setMarket();
     if (!(await getAddress())) {
         const connectPrompt = ` <div id="ex1" class="partner-collection example">
@@ -646,6 +653,6 @@ window.onload = async() => {
     await updateTokenBalance();
 };
 
-window.onunload = async()=>{
+window.onunload = async () => {
     cachePendingTransactions();
 }

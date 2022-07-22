@@ -2,12 +2,13 @@
 /********************************PRODUCTION CONFIG********************************/
 /*********************************************************************************/
 
-const baseTokenAbi = () => { 
+const baseTokenAbi = () => {
     return `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"burnByController","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"from_","type":"address[]"},{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{ "inputs": [], "name": "owner", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }]`;
 };
 
 const marketAddressMainnet = "0xFD8f4aC172457FD30Df92395BC69d4eF6d92eDd4";
 const marketAddressPolygon = "0x0225960D274966524C4Fafe3804386Df0F6B8742";
+const marketAddressOptimism = "0x4D479aAA35fc98DDd836f0270C46e4C52d93C731";
 const marketAddressArbitrum = "0x6c1b3eBd9Eb46679662b2ABDD28325B32C892FEa";
 const marketAddressTestnet = "0x07f4de9cDFf4FB65AC00166A1090D5a750FFA25b";
 const marketAbi = () => {
@@ -39,19 +40,22 @@ if (window.ethereum == undefined) {
     displayErrorMessage('Use a web3 enabled browser and connect to use workshop!');
 }
 
-const provider = new ethers.providers.Web3Provider(window.ethereum,"any");
+const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 const signer = provider.getSigner();
 
 let market;
 let marketAddress;
 
-const setMarket = async() => {
+const setMarket = async () => {
     let currentChain = await getChainId();
     if (currentChain == 1) {
         marketAddress = marketAddressMainnet;
     }
     else if (currentChain == 4) {
         marketAddress = marketAddressTestnet;
+    }
+    else if (currentChain == 10) {
+        marketAddress = marketAddressOptimism;
     }
     else if (currentChain == 42161) {
         marketAddress = marketAddressArbitrum;
@@ -62,29 +66,29 @@ const setMarket = async() => {
     market = new ethers.Contract(marketAddress, marketAbi(), signer);
 }
 
-const connect = async()=>{
+const connect = async () => {
     await provider.send("eth_requestAccounts", []);
 };
 
-const getAddress = async()=>{
+const getAddress = async () => {
     return await signer.getAddress()
 };
 
-const formatEther = (balance_)=>{
+const formatEther = (balance_) => {
     return ethers.utils.formatEther(balance_)
 };
 
-const parseEther = (eth_)=>{
+const parseEther = (eth_) => {
     return ethers.utils.parseEther(eth_)
 };
 
-const getChainId = async()=>{
+const getChainId = async () => {
     return await signer.getChainId()
 };
 
 // --- WORKSHOP FUNCTIONS ---
 
-const loadPartnerCollections = async() => {
+const loadPartnerCollections = async () => {
     let collections = await market.getAllEnabledContracts();
     let userAddress = await getAddress();
     let fakeJSX = "";
@@ -92,7 +96,7 @@ const loadPartnerCollections = async() => {
         let address = collections[i];
         let approved;
         try {
-          approved = await market.isAuthorized(address, userAddress);
+            approved = await market.isAuthorized(address, userAddress);
         }
         catch {
             approved = false;
@@ -107,14 +111,14 @@ const loadPartnerCollections = async() => {
     $("#wl-select").append(fakeJSX);
 }
 
-const generateCreate = async() => {
+const generateCreate = async () => {
     let title = $(`#create-input #listing-title`).val();
     let image = $(`#create-input #listing-image`).val();
     let site = ($(`#create-input #listing-site`).val()).includes("https://") ? $(`#create-input #listing-site`).val() : `https://${$(`#create-input #listing-site`).val()}`;
     let description = $(`#create-input #listing-description`).val();
     let amount = Number($(`#create-input #listing-amount`).val());
-    let start = (new Date($(`#create-input #listing-start`).val()).valueOf())/1000;
-    let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf())/1000;
+    let start = (new Date($(`#create-input #listing-start`).val()).valueOf()) / 1000;
+    let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf()) / 1000;
     let price = Number($(`#create-input #listing-price`).val());
 
     if (start > deadline) {
@@ -127,17 +131,17 @@ const generateCreate = async() => {
         $(`#create-template #ex-description`).html(description.replaceAll("\n", "<br>"));
         $(`#create-template #ex-amount`).html(amount);
         $(`#create-template #ex-remaining`).html(0);
-        $(`#create-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#create-template #ex-deadline`).html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
+        $(`#create-template #ex-start`).html(`${(new Date(start * 1000)).toLocaleDateString()} ${(new Date(start * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+        $(`#create-template #ex-deadline`).html(`${(new Date(deadline * 1000)).toLocaleDateString()} ${(new Date(deadline * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
         $(`#create-template #ex-price`).html(price);
     }
 }
 
-const addListing = async() => {
+const addListing = async () => {
     try {
         let currentProjectAddress = $("#wl-select").val();
-        let start = (new Date($(`#create-input #listing-start`).val()).valueOf())/1000;
-        let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf())/1000;
+        let start = (new Date($(`#create-input #listing-start`).val()).valueOf()) / 1000;
+        let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf()) / 1000;
         if (!currentProjectAddress) {
             await displayErrorMessage("Select a project to add listing!")
         }
@@ -157,7 +161,7 @@ const addListing = async() => {
             else {
                 const gasLimit = await market.estimateGas.addWLVendingItem(currentProjectAddress, [title, image, site, description, amount, 0, start, deadline, price]);
                 const newGasLimit = parseInt((gasLimit * 1.15)).toString();
-                await market.addWLVendingItem(currentProjectAddress, [title, image, site, description, amount, 0, start, deadline, price], {gasLimit: newGasLimit}).then( async(tx_) => {
+                await market.addWLVendingItem(currentProjectAddress, [title, image, site, description, amount, 0, start, deadline, price], { gasLimit: newGasLimit }).then(async (tx_) => {
                     await waitForTransaction(tx_);
                 });
             }
@@ -180,7 +184,7 @@ const addListing = async() => {
 
 // --- MODIFY FUNCTIONS ---
 
-const loadListings = async(address) => {
+const loadListings = async (address) => {
     $("#listing-select").empty();
     $("#listing-select").append(`<option disabled selected value="">SELECT LISTING</option>`);
     let fakeJSX = "";
@@ -198,7 +202,7 @@ const loadListings = async(address) => {
 
 var currentlySelectedContract;
 
-const selectProject = async(address) => {
+const selectProject = async (address) => {
     if (address) {
         currentlySelectedContract = address;
         let projectInfo = await market.contractToProjectInfo(address);
@@ -211,7 +215,7 @@ const selectProject = async(address) => {
 
 var currentlySelectedListing;
 
-const selectListing = async(id) => {
+const selectListing = async (id) => {
     currentlySelectedListing = Number(id);
     let currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, id);
     let title = currentlySelectedWLinfo.title;
@@ -230,23 +234,23 @@ const selectListing = async(id) => {
     $("#modify-template #ex-description").html(description.replaceAll("\n", "<br>"));
     $("#modify-template #ex-amount").html(amount);
     $("#modify-template #ex-remaining").html(purchased);
-    $(`#modify-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-    $("#modify-template #ex-deadline").html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
+    $(`#modify-template #ex-start`).html(`${(new Date(start * 1000)).toLocaleDateString()} ${(new Date(start * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+    $("#modify-template #ex-deadline").html(`${(new Date(deadline * 1000)).toLocaleDateString()} ${(new Date(deadline * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
     $("#modify-template #ex-price").html(price);
 }
 
-const generateModify = async() => {
+const generateModify = async () => {
     let mode = "modify";
     let currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, currentlySelectedListing);
     let title = $("#modify-input #listing-title").val() ? $("#modify-input #listing-title").val() : currentlySelectedWLinfo.title;
-    let image = $("#modify-input #listing-image").val()? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
+    let image = $("#modify-input #listing-image").val() ? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
     let site = $("#modify-input #listing-site").val() ? $("#modify-input #listing-site").val() : currentlySelectedWLinfo.projectUri;
     let siteFormatted = site.includes("https://") ? site : `https://${site}`;
     let description = $("#modify-input #listing-description").val() ? $("#modify-input #listing-description").val() : currentlySelectedWLinfo.description;
     let amount = $("#modify-input #listing-amount").val() ? Number($("#modify-input #listing-amount").val()) : currentlySelectedWLinfo.amountAvailable;
     let purchased = currentlySelectedWLinfo.amountPurchased;
-    let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
-    let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
+    let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf()) / 1000 : currentlySelectedWLinfo.startTime;
+    let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf()) / 1000 : currentlySelectedWLinfo.endTime;
     let price = $("#modify-input #listing-price").val() ? $("#modify-input #listing-price").val() : Number(formatEther(currentlySelectedWLinfo.price));
 
     if (start > deadline) {
@@ -259,24 +263,24 @@ const generateModify = async() => {
         $(`#${mode}-template #ex-description`).html(description.replaceAll("\n", "<br>"));
         $(`#${mode}-template #ex-amount`).html(amount);
         $(`#${mode}-template #ex-remaining`).html(purchased);
-        $(`#${mode}-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#${mode}-template #ex-deadline`).html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
+        $(`#${mode}-template #ex-start`).html(`${(new Date(start * 1000)).toLocaleDateString()} ${(new Date(start * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+        $(`#${mode}-template #ex-deadline`).html(`${(new Date(deadline * 1000)).toLocaleDateString()} ${(new Date(deadline * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
         $(`#${mode}-template #ex-price`).html(price);
     }
 }
 
-const modifyListing = async() => {
+const modifyListing = async () => {
     try {
         let currentlySelectedWLinfo = await market.contractToWLVendingItems(currentlySelectedContract, currentlySelectedListing);
         let title = $("#modify-input #listing-title").val() ? $("#modify-input #listing-title").val() : currentlySelectedWLinfo.title;
-        let image = $("#modify-input #listing-image").val()? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
+        let image = $("#modify-input #listing-image").val() ? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
         let site = $("#modify-input #listing-site").val() ? $("#modify-input #listing-site").val() : currentlySelectedWLinfo.projectUri;
         let siteFormatted = site.includes("https://") ? site : `https://${site}`;
         let description = $("#modify-input #listing-description").val() ? $("#modify-input #listing-description").val() : currentlySelectedWLinfo.description;
         let amount = $("#modify-input #listing-amount").val() ? Number($("#modify-input #listing-amount").val()) : currentlySelectedWLinfo.amountAvailable;
         let purchased = currentlySelectedWLinfo.amountPurchased;
-        let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
-        let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
+        let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf()) / 1000 : currentlySelectedWLinfo.startTime;
+        let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf()) / 1000 : currentlySelectedWLinfo.endTime;
         let price = $("#modify-input #listing-price").val() ? parseEther($("#modify-input #listing-price").val()) : currentlySelectedWLinfo.price;
         if (!(title && image && (site != null) && (description != null) && amount && start && deadline && price && (purchased != null))) {
             await displayErrorMessage("Missing fields!")
@@ -290,7 +294,7 @@ const modifyListing = async() => {
         else {
             const gasLimit = await market.estimateGas.modifyWLVendingItem(currentlySelectedContract, currentlySelectedListing, [title, image, siteFormatted, description, amount, purchased, start, deadline, price]);
             const newGasLimit = parseInt((gasLimit * 1.15)).toString();
-            await market.modifyWLVendingItem(currentlySelectedContract, currentlySelectedListing, [title, image, siteFormatted, description, amount, purchased, start, deadline, price], {gasLimit: newGasLimit}).then( async(tx_) => {
+            await market.modifyWLVendingItem(currentlySelectedContract, currentlySelectedListing, [title, image, siteFormatted, description, amount, purchased, start, deadline, price], { gasLimit: newGasLimit }).then(async (tx_) => {
                 await waitForTransaction(tx_);
             });
         }
@@ -315,7 +319,7 @@ const modifyListing = async() => {
 
 // General functions
 
-provider.on("network", async(newNetwork, oldNetwork) => {
+provider.on("network", async (newNetwork, oldNetwork) => {
     if (oldNetwork) {
         location.reload();
     }
@@ -323,7 +327,7 @@ provider.on("network", async(newNetwork, oldNetwork) => {
 
 
 // Processing tx returns
-const waitForTransaction = async(tx_) => {
+const waitForTransaction = async (tx_) => {
     startLoading(tx_);
     provider.once(tx_.hash, async (transaction_) => {
         await endLoading(tx_, transaction_.status);
@@ -341,7 +345,7 @@ else {
     pendingTxArray = Array.from(pendingTransactions);
     pendingTransactions = new Set();
 
-    for (let i =0; i < pendingTxArray.length; i++) {
+    for (let i = 0; i < pendingTxArray.length; i++) {
         waitForTransaction(pendingTxArray[i]);
     }
     localStorage.removeItem("MartianMarketPendingTxs");
@@ -376,17 +380,20 @@ async function endLoading(tx, txStatus) {
     pendingTransactions.delete(tx);
 }
 
-setInterval(async()=>{
+setInterval(async () => {
     await updateInfo();
 }, 5000)
 
 var chainLogoSet = false;
 
-const setChainLogo = async() => {
+const setChainLogo = async () => {
     let chainLogo = "";
     let chain = await getChainId();
     if (chain == 1 || chain == 4) {
         chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/eth.png?raw=true' class='token-icon'>";
+    }
+    else if (chain == 10) {
+        chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/optimism.png?raw=true' class='token-icon'>";
     }
     else if (chain == 42161) {
         chainLogo = "<img src='https://github.com/saintmaxi/wl-market-L1/blob/main/images/arbitrum.png?raw=true' class='token-icon'>";
@@ -401,24 +408,24 @@ const setChainLogo = async() => {
 
 const updateInfo = async () => {
     let userAddress = await getAddress();
-    $("#account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
+    $("#account-text").html(`${(userAddress.substr(0, 7)).toUpperCase()}..`);
     $("#account").addClass(`connected`);
-    $("#mobile-account-text").html(`${(userAddress.substr(0,7)).toUpperCase()}..`);
+    $("#mobile-account-text").html(`${(userAddress.substr(0, 7)).toUpperCase()}..`);
     if (!chainLogoSet) {
         await setChainLogo();
     }
 };
 
-ethereum.on("accountsChanged", async(accounts_)=>{
+ethereum.on("accountsChanged", async (accounts_) => {
     location.reload();
 });
 
-window.onload = async()=>{
+window.onload = async () => {
     await setMarket();
     await updateInfo();
     await loadPartnerCollections();
 };
 
-window.onunload = async()=>{
+window.onunload = async () => {
     cachePendingTransactions();
 }

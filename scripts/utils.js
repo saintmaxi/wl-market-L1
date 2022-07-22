@@ -1,4 +1,4 @@
-async function displayErrorMessage(message, timed=true) {
+async function displayErrorMessage(message, timed = true) {
     if (!($("#error-popup").length)) {
         let fakeJSX = `<div id="error-popup"><p>${message}</p></div>`;
         $("body").append(fakeJSX);
@@ -12,7 +12,7 @@ async function displayErrorMessage(message, timed=true) {
     }
 }
 
-const showTransactionResult = async(result) => {
+const showTransactionResult = async (result) => {
     if (!($("#result-popup").length)) {
         let fakeJSX;
         if (result == 1) {
@@ -36,7 +36,7 @@ const showTransactionResult = async(result) => {
 }
 
 
-const revealUniswap = async() => {
+const revealUniswap = async () => {
     if ($("#uniswap-window").hasClass("hidden")) {
         $("#uniswap-window").removeClass("hidden");
         let height = $(document).height();
@@ -106,7 +106,7 @@ function toggleMenu() {
     const el = document.getElementById("mobile-nav-menu")
     el.classList.toggle('expanded')
     el.classList.toggle('collapsed')
- }
+}
 
 function clearPendingTxs() {
     localStorage.removeItem("MartianMarketPendingTxs");
@@ -114,10 +114,11 @@ function clearPendingTxs() {
     location.reload();
 };
 
- // ======= DISCORD UTILS ========
+// ======= DISCORD UTILS ========
 
 const identityMapperAddressMainnet = "0xaD48C81ac9CdcD4fE3e25B8493b2798eA5104e6f";
 const identityMapperAddressPolygon = "0x88C6a2aDc73Aaf4A5E659d5f170480fcdc595532";
+const identityMapperAddressOptimism = "0xDAB71bc8774Ef39010D1E6294F2105B040bEFf43";
 const identityMapperAddressArbitrum = "0x9d00D9b009Ab80a18013675011c93796d89de6B4";
 const identityMapperAddressTestnet = "0xffccE647DA8a266A8779875b9c68cb51DC236C80";
 const identityMapperAbi = () => {
@@ -131,13 +132,16 @@ const signerID = providerID.getSigner();
 let identityMapper;
 let identityMapperAddress;
 
-const setIdentityMapper = async() => {
+const setIdentityMapper = async () => {
     let currentChain = await signerID.getChainId();
     if (currentChain == 1) {
         identityMapperAddress = identityMapperAddressMainnet;
     }
     else if (currentChain == 4) {
         identityMapperAddress = identityMapperAddressTestnet;
+    }
+    else if (currentChain == 10) {
+        identityMapperAddress = identityMapperAddressOptimism;
     }
     else if (currentChain == 137) {
         identityMapperAddress = identityMapperAddressPolygon;
@@ -148,7 +152,7 @@ const setIdentityMapper = async() => {
     identityMapper = new ethers.Contract(identityMapperAddress, identityMapperAbi(), signerID);
 }
 
-const promptForDiscord = async() => {
+const promptForDiscord = async () => {
     if (!($("#discord-popup").length)) {
         let userAddress = await signer.getAddress();
         let currentDiscord = await identityMapper.addressToDiscord(userAddress);
@@ -169,7 +173,7 @@ const promptForDiscord = async() => {
     }
 }
 
-const setDiscord = async() => {
+const setDiscord = async () => {
     try {
         let name = $("#discord-name").val();
         console.log(name)
@@ -181,7 +185,7 @@ const setDiscord = async() => {
             await displayErrorMessage(`Error: Must include "#" and numbers in ID!`);
         }
         else {
-            await identityMapper.setDiscordIdentity(name).then( async(tx_) => {
+            await identityMapper.setDiscordIdentity(name).then(async (tx_) => {
                 await waitForTransaction(tx_);
                 $("#set-discord-button").html(`Setting<span class="one">.</span><span class="two">.</span><span class="three">.</span>`)
                 $('#discord-popup').remove();
@@ -204,7 +208,7 @@ const setDiscord = async() => {
 var tries = 0;
 var discordSet = false;
 
-const updateDiscord = async() => {
+const updateDiscord = async () => {
     if (!discordSet) {
         let userAddress = await getAddress();
         let currentDiscord = await identityMapper.addressToDiscord(userAddress);
@@ -222,10 +226,10 @@ const updateDiscord = async() => {
             $("#set-discord").removeClass("hidden");
             $("#discord-text").text("NOT SET!");
             $("#discord").addClass("failure");
-            $("#discord").removeClass("success"); 
-            $("#discord-text-mobile").text("NOT SET!");    
-            $("#discord-mobile").addClass("failure"); 
-            $("#discord-mobile").removeClass("success"); 
+            $("#discord").removeClass("success");
+            $("#discord-text-mobile").text("NOT SET!");
+            $("#discord-mobile").addClass("failure");
+            $("#discord-mobile").removeClass("success");
         }
         if ($("#approval").hasClass("hidden") && $("#set-discord").hasClass("hidden")) {
             $("#onboarding-alert").addClass("hidden");
@@ -238,7 +242,7 @@ const updateDiscord = async() => {
 
 var timeout = 100;
 
-setInterval(async()=>{
+setInterval(async () => {
     await setIdentityMapper();
     await updateDiscord();
     timeout = 5000;
